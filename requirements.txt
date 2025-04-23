@@ -1,0 +1,7 @@
+# Requisitos para el curso de Desarrollo Backend
+# Fecha: Tue Apr 22 08:30:17 PM EST 2025
+
+# Dependencias básicas
+Django>=4.2.0
+psycopg2-binary>=2.9.5
+python-dotenv>=1.0.0
