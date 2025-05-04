@@ -31,16 +31,16 @@ def ejercicio_variables():
     
     # Espacio para que el estudiante escriba su código
     print("--- Escribe tu código aquí abajo ---")
-    # ciudad = "Madrid"
-    # año_nacimiento = 2000
-    # es_estudiante = True
-    # altura = 1.75
+    ciudad = "Madrid"
+    año_nacimiento = 2000
+    es_estudiante = True
+    altura = 1.75
     
     print("\n--- Para verificar, descomenta las siguientes líneas: ---")
-    # print(f"Ciudad: {ciudad} (tipo: {type(ciudad)})")
-    # print(f"Año de nacimiento: {año_nacimiento} (tipo: {type(año_nacimiento)})")
-    # print(f"¿Es estudiante?: {es_estudiante} (tipo: {type(es_estudiante)})")
-    # print(f"Altura: {altura} (tipo: {type(altura)})")
+    print(f"Ciudad: {ciudad} (tipo: {type(ciudad)})")
+    print(f"Año de nacimiento: {año_nacimiento} (tipo: {type(año_nacimiento)})")
+    print(f"¿Es estudiante?: {es_estudiante} (tipo: {type(es_estudiante)})")
+    print(f"Altura: {altura} (tipo: {type(altura)})")
 
 def ejercicio_operaciones():
     """Ejercicio para practicar operaciones básicas"""
@@ -104,18 +104,18 @@ def ejercicio_strings():
     
     # Espacio para que el estudiante escriba su código
     print("--- Escribe tu código aquí abajo ---")
-    # mensaje = lenguaje + " " + frase
-    # mensaje_mayusculas = mensaje.upper()
-    # mensaje_minusculas = mensaje.lower()
-    # nuevo_mensaje = mensaje.replace("programación", "desarrollo")
-    # contador_a = mensaje.count("a")
+    mensaje = lenguaje + " " + frase
+    mensaje_mayusculas = mensaje.upper()
+    mensaje_minusculas = mensaje.lower()
+    nuevo_mensaje = mensaje.replace("programación", "desarrollo")
+    contador_a = mensaje.count("a")
     
     print("\n--- Para verificar, descomenta las siguientes líneas: ---")
-    # print(f"Mensaje: {mensaje}")
-    # print(f"En mayúsculas: {mensaje_mayusculas}")
-    # print(f"En minúsculas: {mensaje_minusculas}")
-    # print(f"Nuevo mensaje: {nuevo_mensaje}")
-    # print(f"Contador de 'a': {contador_a}")
+    print(f"Mensaje: {mensaje}")
+    print(f"En mayúsculas: {mensaje_mayusculas}")
+    print(f"En minúsculas: {mensaje_minusculas}")
+    print(f"Nuevo mensaje: {nuevo_mensaje}")
+    print(f"Contador de 'a': {contador_a}")
 
 def ejercicio_listas():
     """Ejercicio para practicar con listas"""
@@ -189,6 +189,7 @@ def menu_principal():
     """Muestra el menú principal de ejercicios"""
     while True:
         mostrar_separador("MENU DE EJERCICIOS INTERACTIVOS DE PYTHON")
+
         print("1. Variables y Tipos de Datos")
         print("2. Operaciones Básicas")
         print("3. Trabajando con Strings")
