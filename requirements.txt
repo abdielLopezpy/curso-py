@@ -5,3 +5,4 @@
 Django>=4.2.0
 psycopg2-binary>=2.9.5
 python-dotenv>=1.0.0
+colorama >=0.4.6
