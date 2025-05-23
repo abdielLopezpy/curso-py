@@ -4,7 +4,11 @@
 # Objetivo: Implementar un sistema funcional basado en un documento de requerimientos, usando diccionarios para almacenar datos.
 # Los comentarios explican cada sección para que se entienda cómo se relaciona con los requerimientos y el flujo del programa.
 
-from colorama import init, Fore, Style
+try:
+    from colorama import init, Fore, Style
+except ImportError:
+    print("Módulo 'colorama' no encontrado. Instale con: pip install colorama")
+    exit(1)
 init()  # Inicializa colorama para colores en la consola, mejorando la interfaz
 
 # Diccionarios para almacenar las entidades (en lugar de listas, para un acceso más estructurado)
