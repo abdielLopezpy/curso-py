@@ -36,6 +36,7 @@ def ejercicio_variables():
     es_estudiante = True
     altura = 1.75
     
+    
     print("\n--- Para verificar, descomenta las siguientes líneas: ---")
     print(f"Ciudad: {ciudad} (tipo: {type(ciudad)})")
     print(f"Año de nacimiento: {año_nacimiento} (tipo: {type(año_nacimiento)})")
@@ -66,20 +67,20 @@ def ejercicio_operaciones():
     
     # Espacio para que el estudiante escriba su código
     print("--- Escribe tu código aquí abajo ---")
-    # suma = x + y
-    # resta = x - y
-    # producto = x * y
-    # division = x / y
-    # resto = x % y
-    # potencia = x ** y
+    suma = x + y
+    resta = x - y
+    producto = x * y
+    division = x / y
+    resto = x % y
+    potencia = x ** y
     
     print("\n--- Para verificar, descomenta las siguientes líneas: ---")
-    # print(f"Suma: {suma}")
-    # print(f"Resta: {resta}")
-    # print(f"Producto: {producto}")
-    # print(f"División: {division}")
-    # print(f"Resto: {resto}")
-    # print(f"Potencia: {potencia}")
+    print(f"Suma: {suma}")
+    print(f"Resta: {resta}")
+    print(f"Producto: {producto}")
+    print(f"División: {division}")
+    print(f"Resto: {resto}")
+    print(f"Potencia: {potencia}")
 
 def ejercicio_strings():
     """Ejercicio para practicar operaciones con strings"""

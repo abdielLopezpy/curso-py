@@ -1,6 +1,5 @@
 @echo off
 REM Instalador automático para el Curso de Desarrollo Backend con Python, Django y PostgreSQL
-REM Autor: Copilot (adaptado a Windows)
 REM Fecha: Octubre 2025
 
 chcp 65001 >nul 2>&1
