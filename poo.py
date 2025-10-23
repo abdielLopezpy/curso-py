@@ -32,7 +32,7 @@ class Usuario:
     
     # El método __init__ es el CONSTRUCTOR
     # Se ejecuta automáticamente cuando creas un nuevo usuario
-    def __init__(self, nombre, email):
+    def __init__(self, nombre, email, edad):
         """
         __init__ = inicializar
         self = se refiere al objeto que estamos creando
@@ -41,6 +41,7 @@ class Usuario:
         # self.nombre crea una variable que pertenece a este usuario
         self.nombre = nombre    # Guardamos el nombre del usuario
         self.email = email      # Guardamos el email del usuario
+        self.edad = edad        # Guardamos la edad del usuario
         self.activo = True      # Por defecto el usuario está activo
     
     # Un MÉTODO es una función que pertenece a la clase
@@ -73,19 +74,26 @@ class Usuario:
 
 # CREAR OBJETOS (instancias) de la clase Usuario
 # Cada objeto es un usuario diferente creado con el mismo molde
-usuario1 = Usuario("María López", "maria@email.com")      # Creamos usuario 1
-usuario2 = Usuario("Juan Pérez", "juan@email.com")        # Creamos usuario 2
+usuario1 = Usuario("María López", "maria@email.com", 20)      # Creamos usuario 1
+usuario2 = Usuario("Juan Pérez", "juan@email.com", 25)        # Creamos usuario 2
 
 # Acceder a los ATRIBUTOS (variables) del objeto
 print(f"\nUsuario 1: {usuario1.nombre}")
 print(f"Email: {usuario1.email}")
+print(f"Edad: {usuario1.edad}")
 print(f"¿Está activo? {usuario1.activo}")
 
 print(f"\nUsuario 2: {usuario2.nombre}")
 print(f"Email: {usuario2.email}")
+print(f"Edad: {usuario2.edad}")
+print(f"¿Está activo? {usuario2.activo}")
 
 # Llamar a los MÉTODOS (funciones) del objeto
 print(f"\n{usuario1.desactivar()}")       # Desactivamos a María
+print(f"\n{usuario2.desactivar()}")
+print(f"\n{usuario2.activar()}")         # Activamos a Juan
+
+
 print(f"¿Está activo ahora? {usuario1.activo}")
 
 print(f"\n{usuario2.cambiar_email('juanperez@gmail.com')}")  # Juan cambia su email
