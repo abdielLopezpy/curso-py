@@ -1,0 +1,26 @@
+[
+  {
+    "id": 101,
+    "nombre": "Ana",
+    "ciudad": "Bogotá",
+    "saldo": 150.0
+  },
+  {
+    "id": 102,
+    "nombre": "Carlos",
+    "ciudad": "Lima",
+    "saldo": 89.99
+  },
+  {
+    "id": 103,
+    "nombre": "María",
+    "ciudad": "Quito",
+    "saldo": 120.5
+  },
+  {
+    "id": 104,
+    "nombre": "Miguel",
+    "ciudad": "Bogotá",
+    "saldo": 99.0
+  }
+]

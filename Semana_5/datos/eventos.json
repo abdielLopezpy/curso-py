@@ -1,0 +1,16 @@
+[
+  {
+    "tipo": "LECTURA",
+    "payload": {
+      "total_clientes": 3
+    },
+    "timestamp": "2025-11-20T21:06:47.398013Z"
+  },
+  {
+    "tipo": "LECTURA",
+    "payload": {
+      "total_clientes": 3
+    },
+    "timestamp": "2025-11-20T21:06:59.888973+00:00"
+  }
+]

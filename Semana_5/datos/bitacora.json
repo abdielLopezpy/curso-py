@@ -1,0 +1,46 @@
+[
+  {
+    "tipo": "INSERT",
+    "registro_id": 101,
+    "timestamp": "2025-11-20T21:07:10.307853+00:00",
+    "payload": {
+      "id": 101,
+      "nombre": "Ana",
+      "ciudad": "Bogotá",
+      "saldo": 150.0
+    }
+  },
+  {
+    "tipo": "INSERT",
+    "registro_id": 102,
+    "timestamp": "2025-11-20T21:07:10.308073+00:00",
+    "payload": {
+      "id": 102,
+      "nombre": "Carlos",
+      "ciudad": "Lima",
+      "saldo": 89.99
+    }
+  },
+  {
+    "tipo": "INSERT",
+    "registro_id": 103,
+    "timestamp": "2025-11-20T21:07:10.308316+00:00",
+    "payload": {
+      "id": 103,
+      "nombre": "María",
+      "ciudad": "Quito",
+      "saldo": 120.5
+    }
+  },
+  {
+    "tipo": "INSERT",
+    "registro_id": 104,
+    "timestamp": "2025-11-20T21:07:10.309142+00:00",
+    "payload": {
+      "id": 104,
+      "nombre": "Miguel",
+      "ciudad": "Bogotá",
+      "saldo": 99.0
+    }
+  }
+]
