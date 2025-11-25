@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "nombre": "Ana García",
+    "email": "ana@email.com",
+    "telefono": "555-0101",
+    "ciudad": "Bogotá"
+  },
+  {
+    "id": 2,
+    "nombre": "Carlos Ruiz",
+    "email": "carlos@email.com",
+    "telefono": "555-0102",
+    "ciudad": "Lima"
+  },
+  {
+    "id": 3,
+    "nombre": "María López",
+    "email": "maria@email.com",
+    "telefono": "555-0103",
+    "ciudad": "Bogotá"
+  }
+]

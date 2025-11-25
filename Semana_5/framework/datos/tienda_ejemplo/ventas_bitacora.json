@@ -1,0 +1,82 @@
+[
+  {
+    "tipo": "CREATE",
+    "entidad_id": 1,
+    "timestamp": "2025-11-25T01:59:59.788477+00:00",
+    "mensaje": "Entidad 1 creada",
+    "datos": {
+      "id": 1,
+      "producto_id": 1,
+      "cliente_id": 1,
+      "cantidad": 1,
+      "total": 1200.0,
+      "fecha": "2025-11-24T20:59:59.788377"
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 2,
+    "timestamp": "2025-11-25T01:59:59.789164+00:00",
+    "mensaje": "Entidad 2 creada",
+    "datos": {
+      "id": 2,
+      "producto_id": 2,
+      "cliente_id": 2,
+      "cantidad": 2,
+      "total": 51.0,
+      "fecha": "2025-11-24T20:59:59.789066"
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 3,
+    "timestamp": "2025-11-25T01:59:59.789982+00:00",
+    "mensaje": "Entidad 3 creada",
+    "datos": {
+      "id": 3,
+      "producto_id": 3,
+      "cliente_id": 3,
+      "cantidad": 1,
+      "total": 89.99,
+      "fecha": "2025-11-24T20:59:59.789881"
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 4,
+    "timestamp": "2025-11-25T01:59:59.790780+00:00",
+    "mensaje": "Entidad 4 creada",
+    "datos": {
+      "id": 4,
+      "producto_id": 5,
+      "cliente_id": 1,
+      "cantidad": 2,
+      "total": 90.0,
+      "fecha": "2025-11-24T20:59:59.790673"
+    }
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-11-25T01:59:59.791189+00:00",
+    "mensaje": "Consulta de todas las entidades (4 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-11-25T01:59:59.792048+00:00",
+    "mensaje": "Consulta de todas las entidades (4 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "FILTRO",
+    "timestamp": "2025-11-25T01:59:59.792213+00:00",
+    "mensaje": "Consulta filtrada: cliente_id=1 (2 resultados)",
+    "datos": {
+      "campo": "cliente_id",
+      "valor": 1
+    }
+  }
+]

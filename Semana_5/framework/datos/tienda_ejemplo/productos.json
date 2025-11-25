@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "nombre": "Laptop Dell XPS",
+    "categoria": "Electrónica",
+    "precio": 1200.0,
+    "stock": 9
+  },
+  {
+    "id": 2,
+    "nombre": "Mouse Logitech",
+    "categoria": "Accesorios",
+    "precio": 29.99,
+    "stock": 48
+  },
+  {
+    "id": 3,
+    "nombre": "Teclado Mecánico",
+    "categoria": "Accesorios",
+    "precio": 89.99,
+    "stock": 2
+  },
+  {
+    "id": 4,
+    "nombre": "Monitor LG 27\"",
+    "categoria": "Electrónica",
+    "precio": 350.0,
+    "stock": 15
+  },
+  {
+    "id": 5,
+    "nombre": "Webcam HD",
+    "categoria": "Accesorios",
+    "precio": 45.0,
+    "stock": 0
+  }
+]

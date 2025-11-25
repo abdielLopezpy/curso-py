@@ -1,0 +1,205 @@
+[
+  {
+    "tipo": "CREATE",
+    "entidad_id": 1,
+    "timestamp": "2025-11-25T01:59:59.786519+00:00",
+    "mensaje": "Entidad 1 creada",
+    "datos": {
+      "id": 1,
+      "nombre": "Laptop Dell XPS",
+      "categoria": "Electrónica",
+      "precio": 1200.0,
+      "stock": 10
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 2,
+    "timestamp": "2025-11-25T01:59:59.786717+00:00",
+    "mensaje": "Entidad 2 creada",
+    "datos": {
+      "id": 2,
+      "nombre": "Mouse Logitech",
+      "categoria": "Accesorios",
+      "precio": 25.5,
+      "stock": 50
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 3,
+    "timestamp": "2025-11-25T01:59:59.786922+00:00",
+    "mensaje": "Entidad 3 creada",
+    "datos": {
+      "id": 3,
+      "nombre": "Teclado Mecánico",
+      "categoria": "Accesorios",
+      "precio": 89.99,
+      "stock": 3
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 4,
+    "timestamp": "2025-11-25T01:59:59.787130+00:00",
+    "mensaje": "Entidad 4 creada",
+    "datos": {
+      "id": 4,
+      "nombre": "Monitor LG 27\"",
+      "categoria": "Electrónica",
+      "precio": 350.0,
+      "stock": 15
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 5,
+    "timestamp": "2025-11-25T01:59:59.787490+00:00",
+    "mensaje": "Entidad 5 creada",
+    "datos": {
+      "id": 5,
+      "nombre": "Webcam HD",
+      "categoria": "Accesorios",
+      "precio": 45.0,
+      "stock": 2
+    }
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-11-25T01:59:59.788133+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "UPDATE",
+    "entidad_id": 1,
+    "timestamp": "2025-11-25T01:59:59.788647+00:00",
+    "mensaje": "Entidad 1 actualizada",
+    "datos": {
+      "id": 1,
+      "nombre": "Laptop Dell XPS",
+      "categoria": "Electrónica",
+      "precio": 1200.0,
+      "stock": 9
+    }
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-11-25T01:59:59.788815+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "UPDATE",
+    "entidad_id": 2,
+    "timestamp": "2025-11-25T01:59:59.789367+00:00",
+    "mensaje": "Entidad 2 actualizada",
+    "datos": {
+      "id": 2,
+      "nombre": "Mouse Logitech",
+      "categoria": "Accesorios",
+      "precio": 25.5,
+      "stock": 48
+    }
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-11-25T01:59:59.789554+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "UPDATE",
+    "entidad_id": 3,
+    "timestamp": "2025-11-25T01:59:59.790188+00:00",
+    "mensaje": "Entidad 3 actualizada",
+    "datos": {
+      "id": 3,
+      "nombre": "Teclado Mecánico",
+      "categoria": "Accesorios",
+      "precio": 89.99,
+      "stock": 2
+    }
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 5,
+    "timestamp": "2025-11-25T01:59:59.790355+00:00",
+    "mensaje": "Consulta de entidad 5",
+    "datos": null
+  },
+  {
+    "tipo": "UPDATE",
+    "entidad_id": 5,
+    "timestamp": "2025-11-25T01:59:59.791002+00:00",
+    "mensaje": "Entidad 5 actualizada",
+    "datos": {
+      "id": 5,
+      "nombre": "Webcam HD",
+      "categoria": "Accesorios",
+      "precio": 45.0,
+      "stock": 0
+    }
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-11-25T01:59:59.791319+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "FILTRO",
+    "timestamp": "2025-11-25T01:59:59.791567+00:00",
+    "mensaje": "Consulta filtrada: categoria=Accesorios (3 resultados)",
+    "datos": {
+      "campo": "categoria",
+      "valor": "Accesorios"
+    }
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-11-25T01:59:59.792343+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 5,
+    "timestamp": "2025-11-25T01:59:59.792540+00:00",
+    "mensaje": "Consulta de entidad 5",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-11-25T01:59:59.792723+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-11-25T01:59:59.792931+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "UPDATE",
+    "entidad_id": 2,
+    "timestamp": "2025-11-25T01:59:59.793991+00:00",
+    "mensaje": "Entidad 2 actualizada",
+    "datos": {
+      "id": 2,
+      "nombre": "Mouse Logitech",
+      "categoria": "Accesorios",
+      "precio": 29.99,
+      "stock": 48
+    }
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "tipo": "CREATE",
+    "entidad_id": 1,
+    "timestamp": "2025-11-25T01:59:59.787687+00:00",
+    "mensaje": "Entidad 1 creada",
+    "datos": {
+      "id": 1,
+      "nombre": "Ana García",
+      "email": "ana@email.com",
+      "telefono": "555-0101",
+      "ciudad": "Bogotá"
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 2,
+    "timestamp": "2025-11-25T01:59:59.787829+00:00",
+    "mensaje": "Entidad 2 creada",
+    "datos": {
+      "id": 2,
+      "nombre": "Carlos Ruiz",
+      "email": "carlos@email.com",
+      "telefono": "555-0102",
+      "ciudad": "Lima"
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 3,
+    "timestamp": "2025-11-25T01:59:59.788014+00:00",
+    "mensaje": "Entidad 3 creada",
+    "datos": {
+      "id": 3,
+      "nombre": "María López",
+      "email": "maria@email.com",
+      "telefono": "555-0103",
+      "ciudad": "Bogotá"
+    }
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-11-25T01:59:59.788273+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-11-25T01:59:59.788954+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-11-25T01:59:59.789709+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-11-25T01:59:59.790550+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-11-25T01:59:59.791756+00:00",
+    "mensaje": "Consulta de todas las entidades (3 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "FILTRO",
+    "timestamp": "2025-11-25T01:59:59.791917+00:00",
+    "mensaje": "Consulta filtrada: ciudad=Bogotá (2 resultados)",
+    "datos": {
+      "campo": "ciudad",
+      "valor": "Bogotá"
+    }
+  }
+]

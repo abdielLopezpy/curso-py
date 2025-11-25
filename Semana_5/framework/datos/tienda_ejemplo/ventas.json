@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "producto_id": 1,
+    "cliente_id": 1,
+    "cantidad": 1,
+    "total": 1200.0,
+    "fecha": "2025-11-24T20:59:59.788377"
+  },
+  {
+    "id": 2,
+    "producto_id": 2,
+    "cliente_id": 2,
+    "cantidad": 2,
+    "total": 51.0,
+    "fecha": "2025-11-24T20:59:59.789066"
+  },
+  {
+    "id": 3,
+    "producto_id": 3,
+    "cliente_id": 3,
+    "cantidad": 1,
+    "total": 89.99,
+    "fecha": "2025-11-24T20:59:59.789881"
+  },
+  {
+    "id": 4,
+    "producto_id": 5,
+    "cliente_id": 1,
+    "cantidad": 2,
+    "total": 90.0,
+    "fecha": "2025-11-24T20:59:59.790673"
+  }
+]
