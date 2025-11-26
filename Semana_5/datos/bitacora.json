@@ -2,7 +2,7 @@
   {
     "tipo": "INSERT",
     "registro_id": 101,
-    "timestamp": "2025-11-20T21:07:10.307853+00:00",
+    "timestamp": "2025-11-21T01:27:00.556396+00:00",
     "payload": {
       "id": 101,
       "nombre": "Ana",
@@ -13,7 +13,7 @@
   {
     "tipo": "INSERT",
     "registro_id": 102,
-    "timestamp": "2025-11-20T21:07:10.308073+00:00",
+    "timestamp": "2025-11-21T01:27:00.556676+00:00",
     "payload": {
       "id": 102,
       "nombre": "Carlos",
@@ -24,7 +24,7 @@
   {
     "tipo": "INSERT",
     "registro_id": 103,
-    "timestamp": "2025-11-20T21:07:10.308316+00:00",
+    "timestamp": "2025-11-21T01:27:00.557022+00:00",
     "payload": {
       "id": 103,
       "nombre": "María",
@@ -35,7 +35,7 @@
   {
     "tipo": "INSERT",
     "registro_id": 104,
-    "timestamp": "2025-11-20T21:07:10.309142+00:00",
+    "timestamp": "2025-11-21T01:27:00.557491+00:00",
     "payload": {
       "id": 104,
       "nombre": "Miguel",
