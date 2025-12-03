@@ -1,0 +1,189 @@
+[
+  {
+    "tipo": "CREATE",
+    "entidad_id": 1,
+    "timestamp": "2025-12-03T00:19:59.525964+00:00",
+    "mensaje": "Entidad 1 creada",
+    "datos": {
+      "id": 1,
+      "nombre": "Carlos Rodríguez",
+      "edad": 28,
+      "email": "carlos.r@email.com",
+      "telefono": "6789-1234",
+      "membresia_activa": true,
+      "fecha_registro": "2025-01-15"
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 2,
+    "timestamp": "2025-12-03T00:19:59.526353+00:00",
+    "mensaje": "Entidad 2 creada",
+    "datos": {
+      "id": 2,
+      "nombre": "Ana María González",
+      "edad": 35,
+      "email": "ana.gonzalez@email.com",
+      "telefono": "6789-5678",
+      "membresia_activa": true,
+      "fecha_registro": "2025-01-20"
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 3,
+    "timestamp": "2025-12-03T00:19:59.526804+00:00",
+    "mensaje": "Entidad 3 creada",
+    "datos": {
+      "id": 3,
+      "nombre": "Luis Fernando Pérez",
+      "edad": 42,
+      "email": "luis.perez@email.com",
+      "telefono": "6789-9012",
+      "membresia_activa": true,
+      "fecha_registro": "2025-02-01"
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 4,
+    "timestamp": "2025-12-03T00:19:59.527308+00:00",
+    "mensaje": "Entidad 4 creada",
+    "datos": {
+      "id": 4,
+      "nombre": "María José Castro",
+      "edad": 25,
+      "email": "maria.castro@email.com",
+      "telefono": "6789-3456",
+      "membresia_activa": false,
+      "fecha_registro": "2024-12-10"
+    }
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-03T00:19:59.529810+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-03T00:19:59.530910+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-03T00:19:59.532163+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-03T00:19:59.533634+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-03T00:19:59.535704+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-03T00:19:59.538203+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "UPDATE",
+    "entidad_id": 4,
+    "timestamp": "2025-12-03T00:19:59.538831+00:00",
+    "mensaje": "Entidad 4 actualizada",
+    "datos": {
+      "id": 4,
+      "nombre": "María José Castro",
+      "edad": 25,
+      "email": "maria.castro@email.com",
+      "telefono": "6789-3456",
+      "membresia_activa": true,
+      "fecha_registro": "2024-12-10"
+    }
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-03T00:19:59.539684+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-03T00:19:59.541000+00:00",
+    "mensaje": "Consulta de todas las entidades (4 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-03T00:19:59.542467+00:00",
+    "mensaje": "Consulta de todas las entidades (4 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-03T00:19:59.545826+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-03T00:19:59.546859+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-03T00:19:59.547940+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-03T00:19:59.549051+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-03T00:19:59.550193+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-03T00:19:59.552072+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-03T00:19:59.552694+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  }
+]

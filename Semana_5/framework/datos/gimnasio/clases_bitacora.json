@@ -1,0 +1,163 @@
+[
+  {
+    "tipo": "CREATE",
+    "entidad_id": 1,
+    "timestamp": "2025-12-03T00:19:59.530341+00:00",
+    "mensaje": "Entidad 1 creada",
+    "datos": {
+      "id": 1,
+      "nombre_clase": "CrossFit Intenso",
+      "entrenador_id": 1,
+      "miembro_id": 1,
+      "fecha": "2025-12-05",
+      "hora": "06:00",
+      "duracion_minutos": 60,
+      "salon": "Sala A",
+      "estado": "programada"
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 2,
+    "timestamp": "2025-12-03T00:19:59.531484+00:00",
+    "mensaje": "Entidad 2 creada",
+    "datos": {
+      "id": 2,
+      "nombre_clase": "Yoga Matutino",
+      "entrenador_id": 2,
+      "miembro_id": 2,
+      "fecha": "2025-12-05",
+      "hora": "07:30",
+      "duracion_minutos": 90,
+      "salon": "Sala Zen",
+      "estado": "programada"
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 3,
+    "timestamp": "2025-12-03T00:19:59.532828+00:00",
+    "mensaje": "Entidad 3 creada",
+    "datos": {
+      "id": 3,
+      "nombre_clase": "Pilates Terapéutico",
+      "entrenador_id": 4,
+      "miembro_id": 3,
+      "fecha": "2025-12-06",
+      "hora": "18:00",
+      "duracion_minutos": 60,
+      "salon": "Sala B",
+      "estado": "programada"
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 4,
+    "timestamp": "2025-12-03T00:19:59.534463+00:00",
+    "mensaje": "Entidad 4 creada",
+    "datos": {
+      "id": 4,
+      "nombre_clase": "Yoga para Atletas",
+      "entrenador_id": 2,
+      "miembro_id": 1,
+      "fecha": "2025-12-07",
+      "hora": "08:00",
+      "duracion_minutos": 75,
+      "salon": "Sala Zen",
+      "estado": "programada"
+    }
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-03T00:19:59.536120+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "UPDATE",
+    "entidad_id": 1,
+    "timestamp": "2025-12-03T00:19:59.536715+00:00",
+    "mensaje": "Entidad 1 actualizada",
+    "datos": {
+      "id": 1,
+      "nombre_clase": "CrossFit Intenso",
+      "entrenador_id": 1,
+      "miembro_id": 1,
+      "fecha": "2025-12-05",
+      "hora": "06:00",
+      "duracion_minutos": 60,
+      "salon": "Sala A",
+      "estado": "completada"
+    }
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-03T00:19:59.537097+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "UPDATE",
+    "entidad_id": 3,
+    "timestamp": "2025-12-03T00:19:59.537752+00:00",
+    "mensaje": "Entidad 3 actualizada",
+    "datos": {
+      "id": 3,
+      "nombre_clase": "Pilates Terapéutico",
+      "entrenador_id": 4,
+      "miembro_id": 3,
+      "fecha": "2025-12-06",
+      "hora": "18:00",
+      "duracion_minutos": 60,
+      "salon": "Sala B",
+      "estado": "cancelada"
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 5,
+    "timestamp": "2025-12-03T00:19:59.540440+00:00",
+    "mensaje": "Entidad 5 creada",
+    "datos": {
+      "id": 5,
+      "nombre_clase": "CrossFit Principiantes",
+      "entrenador_id": 1,
+      "miembro_id": 4,
+      "fecha": "2025-12-10",
+      "hora": "17:00",
+      "duracion_minutos": 60,
+      "salon": "Sala A",
+      "estado": "programada"
+    }
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-03T00:19:59.541903+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-03T00:19:59.544674+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-03T00:19:59.550863+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-03T00:19:59.551466+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  }
+]

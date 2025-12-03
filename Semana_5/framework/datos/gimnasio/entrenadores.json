@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "nombre": "Roberto Martínez",
+    "especialidad": "CrossFit",
+    "años_experiencia": 8,
+    "certificaciones": "CrossFit Level 2, Nutrición Deportiva",
+    "email": "roberto.m@gym.com",
+    "disponible": true
+  },
+  {
+    "id": 2,
+    "nombre": "Patricia Hernández",
+    "especialidad": "Yoga",
+    "años_experiencia": 5,
+    "certificaciones": "Yoga Alliance RYT-500, Meditación",
+    "email": "patricia.h@gym.com",
+    "disponible": true
+  },
+  {
+    "id": 3,
+    "nombre": "Miguel Ángel Torres",
+    "especialidad": "Spinning",
+    "años_experiencia": 3,
+    "certificaciones": "Spinning Instructor, Primeros Auxilios",
+    "email": "miguel.t@gym.com",
+    "disponible": false
+  },
+  {
+    "id": 4,
+    "nombre": "Laura Sánchez",
+    "especialidad": "Pilates",
+    "años_experiencia": 6,
+    "certificaciones": "Pilates Mat & Reformer, Fisioterapia",
+    "email": "laura.s@gym.com",
+    "disponible": true
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "nombre": "Carlos Rodríguez",
+    "edad": 28,
+    "email": "carlos.r@email.com",
+    "telefono": "6789-1234",
+    "membresia_activa": true,
+    "fecha_registro": "2025-01-15"
+  },
+  {
+    "id": 2,
+    "nombre": "Ana María González",
+    "edad": 35,
+    "email": "ana.gonzalez@email.com",
+    "telefono": "6789-5678",
+    "membresia_activa": true,
+    "fecha_registro": "2025-01-20"
+  },
+  {
+    "id": 3,
+    "nombre": "Luis Fernando Pérez",
+    "edad": 42,
+    "email": "luis.perez@email.com",
+    "telefono": "6789-9012",
+    "membresia_activa": true,
+    "fecha_registro": "2025-02-01"
+  },
+  {
+    "id": 4,
+    "nombre": "María José Castro",
+    "edad": 25,
+    "email": "maria.castro@email.com",
+    "telefono": "6789-3456",
+    "membresia_activa": true,
+    "fecha_registro": "2024-12-10"
+  }
+]

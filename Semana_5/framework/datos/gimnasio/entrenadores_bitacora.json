@@ -1,0 +1,167 @@
+[
+  {
+    "tipo": "CREATE",
+    "entidad_id": 1,
+    "timestamp": "2025-12-03T00:19:59.527769+00:00",
+    "mensaje": "Entidad 1 creada",
+    "datos": {
+      "id": 1,
+      "nombre": "Roberto Martínez",
+      "especialidad": "CrossFit",
+      "años_experiencia": 8,
+      "certificaciones": "CrossFit Level 2, Nutrición Deportiva",
+      "email": "roberto.m@gym.com",
+      "disponible": true
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 2,
+    "timestamp": "2025-12-03T00:19:59.528126+00:00",
+    "mensaje": "Entidad 2 creada",
+    "datos": {
+      "id": 2,
+      "nombre": "Patricia Hernández",
+      "especialidad": "Yoga",
+      "años_experiencia": 5,
+      "certificaciones": "Yoga Alliance RYT-500, Meditación",
+      "email": "patricia.h@gym.com",
+      "disponible": true
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 3,
+    "timestamp": "2025-12-03T00:19:59.528681+00:00",
+    "mensaje": "Entidad 3 creada",
+    "datos": {
+      "id": 3,
+      "nombre": "Miguel Ángel Torres",
+      "especialidad": "Spinning",
+      "años_experiencia": 3,
+      "certificaciones": "Spinning Instructor, Primeros Auxilios",
+      "email": "miguel.t@gym.com",
+      "disponible": false
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 4,
+    "timestamp": "2025-12-03T00:19:59.529179+00:00",
+    "mensaje": "Entidad 4 creada",
+    "datos": {
+      "id": 4,
+      "nombre": "Laura Sánchez",
+      "especialidad": "Pilates",
+      "años_experiencia": 6,
+      "certificaciones": "Pilates Mat & Reformer, Fisioterapia",
+      "email": "laura.s@gym.com",
+      "disponible": true
+    }
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-03T00:19:59.529504+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-03T00:19:59.530555+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-03T00:19:59.531776+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-03T00:19:59.533185+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-03T00:19:59.534858+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-03T00:19:59.535304+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-03T00:19:59.539272+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-03T00:19:59.541480+00:00",
+    "mensaje": "Consulta de todas las entidades (4 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-03T00:19:59.543229+00:00",
+    "mensaje": "Consulta de todas las entidades (4 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-03T00:19:59.543956+00:00",
+    "mensaje": "Consulta de todas las entidades (4 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-03T00:19:59.545348+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-03T00:19:59.546363+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-03T00:19:59.547415+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-03T00:19:59.548518+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-03T00:19:59.549634+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  }
+]

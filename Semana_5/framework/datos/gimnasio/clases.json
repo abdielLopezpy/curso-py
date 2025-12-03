@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "nombre_clase": "CrossFit Intenso",
+    "entrenador_id": 1,
+    "miembro_id": 1,
+    "fecha": "2025-12-05",
+    "hora": "06:00",
+    "duracion_minutos": 60,
+    "salon": "Sala A",
+    "estado": "completada"
+  },
+  {
+    "id": 2,
+    "nombre_clase": "Yoga Matutino",
+    "entrenador_id": 2,
+    "miembro_id": 2,
+    "fecha": "2025-12-05",
+    "hora": "07:30",
+    "duracion_minutos": 90,
+    "salon": "Sala Zen",
+    "estado": "programada"
+  },
+  {
+    "id": 3,
+    "nombre_clase": "Pilates Terapéutico",
+    "entrenador_id": 4,
+    "miembro_id": 3,
+    "fecha": "2025-12-06",
+    "hora": "18:00",
+    "duracion_minutos": 60,
+    "salon": "Sala B",
+    "estado": "cancelada"
+  },
+  {
+    "id": 4,
+    "nombre_clase": "Yoga para Atletas",
+    "entrenador_id": 2,
+    "miembro_id": 1,
+    "fecha": "2025-12-07",
+    "hora": "08:00",
+    "duracion_minutos": 75,
+    "salon": "Sala Zen",
+    "estado": "programada"
+  },
+  {
+    "id": 5,
+    "nombre_clase": "CrossFit Principiantes",
+    "entrenador_id": 1,
+    "miembro_id": 4,
+    "fecha": "2025-12-10",
+    "hora": "17:00",
+    "duracion_minutos": 60,
+    "salon": "Sala A",
+    "estado": "programada"
+  }
+]
