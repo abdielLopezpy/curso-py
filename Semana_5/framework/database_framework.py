@@ -467,6 +467,25 @@ def validar_rango(valor: Any, minimo: Any, maximo: Any, nombre_campo: str) -> bo
     return True
 
 
+def validar_fecha(fecha: str, nombre_campo: str) -> bool:
+    """Valida que una fecha esté en formato correcto (YYYY-MM-DD)."""
+    try:
+        datetime.strptime(fecha, "%Y-%m-%d")
+    except ValueError:
+        print(f"❌ Error: El campo '{nombre_campo}' debe estar en formato YYYY-MM-DD")
+        return False
+    return True
+
+
+def validar_cedula(cedula: str, nombre_campo: str) -> bool:
+    """Valida que una cédula tenga un formato correcto (números y longitud adecuada). 0-000-000 a 9-999-999-9"""
+    import re
+    patron = r'^\d-\d{3}-\d{3}-\d$'
+    if not re.match(patron, cedula):
+        print(f"❌ Error: El campo '{nombre_campo}' debe tener el formato X-XXX-XXX-X")
+        return False
+    return True
+
 def mostrar_tabla(entidades: List[Entidad], titulo: str = "Registros") -> None:
     """
     Muestra una lista de entidades en formato de tabla.

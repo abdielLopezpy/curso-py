@@ -31,6 +31,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent.parent / "framework"))
 
 # Importamos las clases del framework que YA ESTÁ LISTO
+from Semana_5.framework.database_framework import validar_cedula, validar_fecha
 from database_framework import (
     Entidad,
     RepositorioJSON,
@@ -67,6 +68,7 @@ class Miembro(Entidad):
     telefono: str
     membresia_activa: bool
     fecha_registro: str
+    cedula: str = ""
 
     def obtener_id(self) -> int:
         return self.id
@@ -97,6 +99,9 @@ class Miembro(Entidad):
             return False
 
         if not validar_no_vacio(self.telefono, "telefono"):
+            return False
+        
+        if not validar_cedula(self.cedula, "cédula"):
             return False
 
         return True
@@ -215,6 +220,57 @@ class Clase(Entidad):
         estados_validos = ["programada", "completada", "cancelada"]
         if self.estado not in estados_validos:
             print(f"❌ Error: El estado debe ser uno de {estados_validos}")
+            return False
+
+        return True
+
+
+@dataclass
+class Suscripcion:
+    """
+    Representa una suscripción de un miembro en el gimnasio.
+
+    Atributos:
+        id: Identificador único de la suscripción
+        miembro_id: ID del miembro que tiene la suscripción
+        fecha_inicio: Fecha de inicio de la suscripción
+        fecha_fin: Fecha de fin de la suscripción
+        tipo: Tipo de suscripción (ej: "mensual", "anual")
+    """
+    id: int
+    miembro_id: int
+    fecha_inicio: str
+    fecha_fin: str
+    tipo: str
+
+    def obtener_id(self) -> int:
+        return self.id
+
+    @classmethod
+    def desde_diccionario(cls, datos: Dict[str, Any]) -> Suscripcion:
+        return cls(**datos)
+
+    def validar(self) -> bool:
+        """
+        Valida que los datos de la suscripción sean correctos.
+
+        Validaciones:
+        - El ID del miembro debe ser positivo
+        - Las fechas deben ser válidas
+        - El tipo debe ser uno de los tipos permitidos
+        """
+        if not validar_positivo(self.miembro_id, "ID del miembro"):
+            return False
+
+        if not validar_fecha(self.fecha_inicio, "fecha de inicio"):
+            return False
+
+        if not validar_fecha(self.fecha_fin, "fecha de fin"):
+            return False
+
+        tipos_permitidos = ["mensual", "anual"]
+        if self.tipo not in tipos_permitidos:
+            print(f"❌ Error: El tipo debe ser uno de {tipos_permitidos}")
             return False
 
         return True
