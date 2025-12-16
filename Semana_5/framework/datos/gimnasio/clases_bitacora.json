@@ -2,7 +2,7 @@
   {
     "tipo": "CREATE",
     "entidad_id": 1,
-    "timestamp": "2025-12-03T00:19:59.530341+00:00",
+    "timestamp": "2025-12-16T22:14:24.297188+00:00",
     "mensaje": "Entidad 1 creada",
     "datos": {
       "id": 1,
@@ -19,7 +19,7 @@
   {
     "tipo": "CREATE",
     "entidad_id": 2,
-    "timestamp": "2025-12-03T00:19:59.531484+00:00",
+    "timestamp": "2025-12-16T22:14:24.297765+00:00",
     "mensaje": "Entidad 2 creada",
     "datos": {
       "id": 2,
@@ -36,7 +36,7 @@
   {
     "tipo": "CREATE",
     "entidad_id": 3,
-    "timestamp": "2025-12-03T00:19:59.532828+00:00",
+    "timestamp": "2025-12-16T22:14:24.298314+00:00",
     "mensaje": "Entidad 3 creada",
     "datos": {
       "id": 3,
@@ -53,7 +53,7 @@
   {
     "tipo": "CREATE",
     "entidad_id": 4,
-    "timestamp": "2025-12-03T00:19:59.534463+00:00",
+    "timestamp": "2025-12-16T22:14:24.298873+00:00",
     "mensaje": "Entidad 4 creada",
     "datos": {
       "id": 4,
@@ -70,14 +70,14 @@
   {
     "tipo": "READ",
     "entidad_id": 1,
-    "timestamp": "2025-12-03T00:19:59.536120+00:00",
+    "timestamp": "2025-12-16T22:14:24.299542+00:00",
     "mensaje": "Consulta de entidad 1",
     "datos": null
   },
   {
     "tipo": "UPDATE",
     "entidad_id": 1,
-    "timestamp": "2025-12-03T00:19:59.536715+00:00",
+    "timestamp": "2025-12-16T22:14:24.299803+00:00",
     "mensaje": "Entidad 1 actualizada",
     "datos": {
       "id": 1,
@@ -94,14 +94,14 @@
   {
     "tipo": "READ",
     "entidad_id": 3,
-    "timestamp": "2025-12-03T00:19:59.537097+00:00",
+    "timestamp": "2025-12-16T22:14:24.300077+00:00",
     "mensaje": "Consulta de entidad 3",
     "datos": null
   },
   {
     "tipo": "UPDATE",
     "entidad_id": 3,
-    "timestamp": "2025-12-03T00:19:59.537752+00:00",
+    "timestamp": "2025-12-16T22:14:24.300468+00:00",
     "mensaje": "Entidad 3 actualizada",
     "datos": {
       "id": 3,
@@ -118,7 +118,7 @@
   {
     "tipo": "CREATE",
     "entidad_id": 5,
-    "timestamp": "2025-12-03T00:19:59.540440+00:00",
+    "timestamp": "2025-12-16T22:14:24.302036+00:00",
     "mensaje": "Entidad 5 creada",
     "datos": {
       "id": 5,
@@ -135,29 +135,250 @@
   {
     "tipo": "QUERY",
     "entidad_id": "ALL",
-    "timestamp": "2025-12-03T00:19:59.541903+00:00",
+    "timestamp": "2025-12-16T22:14:24.302932+00:00",
     "mensaje": "Consulta de todas las entidades (5 registros)",
     "datos": null
   },
   {
     "tipo": "QUERY",
     "entidad_id": "ALL",
-    "timestamp": "2025-12-03T00:19:59.544674+00:00",
+    "timestamp": "2025-12-16T22:14:24.303903+00:00",
     "mensaje": "Consulta de todas las entidades (5 registros)",
     "datos": null
   },
   {
     "tipo": "QUERY",
     "entidad_id": "ALL",
-    "timestamp": "2025-12-03T00:19:59.550863+00:00",
+    "timestamp": "2025-12-16T22:14:24.306227+00:00",
     "mensaje": "Consulta de todas las entidades (5 registros)",
     "datos": null
   },
   {
     "tipo": "QUERY",
     "entidad_id": "ALL",
-    "timestamp": "2025-12-03T00:19:59.551466+00:00",
+    "timestamp": "2025-12-16T22:14:24.306438+00:00",
     "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 6,
+    "timestamp": "2025-12-16T22:16:18.104532+00:00",
+    "mensaje": "Entidad 6 creada",
+    "datos": {
+      "id": 6,
+      "nombre_clase": "CrossFit Intenso",
+      "entrenador_id": 1,
+      "miembro_id": 1,
+      "fecha": "2025-12-05",
+      "hora": "06:00",
+      "duracion_minutos": 60,
+      "salon": "Sala A",
+      "estado": "programada"
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 7,
+    "timestamp": "2025-12-16T22:16:18.106508+00:00",
+    "mensaje": "Entidad 7 creada",
+    "datos": {
+      "id": 7,
+      "nombre_clase": "Yoga Matutino",
+      "entrenador_id": 2,
+      "miembro_id": 2,
+      "fecha": "2025-12-05",
+      "hora": "07:30",
+      "duracion_minutos": 90,
+      "salon": "Sala Zen",
+      "estado": "programada"
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 8,
+    "timestamp": "2025-12-16T22:16:18.108612+00:00",
+    "mensaje": "Entidad 8 creada",
+    "datos": {
+      "id": 8,
+      "nombre_clase": "Pilates Terapéutico",
+      "entrenador_id": 4,
+      "miembro_id": 3,
+      "fecha": "2025-12-06",
+      "hora": "18:00",
+      "duracion_minutos": 60,
+      "salon": "Sala B",
+      "estado": "programada"
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 9,
+    "timestamp": "2025-12-16T22:16:18.110851+00:00",
+    "mensaje": "Entidad 9 creada",
+    "datos": {
+      "id": 9,
+      "nombre_clase": "Yoga para Atletas",
+      "entrenador_id": 2,
+      "miembro_id": 1,
+      "fecha": "2025-12-07",
+      "hora": "08:00",
+      "duracion_minutos": 75,
+      "salon": "Sala Zen",
+      "estado": "programada"
+    }
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 10,
+    "timestamp": "2025-12-16T22:16:18.113355+00:00",
+    "mensaje": "Entidad 10 creada",
+    "datos": {
+      "id": 10,
+      "nombre_clase": "CrossFit Principiantes",
+      "entrenador_id": 1,
+      "miembro_id": 4,
+      "fecha": "2025-12-09",
+      "hora": "17:00",
+      "duracion_minutos": 60,
+      "salon": "Sala A",
+      "estado": "programada"
+    }
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-16T22:16:18.114259+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-16T22:16:18.114891+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 11,
+    "timestamp": "2025-12-16T22:16:18.118629+00:00",
+    "mensaje": "Entidad 11 creada",
+    "datos": {
+      "id": 11,
+      "nombre_clase": "CrossFit Principiantes",
+      "entrenador_id": 1,
+      "miembro_id": 4,
+      "fecha": "2025-12-10",
+      "hora": "17:00",
+      "duracion_minutos": 60,
+      "salon": "Sala A",
+      "estado": "programada"
+    }
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-16T22:16:18.120648+00:00",
+    "mensaje": "Consulta de todas las entidades (11 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-16T22:16:18.124372+00:00",
+    "mensaje": "Consulta de todas las entidades (11 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-16T22:16:18.144660+00:00",
+    "mensaje": "Consulta de todas las entidades (11 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-16T22:16:18.145544+00:00",
+    "mensaje": "Consulta de todas las entidades (11 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-16T22:31:16.649193+00:00",
+    "mensaje": "Consulta de todas las entidades (11 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-16T22:32:13.285307+00:00",
+    "mensaje": "Consulta de todas las entidades (11 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-16T22:32:13.287057+00:00",
+    "mensaje": "Consulta de todas las entidades (11 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-16T22:32:13.288730+00:00",
+    "mensaje": "Consulta de todas las entidades (11 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-16T22:32:13.290418+00:00",
+    "mensaje": "Consulta de todas las entidades (11 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-16T22:32:14.223468+00:00",
+    "mensaje": "Consulta de todas las entidades (11 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-16T22:32:14.773104+00:00",
+    "mensaje": "Consulta de todas las entidades (11 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-16T22:32:14.786020+00:00",
+    "mensaje": "Consulta de todas las entidades (11 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-16T22:32:14.801237+00:00",
+    "mensaje": "Consulta de todas las entidades (11 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-16T22:32:14.803472+00:00",
+    "mensaje": "Consulta de todas las entidades (11 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-16T22:32:15.458995+00:00",
+    "mensaje": "Consulta de todas las entidades (11 registros)",
     "datos": null
   }
 ]
