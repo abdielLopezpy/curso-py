@@ -34,5 +34,23 @@
     "certificaciones": "Pilates Mat & Reformer, Fisioterapia",
     "email": "laura.s@gym.com",
     "disponible": true
+  },
+  {
+    "id": 5,
+    "nombre": "Pedro",
+    "especialidad": "Gym",
+    "años_experiencia": 10,
+    "certificaciones": "no",
+    "email": "pedro@mail.com",
+    "disponible": true
+  },
+  {
+    "id": 6,
+    "nombre": "fran Guitierrez",
+    "especialidad": "TRX",
+    "años_experiencia": 3,
+    "certificaciones": "ninguno",
+    "email": "fguitierrez@gmail.com",
+    "disponible": true
   }
 ]

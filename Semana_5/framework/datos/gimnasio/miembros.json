@@ -38,5 +38,25 @@
     "membresia_activa": true,
     "fecha_registro": "2024-12-10",
     "cedula": "4-456-789-0"
+  },
+  {
+    "id": 5,
+    "nombre": "Pepe",
+    "edad": 30,
+    "email": "mail@mail.com",
+    "telefono": "60000000000",
+    "membresia_activa": true,
+    "fecha_registro": "2025-12-16",
+    "cedula": "0-000-000-0"
+  },
+  {
+    "id": 6,
+    "nombre": "Jorge Herrera",
+    "edad": 34,
+    "email": "jherrara@gmail.com",
+    "telefono": "64352134",
+    "membresia_activa": true,
+    "fecha_registro": "2026-01-06",
+    "cedula": "4-897-345-9"
   }
 ]

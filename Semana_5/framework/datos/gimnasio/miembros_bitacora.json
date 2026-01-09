@@ -626,5 +626,3709 @@
     "timestamp": "2025-12-16T22:32:15.475701+00:00",
     "mensaje": "Consulta de entidad 4",
     "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-16T23:57:58.044549+00:00",
+    "mensaje": "Consulta de todas las entidades (4 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-16T23:57:58.047980+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-16T23:57:58.050470+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-16T23:57:58.052865+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-16T23:57:58.055127+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-16T23:57:58.057754+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-16T23:57:58.059868+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-16T23:57:58.062443+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-16T23:57:58.064570+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-16T23:57:58.067060+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-16T23:57:58.069126+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-16T23:57:58.071620+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:00:16.615104+00:00",
+    "mensaje": "Consulta de todas las entidades (4 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:00:16.617586+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:00:16.619213+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:00:16.620891+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:00:16.622650+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:00:16.624753+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:00:16.626488+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:00:16.628140+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:00:16.629767+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:00:16.631417+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:00:16.633047+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:00:16.634689+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T00:01:50.970187+00:00",
+    "mensaje": "Entidad 5 creada",
+    "datos": {
+      "id": 5,
+      "nombre": "Pepe",
+      "edad": 30,
+      "email": "mail@mail.com",
+      "telefono": "60000000000",
+      "membresia_activa": true,
+      "fecha_registro": "2025-12-16",
+      "cedula": "0-000-000-0"
+    }
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:01:54.245455+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:02:03.473414+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:02:08.444285+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:02:12.804593+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T00:02:16.465314+00:00",
+    "mensaje": "Consulta de entidad 5",
+    "datos": null
+  },
+  {
+    "tipo": "UPDATE",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T00:02:16.471017+00:00",
+    "mensaje": "Entidad 5 actualizada",
+    "datos": {
+      "id": 5,
+      "nombre": "Pepe",
+      "edad": 30,
+      "email": "mail@mail.com",
+      "telefono": "60000000000",
+      "membresia_activa": true,
+      "fecha_registro": "2025-12-16",
+      "cedula": "0-000-000-0"
+    }
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:02:18.871368+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T00:02:21.593198+00:00",
+    "mensaje": "Consulta de entidad 5",
+    "datos": null
+  },
+  {
+    "tipo": "UPDATE",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T00:02:21.598085+00:00",
+    "mensaje": "Entidad 5 actualizada",
+    "datos": {
+      "id": 5,
+      "nombre": "Pepe",
+      "edad": 30,
+      "email": "mail@mail.com",
+      "telefono": "60000000000",
+      "membresia_activa": false,
+      "fecha_registro": "2025-12-16",
+      "cedula": "0-000-000-0"
+    }
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:02:23.181956+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T00:02:27.531405+00:00",
+    "mensaje": "Consulta de entidad 5",
+    "datos": null
+  },
+  {
+    "tipo": "UPDATE",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T00:02:27.534934+00:00",
+    "mensaje": "Entidad 5 actualizada",
+    "datos": {
+      "id": 5,
+      "nombre": "Pepe",
+      "edad": 30,
+      "email": "mail@mail.com",
+      "telefono": "60000000000",
+      "membresia_activa": true,
+      "fecha_registro": "2025-12-16",
+      "cedula": "0-000-000-0"
+    }
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:02:29.190946+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T00:02:33.406514+00:00",
+    "mensaje": "Consulta de entidad 5",
+    "datos": null
+  },
+  {
+    "tipo": "UPDATE",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T00:02:33.413564+00:00",
+    "mensaje": "Entidad 5 actualizada",
+    "datos": {
+      "id": 5,
+      "nombre": "Pepe",
+      "edad": 30,
+      "email": "mail@mail.com",
+      "telefono": "60000000000",
+      "membresia_activa": false,
+      "fecha_registro": "2025-12-16",
+      "cedula": "0-000-000-0"
+    }
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:02:34.561804+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:02:38.034762+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:04:53.642650+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:04:55.122408+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:04:55.131381+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:04:55.138709+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:04:55.143583+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:04:55.148360+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:04:55.152245+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:04:55.155541+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:04:55.157942+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:04:55.160322+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:04:55.162915+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:04:55.165988+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:04:55.168103+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:05:04.429616+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:05:11.834869+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:05:15.336229+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:05:15.337481+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:05:15.338795+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:05:15.340157+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:05:15.341514+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:05:15.342874+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:05:15.344879+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:05:15.346148+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:05:15.347511+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:05:15.348865+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:05:15.351447+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:05:15.352679+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:05:19.120694+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:05:19.129846+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:05:19.139291+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:05:19.147560+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:05:19.152948+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:05:19.157148+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:05:19.160759+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:05:19.163908+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:05:19.166808+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:05:19.169441+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:05:19.171958+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:05:19.174279+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:27:22.723074+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:27:26.522021+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:29.497914+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:27:29.508234+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:27:29.518131+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:29.526747+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:27:29.531944+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:29.537963+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:27:29.541633+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:27:29.546971+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:29.550480+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:27:29.553226+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:27:29.556796+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:29.559574+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:30.893015+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:27:30.904908+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:27:30.913203+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:30.918656+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:27:30.923114+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:30.927079+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:27:30.930243+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:27:30.933365+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:30.936400+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:27:30.940179+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:27:30.943769+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:30.946775+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:33.513120+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:27:33.524819+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:27:33.535216+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:33.541719+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:27:33.547101+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:33.551057+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:27:33.555046+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:27:33.558812+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:33.561985+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:27:33.565225+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:27:33.568372+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:33.572146+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:27:35.624671+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:27:36.467364+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:27:39.469060+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:40.680855+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:27:40.695092+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:27:40.704852+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:40.709865+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:27:40.713798+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:40.717415+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:27:40.721367+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:27:40.725059+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:40.728425+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:27:40.732477+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:27:40.736565+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:27:40.743526+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:30:45.712059+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:30:47.118917+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:30:48.845007+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:30:48.848367+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:30:48.851677+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:30:48.854996+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:30:48.858262+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:30:48.861783+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:30:48.865333+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:30:48.868670+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:30:48.872102+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:30:48.875461+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:30:48.878838+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:30:48.882290+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:30:50.510316+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:30:52.123221+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:30:56.748905+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:30:56.752666+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:30:56.756370+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:30:56.760190+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:30:56.764031+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:30:56.768210+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:30:56.773196+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:30:56.776970+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:30:56.781562+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:30:56.789786+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:30:56.794021+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:30:56.798836+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:31:03.155205+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:31:04.513416+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:31:05.352549+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:31:05.362354+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:31:05.381163+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:31:05.391102+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:31:05.400878+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:31:05.411900+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:31:05.421381+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:31:05.430806+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:31:05.441832+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:31:05.453579+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:31:05.465351+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:31:05.476289+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:32:14.038881+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:32:16.996770+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:32:22.857978+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:32:22.865100+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:32:22.869651+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:32:22.874199+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:32:22.878503+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:32:22.882747+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:32:22.887777+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:32:22.892383+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:32:22.896603+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:32:22.900775+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:32:22.905594+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:32:22.910879+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:47:27.636097+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:47:30.991113+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:47:41.732065+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:47:41.736541+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:47:41.741450+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:47:41.746611+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:47:41.751205+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:47:41.755618+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:47:41.760057+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:47:41.764536+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:47:41.769352+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:47:41.774104+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:47:41.778626+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:47:41.783434+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:47:44.901469+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:53:04.489261+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:53:09.373147+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:53:09.382188+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:53:09.386628+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:53:09.391914+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:53:09.400433+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:53:09.406881+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:53:09.410978+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:53:09.415089+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:53:09.420726+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:53:09.427060+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:53:09.431774+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:53:09.440516+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:53:14.650241+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:53:15.684299+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:53:18.039221+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:53:18.054666+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:53:18.066650+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:53:18.074362+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:53:18.082063+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:53:18.087948+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:53:18.096448+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:53:18.101856+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:53:18.107211+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:53:18.112597+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:53:18.119111+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:53:18.124519+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:54:31.006771+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:54:33.452736+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:54:38.933053+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:54:38.936661+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:54:38.940408+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:54:38.946375+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:54:38.952212+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:54:38.958589+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:54:38.961831+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:54:38.966501+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:54:38.969435+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:54:38.972701+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:54:38.975853+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:54:38.978685+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:54:46.634285+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:54:52.076155+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:54:54.820961+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:55:33.959371+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T00:55:43.047063+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:55:45.750991+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:55:45.755742+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:55:45.761899+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:55:45.766018+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:55:45.770669+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:55:45.774690+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T00:55:45.778581+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T00:55:45.781733+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:55:45.785179+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:55:45.789341+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T00:55:45.793656+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T00:55:45.796930+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:00:41.088076+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:00:50.939625+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:00:50.946365+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:00:50.951628+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:00:50.956703+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:00:50.961818+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:00:50.966858+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:00:50.971884+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:00:50.982194+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:00:50.987419+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:00:50.992503+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:00:50.998743+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:00:51.004223+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:00:51.009699+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:01:14.071364+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:01:20.877544+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:01:27.193995+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:01:27.198190+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:01:27.204802+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:01:27.210777+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:01:27.214759+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:01:27.220975+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:01:27.226319+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:01:27.232475+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:01:27.236103+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:01:27.239394+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:01:27.244378+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:01:27.250101+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:02:00.512268+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:05.415356+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:03:05.419233+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:03:05.425361+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:05.433027+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:03:05.437958+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:05.442270+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:03:05.446289+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:03:05.451518+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:05.457973+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:03:05.461569+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:03:05.464969+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:05.469947+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:22.217230+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:22.237119+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:03:22.242055+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:03:22.246300+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:22.250057+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:03:22.254272+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:22.258845+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:03:22.267201+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:03:22.271356+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:22.276061+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:03:22.281159+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:03:22.285174+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:22.289838+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:22.297113+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:03:45.590419+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:45.600376+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:03:45.606530+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:03:45.611751+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:45.616554+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:03:45.621255+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:45.625895+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:03:45.630581+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:03:45.635020+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:45.639333+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:03:45.643700+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:03:45.648171+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:45.652528+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:03:45.656913+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:04:30.092289+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:05:00.076873+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:05:04.997545+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:05:13.047243+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:05:13.055192+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:05:13.061417+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:05:13.065123+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:05:13.070164+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:05:13.073706+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:05:13.077344+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:05:13.080883+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:05:13.084477+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:05:13.091274+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:05:13.095331+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:05:13.098868+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:05:13.102362+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:10:52.962945+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:10:54.270040+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:12:45.033173+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:12:45.042258+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:12:45.049296+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:12:45.057327+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:12:45.063377+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:12:45.069141+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:12:45.080513+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:12:45.086582+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:12:45.094136+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:12:45.099847+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:12:45.105763+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:12:45.112726+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:12:45.118324+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:12:45.124512+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:14:11.561503+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:14:13.410027+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:14:16.389773+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:14:16.394152+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:14:16.398734+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:14:16.403228+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:14:16.407627+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:14:16.412979+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:14:16.417035+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:14:16.421011+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:14:16.425111+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:14:16.429076+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:14:16.433134+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:14:16.437087+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:14:16.441493+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:17:02.914254+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:17:02.923375+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:17:02.930349+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:17:02.936963+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:17:02.945471+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:17:02.952015+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:17:02.959116+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:17:02.969694+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:17:02.976677+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:17:02.983127+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:17:02.988883+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:17:02.995290+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:17:03.002188+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:17:03.007585+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:21:08.868866+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:21:13.657250+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:21:13.672835+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:21:13.683814+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:21:13.690648+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:21:13.696208+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:21:13.700691+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:21:13.704934+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:21:13.708936+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:21:13.712965+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:21:13.717032+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:21:13.721201+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:21:13.725287+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:21:13.729611+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:21:23.855555+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:21:23.864133+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:21:23.869322+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:21:23.874078+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:21:23.880364+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:21:23.885114+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2025-12-17T01:21:23.889318+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2025-12-17T01:21:23.893530+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:21:23.897836+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:21:23.902008+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2025-12-17T01:21:23.906191+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:21:23.910474+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2025-12-17T01:21:23.914911+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:21:28.124339+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T01:21:33.012890+00:00",
+    "mensaje": "Consulta de entidad 5",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T01:21:35.180220+00:00",
+    "mensaje": "Consulta de entidad 5",
+    "datos": null
+  },
+  {
+    "tipo": "UPDATE",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T01:21:35.190519+00:00",
+    "mensaje": "Entidad 5 actualizada",
+    "datos": {
+      "id": 5,
+      "nombre": "Pepe",
+      "edad": 30,
+      "email": "mail@mail.com",
+      "telefono": "60000000000",
+      "membresia_activa": true,
+      "fecha_registro": "2025-12-16",
+      "cedula": "0-000-000-0"
+    }
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:21:35.200608+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T01:21:36.252199+00:00",
+    "mensaje": "Consulta de entidad 5",
+    "datos": null
+  },
+  {
+    "tipo": "UPDATE",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T01:21:36.260368+00:00",
+    "mensaje": "Entidad 5 actualizada",
+    "datos": {
+      "id": 5,
+      "nombre": "Pepe",
+      "edad": 30,
+      "email": "mail@mail.com",
+      "telefono": "60000000000",
+      "membresia_activa": true,
+      "fecha_registro": "2025-12-16",
+      "cedula": "0-000-000-0"
+    }
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:21:36.269647+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T01:21:37.148852+00:00",
+    "mensaje": "Consulta de entidad 5",
+    "datos": null
+  },
+  {
+    "tipo": "UPDATE",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T01:21:37.157935+00:00",
+    "mensaje": "Entidad 5 actualizada",
+    "datos": {
+      "id": 5,
+      "nombre": "Pepe",
+      "edad": 30,
+      "email": "mail@mail.com",
+      "telefono": "60000000000",
+      "membresia_activa": false,
+      "fecha_registro": "2025-12-16",
+      "cedula": "0-000-000-0"
+    }
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:21:37.170364+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T01:21:37.913707+00:00",
+    "mensaje": "Consulta de entidad 5",
+    "datos": null
+  },
+  {
+    "tipo": "UPDATE",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T01:21:37.936682+00:00",
+    "mensaje": "Entidad 5 actualizada",
+    "datos": {
+      "id": 5,
+      "nombre": "Pepe",
+      "edad": 30,
+      "email": "mail@mail.com",
+      "telefono": "60000000000",
+      "membresia_activa": false,
+      "fecha_registro": "2025-12-16",
+      "cedula": "0-000-000-0"
+    }
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:21:37.951767+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T01:21:38.786454+00:00",
+    "mensaje": "Consulta de entidad 5",
+    "datos": null
+  },
+  {
+    "tipo": "UPDATE",
+    "entidad_id": 5,
+    "timestamp": "2025-12-17T01:21:38.798438+00:00",
+    "mensaje": "Entidad 5 actualizada",
+    "datos": {
+      "id": 5,
+      "nombre": "Pepe",
+      "edad": 30,
+      "email": "mail@mail.com",
+      "telefono": "60000000000",
+      "membresia_activa": true,
+      "fecha_registro": "2025-12-16",
+      "cedula": "0-000-000-0"
+    }
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:21:38.812081+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2025-12-17T01:21:57.930311+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2026-01-07T01:28:48.594489+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2026-01-07T01:29:12.415777+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:29:33.985818+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2026-01-07T01:29:34.047479+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2026-01-07T01:29:34.103478+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:29:34.210243+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2026-01-07T01:29:34.293253+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:29:34.374722+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2026-01-07T01:29:34.448333+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2026-01-07T01:29:34.504917+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:29:34.564443+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2026-01-07T01:29:34.643644+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:29:34.726203+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2026-01-07T01:29:34.746155+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2026-01-07T01:29:34.868688+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:29:34.872075+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:29:34.996662+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2026-01-07T01:29:34.999864+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:29:35.117952+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2026-01-07T01:29:35.284195+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:29:35.370144+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2026-01-07T01:29:35.447424+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2026-01-07T01:29:35.535916+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:29:35.622566+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2026-01-07T01:29:35.674865+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2026-01-07T01:29:35.753108+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:29:35.807802+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:29:35.917470+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2026-01-07T01:30:23.561109+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2026-01-07T01:30:30.213189+00:00",
+    "mensaje": "Consulta de todas las entidades (5 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "CREATE",
+    "entidad_id": 6,
+    "timestamp": "2026-01-07T01:32:54.052651+00:00",
+    "mensaje": "Entidad 6 creada",
+    "datos": {
+      "id": 6,
+      "nombre": "Jorge Herrera",
+      "edad": 34,
+      "email": "jherrara@gmail.com",
+      "telefono": "64352134",
+      "membresia_activa": true,
+      "fecha_registro": "2026-01-06",
+      "cedula": "4-897-345-9"
+    }
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2026-01-07T01:32:54.172570+00:00",
+    "mensaje": "Consulta de todas las entidades (6 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:34:11.560732+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2026-01-07T01:34:11.620207+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2026-01-07T01:34:11.695008+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:34:11.755344+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2026-01-07T01:34:11.830425+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:34:11.896382+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2026-01-07T01:34:11.956370+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2026-01-07T01:34:12.015630+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:34:12.082921+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2026-01-07T01:34:12.143669+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2026-01-07T01:34:12.222110+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:34:12.314957+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:34:12.396659+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 6,
+    "timestamp": "2026-01-07T01:35:58.624633+00:00",
+    "mensaje": "Consulta de entidad 6",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:35:58.804972+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2026-01-07T01:35:58.881047+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2026-01-07T01:35:58.961349+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:35:59.009301+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2026-01-07T01:35:59.052795+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:35:59.138975+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2026-01-07T01:35:59.232422+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2026-01-07T01:35:59.270263+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:35:59.308439+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2026-01-07T01:35:59.346404+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2026-01-07T01:35:59.386040+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:35:59.423695+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:35:59.461296+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 6,
+    "timestamp": "2026-01-07T01:35:59.498868+00:00",
+    "mensaje": "Consulta de entidad 6",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2026-01-07T01:36:14.993428+00:00",
+    "mensaje": "Consulta de todas las entidades (6 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2026-01-07T01:36:21.144070+00:00",
+    "mensaje": "Consulta de todas las entidades (6 registros)",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:36:25.378853+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2026-01-07T01:36:25.452627+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2026-01-07T01:36:25.521854+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:36:25.587558+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2026-01-07T01:36:25.649916+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:36:25.717587+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 2,
+    "timestamp": "2026-01-07T01:36:25.760568+00:00",
+    "mensaje": "Consulta de entidad 2",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 3,
+    "timestamp": "2026-01-07T01:36:25.798846+00:00",
+    "mensaje": "Consulta de entidad 3",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:36:25.840337+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2026-01-07T01:36:25.882579+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 4,
+    "timestamp": "2026-01-07T01:36:25.918772+00:00",
+    "mensaje": "Consulta de entidad 4",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:36:25.979108+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 1,
+    "timestamp": "2026-01-07T01:36:26.028388+00:00",
+    "mensaje": "Consulta de entidad 1",
+    "datos": null
+  },
+  {
+    "tipo": "READ",
+    "entidad_id": 6,
+    "timestamp": "2026-01-07T01:36:26.074080+00:00",
+    "mensaje": "Consulta de entidad 6",
+    "datos": null
+  },
+  {
+    "tipo": "QUERY",
+    "entidad_id": "ALL",
+    "timestamp": "2026-01-07T01:36:39.259997+00:00",
+    "mensaje": "Consulta de todas las entidades (6 registros)",
+    "datos": null
   }
 ]
