@@ -246,13 +246,53 @@ except sqlite3.Error as error:
 
 ---
 
-## 🎮 ¡Comienza Ahora!
+## ✅ Lista de comprobación paso a paso (Checkpoints)
+Sigue estos puntos y detente en cada uno para comprobar que entiendes y que el código funciona:
 
-Abre el archivo `01_intro_sqlite.py` y ejecuta:
+1. Conexión básica
+   - Ejecuta `01_intro_sqlite.py`. Debes ver que se crea (o conecta) el archivo `.db` sin errores.
+2. Crear tablas
+   - Ejecuta `02_crear_tablas.py`. Comprueba con `sqlite3 datos/mi_base_datos.db` (opcional) que las tablas existen.
+3. Insertar datos
+   - Ejecuta `03_insertar_datos.py`. Verifica que los registros aparezcan con `SELECT *`.
+4. Consultas
+   - Ejecuta `04_consultar_datos.py`. Prueba filtros, orden y límites (`WHERE`, `ORDER BY`, `LIMIT`).
+5. Actualizar y eliminar
+   - Ejecuta `05_actualizar_eliminar.py`. Confirma cambios con consultas antes y después.
+6. Relaciones y JOINs
+   - Ejecuta `06_relaciones_joins.py`. Asegúrate de entender cómo se relacionan tablas y qué devuelve cada JOIN.
+7. Sistema completo
+   - Ejecuta `07_sistema_completo.py`. Prueba flujos CRUD completos y reinicia la aplicación para comprobar persistencia.
 
-```bash
-cd Semana_6
-python 01_intro_sqlite.py
-```
+---
 
-¡Buena suerte! 🚀
+## ✏️ Ejercicios propuestos (ordenados por dificultad)
+
+1. Crear una tabla `categorias` y relacionarla con `productos` (clave foránea).
+2. Insertar 5 usuarios y 10 productos; hacer al menos 3 consultas que usen `WHERE` y `ORDER BY`.
+3. Escribir una función Python que reciba un email y devuelva el usuario (o `None`).
+4. Implementar transacciones: mover stock entre dos productos en una sola transacción; rollback si falla.
+5. Construir una pequeña API de consola que permita crear, listar, actualizar y borrar usuarios (usar `input()`).
+
+---
+
+## 🧾 Criterios de evaluación (sugeridos)
+
+- 40%: Funcionalidad básica (conexión, creación de tablas, CRUD).
+- 30%: Calidad del SQL y uso de parámetros para evitar inyección.
+- 20%: Uso correcto de transacciones y manejo de errores.
+- 10%: Documentación y claridad del código (comentarios y README).
+
+---
+
+## 📎 Recursos y soluciones
+
+- `CONCEPTOS_SQL.md`: repasa los conceptos teóricos.
+- `ejercicios_sqlite.py`: ejercicios con enunciados.
+- `quiz_semana_6.py`: evaluación rápida automática.
+
+Si necesitas, puedo generar las plantillas de los archivos `01_*.py` a `07_*.py`, los ejercicios y el quiz con soluciones comentadas.
+
+---
+
+¡Listo! Sigue los checkpoints y dime si quieres que cree los archivos de ejemplo, las tablas de muestra o las soluciones automáticas.
