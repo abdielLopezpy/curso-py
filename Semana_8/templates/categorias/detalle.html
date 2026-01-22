@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}{{ categoria.nombre }} - Flask + Neon{% endblock %}
+
+{% block content %}
+<!--
+============================================================================
+DETALLE DE CATEGORÍA
+============================================================================
+Muestra la información completa de una categoría y sus productos.
+============================================================================
+-->
+
+<h1>{{ categoria.nombre }}</h1>
+
+<div class="card">
+    <p><strong>ID:</strong> {{ categoria.id }}</p>
+    <p><strong>Descripción:</strong> {{ categoria.descripcion or 'Sin descripción' }}</p>
+    <p><strong>Estado:</strong>
+        {% if categoria.activa %}
+            <span class="badge badge-success">Activa</span>
+        {% else %}
+            <span class="badge badge-danger">Inactiva</span>
+        {% endif %}
+    </p>
+    <p><strong>Fecha de creación:</strong> {{ categoria.fecha_creacion.strftime('%d/%m/%Y %H:%M') if categoria.fecha_creacion else 'N/A' }}</p>
+
+    <div class="form-actions">
+        <a href="{{ url_for('editar_categoria', id=categoria.id) }}" class="btn btn-primary">Editar</a>
+        <a href="{{ url_for('listar_categorias') }}" class="btn btn-secondary">Volver</a>
+    </div>
+</div>
+
+<!-- Productos de esta categoría -->
+<h2 style="margin-top: 2rem;">Productos en esta categoría ({{ categoria.cantidad_productos }})</h2>
+
+{% if categoria.productos %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in categoria.productos %}
+            <tr>
+                <td>{{ producto.id }}</td>
+                <td>
+                    <a href="{{ url_for('ver_producto', id=producto.id) }}">
+                        {{ producto.nombre }}
+                    </a>
+                </td>
+                <td>{{ producto.precio_formateado }}</td>
+                <td>
+                    {% if producto.stock > 10 %}
+                        <span class="badge badge-success">{{ producto.stock }}</span>
+                    {% elif producto.stock > 0 %}
+                        <span class="badge badge-warning">{{ producto.stock }}</span>
+                    {% else %}
+                        <span class="badge badge-danger">Sin stock</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url_for('editar_producto', id=producto.id) }}"
+                       class="btn btn-primary btn-sm">Editar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <div class="card empty-state">
+        <p>No hay productos en esta categoría.</p>
+        <a href="{{ url_for('crear_producto') }}" class="btn btn-success">Agregar producto</a>
+    </div>
+{% endif %}
+{% endblock %}

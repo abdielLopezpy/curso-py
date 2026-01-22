@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Productos - Flask + Neon{% endblock %}
+
+{% block content %}
+<!--
+============================================================================
+LISTA DE PRODUCTOS
+============================================================================
+Muestra todos los productos en una tabla con acciones CRUD.
+============================================================================
+-->
+
+<div class="card-header">
+    <h1>Productos</h1>
+    <a href="{{ url_for('crear_producto') }}" class="btn btn-success">+ Nuevo Producto</a>
+</div>
+
+{% if productos %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td>{{ producto.id }}</td>
+                <td>
+                    <a href="{{ url_for('ver_producto', id=producto.id) }}">
+                        {{ producto.nombre }}
+                    </a>
+                </td>
+                <td>
+                    {% if producto.categoria %}
+                        <a href="{{ url_for('ver_categoria', id=producto.categoria.id) }}">
+                            {{ producto.categoria.nombre }}
+                        </a>
+                    {% else %}
+                        <span style="color: #999;">Sin categoría</span>
+                    {% endif %}
+                </td>
+                <td>{{ producto.precio_formateado }}</td>
+                <td>
+                    {% if producto.stock > 10 %}
+                        <span class="badge badge-success">{{ producto.stock }}</span>
+                    {% elif producto.stock > 0 %}
+                        <span class="badge badge-warning">{{ producto.stock }}</span>
+                    {% else %}
+                        <span class="badge badge-danger">Sin stock</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if producto.activo %}
+                        <span class="badge badge-success">Activo</span>
+                    {% else %}
+                        <span class="badge badge-danger">Inactivo</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="actions">
+                        <a href="{{ url_for('editar_producto', id=producto.id) }}"
+                           class="btn btn-primary btn-sm">Editar</a>
+                        <form action="{{ url_for('eliminar_producto', id=producto.id) }}"
+                              method="POST"
+                              style="display: inline;"
+                              onsubmit="return confirm('¿Eliminar este producto?');">
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <div class="card empty-state">
+        <p>No hay productos registrados.</p>
+        <a href="{{ url_for('crear_producto') }}" class="btn btn-success">Crear primer producto</a>
+    </div>
+{% endif %}
+{% endblock %}

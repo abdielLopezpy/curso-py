@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Categorías - Flask + Neon{% endblock %}
+
+{% block content %}
+<!--
+============================================================================
+LISTA DE CATEGORÍAS
+============================================================================
+Muestra todas las categorías en una tabla con acciones CRUD.
+============================================================================
+-->
+
+<div class="card-header">
+    <h1>Categorías</h1>
+    <a href="{{ url_for('crear_categoria') }}" class="btn btn-success">+ Nueva Categoría</a>
+</div>
+
+{% if categorias %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Productos</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categoria in categorias %}
+            <tr>
+                <td>{{ categoria.id }}</td>
+                <td>
+                    <a href="{{ url_for('ver_categoria', id=categoria.id) }}">
+                        {{ categoria.nombre }}
+                    </a>
+                </td>
+                <td>{{ categoria.descripcion or '-' }}</td>
+                <td>{{ categoria.cantidad_productos }}</td>
+                <td>
+                    {% if categoria.activa %}
+                        <span class="badge badge-success">Activa</span>
+                    {% else %}
+                        <span class="badge badge-danger">Inactiva</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="actions">
+                        <a href="{{ url_for('editar_categoria', id=categoria.id) }}"
+                           class="btn btn-primary btn-sm">Editar</a>
+                        <form action="{{ url_for('eliminar_categoria', id=categoria.id) }}"
+                              method="POST"
+                              style="display: inline;"
+                              onsubmit="return confirm('¿Eliminar esta categoría y todos sus productos?');">
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <div class="card empty-state">
+        <p>No hay categorías registradas.</p>
+        <a href="{{ url_for('crear_categoria') }}" class="btn btn-success">Crear primera categoría</a>
+    </div>
+{% endif %}
+{% endblock %}

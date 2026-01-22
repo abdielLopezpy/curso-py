@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Error - Flask + Neon{% endblock %}
+
+{% block content %}
+<!--
+============================================================================
+PÁGINA DE ERROR
+============================================================================
+Se muestra cuando ocurre un error (404, 500, etc.)
+============================================================================
+-->
+
+<div class="card empty-state" style="padding: 4rem;">
+    <h1 style="color: #e74c3c; border: none; margin-bottom: 1rem;">Error</h1>
+    <p style="font-size: 1.25rem; margin-bottom: 2rem;">{{ mensaje }}</p>
+    <a href="{{ url_for('index') }}" class="btn btn-primary">Volver al inicio</a>
+</div>
+{% endblock %}

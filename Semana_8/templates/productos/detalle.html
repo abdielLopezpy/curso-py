@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}{{ producto.nombre }} - Flask + Neon{% endblock %}
+
+{% block content %}
+<!--
+============================================================================
+DETALLE DE PRODUCTO
+============================================================================
+Muestra la información completa de un producto.
+============================================================================
+-->
+
+<h1>{{ producto.nombre }}</h1>
+
+<div class="card">
+    <p><strong>ID:</strong> {{ producto.id }}</p>
+    <p><strong>Descripción:</strong> {{ producto.descripcion or 'Sin descripción' }}</p>
+    <p><strong>Precio:</strong> <span style="font-size: 1.5em; color: #27ae60;">{{ producto.precio_formateado }}</span></p>
+    <p><strong>Stock:</strong>
+        {% if producto.stock > 10 %}
+            <span class="badge badge-success">{{ producto.stock }} unidades</span>
+        {% elif producto.stock > 0 %}
+            <span class="badge badge-warning">{{ producto.stock }} unidades (bajo stock)</span>
+        {% else %}
+            <span class="badge badge-danger">Sin stock</span>
+        {% endif %}
+    </p>
+    <p><strong>Categoría:</strong>
+        {% if producto.categoria %}
+            <a href="{{ url_for('ver_categoria', id=producto.categoria.id) }}">
+                {{ producto.categoria.nombre }}
+            </a>
+        {% else %}
+            <span style="color: #999;">Sin categoría</span>
+        {% endif %}
+    </p>
+    <p><strong>Estado:</strong>
+        {% if producto.activo %}
+            <span class="badge badge-success">Activo</span>
+        {% else %}
+            <span class="badge badge-danger">Inactivo</span>
+        {% endif %}
+    </p>
+    <p><strong>Fecha de creación:</strong> {{ producto.fecha_creacion.strftime('%d/%m/%Y %H:%M') if producto.fecha_creacion else 'N/A' }}</p>
+
+    <div class="form-actions">
+        <a href="{{ url_for('editar_producto', id=producto.id) }}" class="btn btn-primary">Editar</a>
+        <form action="{{ url_for('eliminar_producto', id=producto.id) }}"
+              method="POST"
+              style="display: inline;"
+              onsubmit="return confirm('¿Eliminar este producto?');">
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+        </form>
+        <a href="{{ url_for('listar_productos') }}" class="btn btn-secondary">Volver</a>
+    </div>
+</div>
+{% endblock %}

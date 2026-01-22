@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if producto %}Editar{% else %}Nuevo{% endif %} Producto - Flask + Neon
+{% endblock %}
+
+{% block content %}
+<!--
+============================================================================
+FORMULARIO DE PRODUCTO
+============================================================================
+Formulario reutilizable para crear y editar productos.
+Si 'producto' existe, es edición; si no, es creación.
+============================================================================
+-->
+
+<h1>{% if producto %}Editar{% else %}Nuevo{% endif %} Producto</h1>
+
+<div class="card">
+    <form method="POST">
+        <!-- Campo: Nombre -->
+        <div class="form-group">
+            <label for="nombre">Nombre *</label>
+            <input type="text"
+                   id="nombre"
+                   name="nombre"
+                   value="{{ producto.nombre if producto else '' }}"
+                   placeholder="Ej: Laptop Gaming, Mouse Inalámbrico..."
+                   required>
+        </div>
+
+        <!-- Campo: Descripción -->
+        <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion"
+                      name="descripcion"
+                      placeholder="Descripción detallada del producto...">{{ producto.descripcion if producto else '' }}</textarea>
+        </div>
+
+        <!-- Campo: Precio -->
+        <div class="form-group">
+            <label for="precio">Precio *</label>
+            <input type="number"
+                   id="precio"
+                   name="precio"
+                   step="0.01"
+                   min="0"
+                   value="{{ producto.precio if producto else '' }}"
+                   placeholder="0.00"
+                   required>
+        </div>
+
+        <!-- Campo: Stock -->
+        <div class="form-group">
+            <label for="stock">Stock</label>
+            <input type="number"
+                   id="stock"
+                   name="stock"
+                   min="0"
+                   value="{{ producto.stock if producto else 0 }}"
+                   placeholder="0">
+        </div>
+
+        <!-- Campo: Categoría -->
+        <div class="form-group">
+            <label for="categoria_id">Categoría</label>
+            <select id="categoria_id" name="categoria_id">
+                <option value="">-- Sin categoría --</option>
+                {% for categoria in categorias %}
+                    <option value="{{ categoria.id }}"
+                            {% if producto and producto.categoria_id == categoria.id %}selected{% endif %}>
+                        {{ categoria.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success">
+                {% if producto %}Guardar Cambios{% else %}Crear Producto{% endif %}
+            </button>
+            <a href="{{ url_for('listar_productos') }}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<!--
+============================================================================
+NOTAS PARA AGREGAR NUEVOS CAMPOS:
+============================================================================
+1. Agrega la columna en el modelo Producto (en app_flask.py)
+2. Agrega el input/select aquí en el formulario
+3. Procesa el campo en las rutas crear_producto y editar_producto
+============================================================================
+-->
+{% endblock %}

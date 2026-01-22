@@ -9,3 +9,6 @@ colorama >=0.4.6
 
 # ORM - Semana 7
 SQLAlchemy>=2.0.0
+
+# Web Framework - Semana 8
+Flask>=3.0.0
