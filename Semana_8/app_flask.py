@@ -41,7 +41,7 @@ app.secret_key = 'clave-secreta-cambiar-en-produccion'  # Para mensajes flash
 
 DATABASE_URL = os.environ.get(
     'DATABASE_URL',
-    ''
+    'postgresql://neondb_owner:npg_xnKz5VIdoiv7@ep-hidden-voice-ahdtczjv-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
 )
 
 # ============================================================================
@@ -512,4 +512,4 @@ if __name__ == '__main__':
     """)
 
     # Ejecutar la aplicación
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5002)

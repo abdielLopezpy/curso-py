@@ -74,12 +74,11 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 # 3. En "Connection Details", selecciona "Python"
 # 4. Copia la cadena que empieza con "postgresql://"
 # ============================================================================
-
 # ╔═══════════════════════════════════════════════════════════════════════════╗
 # ║  CONFIGURA TU CADENA DE CONEXIÓN AQUÍ                                     ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝
 
-DATABASE_URL = "postgresql://usuario:contraseña@ep-xxx.region.aws.neon.tech/neondb?sslmode=require"
+DATABASE_URL = "postgresql://neondb_owner:npg_xnKz5VIdoiv7@ep-hidden-voice-ahdtczjv-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
 #               ↑           ↑       ↑            ↑                           ↑        ↑
 #               │           │       │            │                           │        │
 #               │           │       │            │                           │        └── Obligatorio para Neon

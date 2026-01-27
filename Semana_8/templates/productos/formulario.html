@@ -1,97 +1,158 @@
+{# ============================================================================
+   FORMULARIO DE PRODUCTO
+   ============================================================================
+   Formulario reutilizable para CREAR y EDITAR productos.
+
+   CÓMO FUNCIONA:
+   - Si 'producto' existe → es EDICIÓN (los campos tienen valores)
+   - Si 'producto' no existe → es CREACIÓN (los campos están vacíos)
+
+   DATOS RECIBIDOS DESDE PYTHON:
+   - producto: objeto Producto (solo en edición)
+   - categorias: lista de categorías para el select
+
+   PARA CREAR UN FORMULARIO SIMILAR:
+   1. Copia este archivo a templates/tu_entidad/formulario.html
+   2. Cambia los campos del formulario
+   3. Actualiza las URLs
+   ============================================================================ #}
+
 {% extends "base.html" %}
 
+{# Importar los macros de formulario #}
+{% from "macros.html" import campo_texto, campo_numero, campo_textarea, campo_select, boton %}
+
 {% block title %}
+    {# Título dinámico según si es crear o editar #}
     {% if producto %}Editar{% else %}Nuevo{% endif %} Producto - Flask + Neon
 {% endblock %}
 
 {% block content %}
-<!--
-============================================================================
-FORMULARIO DE PRODUCTO
-============================================================================
-Formulario reutilizable para crear y editar productos.
-Si 'producto' existe, es edición; si no, es creación.
-============================================================================
--->
 
+{# ============================================================================
+   TÍTULO
+   ============================================================================ #}
 <h1>{% if producto %}Editar{% else %}Nuevo{% endif %} Producto</h1>
 
+
+{# ============================================================================
+   FORMULARIO
+   ============================================================================
+   - method="POST": los datos se envían al servidor
+   - La acción se determina por la URL actual
+   - Usamos macros para generar los campos
+   ============================================================================ #}
 <div class="card">
-    <form method="POST">
-        <!-- Campo: Nombre -->
-        <div class="form-group">
-            <label for="nombre">Nombre *</label>
-            <input type="text"
-                   id="nombre"
-                   name="nombre"
-                   value="{{ producto.nombre if producto else '' }}"
-                   placeholder="Ej: Laptop Gaming, Mouse Inalámbrico..."
-                   required>
-        </div>
+    <div class="card-body">
+        <form method="POST" class="form">
 
-        <!-- Campo: Descripción -->
-        <div class="form-group">
-            <label for="descripcion">Descripción</label>
-            <textarea id="descripcion"
-                      name="descripcion"
-                      placeholder="Descripción detallada del producto...">{{ producto.descripcion if producto else '' }}</textarea>
-        </div>
+            {# ----------------------------------------------------------------
+               CAMPO: Nombre
+               ----------------------------------------------------------------
+               campo_texto(name, label, value, type, placeholder, required, help_text)
+               ---------------------------------------------------------------- #}
+            {{ campo_texto(
+                'nombre',
+                'Nombre del producto',
+                value=producto.nombre if producto else '',
+                placeholder='Ej: Laptop Gaming, Mouse Inalámbrico...',
+                required=true
+            ) }}
 
-        <!-- Campo: Precio -->
-        <div class="form-group">
-            <label for="precio">Precio *</label>
-            <input type="number"
-                   id="precio"
-                   name="precio"
-                   step="0.01"
-                   min="0"
-                   value="{{ producto.precio if producto else '' }}"
-                   placeholder="0.00"
-                   required>
-        </div>
+            {# ----------------------------------------------------------------
+               CAMPO: Descripción
+               ----------------------------------------------------------------
+               campo_textarea(name, label, value, rows, placeholder, required)
+               ---------------------------------------------------------------- #}
+            {{ campo_textarea(
+                'descripcion',
+                'Descripción',
+                value=producto.descripcion if producto else '',
+                placeholder='Descripción detallada del producto...',
+                rows=4
+            ) }}
 
-        <!-- Campo: Stock -->
-        <div class="form-group">
-            <label for="stock">Stock</label>
-            <input type="number"
-                   id="stock"
-                   name="stock"
-                   min="0"
-                   value="{{ producto.stock if producto else 0 }}"
-                   placeholder="0">
-        </div>
+            {# ----------------------------------------------------------------
+               CAMPO: Precio
+               ----------------------------------------------------------------
+               campo_numero(name, label, value, min, max, step, required)
+               step='0.01' permite decimales
+               ---------------------------------------------------------------- #}
+            {{ campo_numero(
+                'precio',
+                'Precio',
+                value=producto.precio if producto else '',
+                min=0,
+                step='0.01',
+                required=true
+            ) }}
 
-        <!-- Campo: Categoría -->
-        <div class="form-group">
-            <label for="categoria_id">Categoría</label>
-            <select id="categoria_id" name="categoria_id">
-                <option value="">-- Sin categoría --</option>
-                {% for categoria in categorias %}
-                    <option value="{{ categoria.id }}"
-                            {% if producto and producto.categoria_id == categoria.id %}selected{% endif %}>
-                        {{ categoria.nombre }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
+            {# ----------------------------------------------------------------
+               CAMPO: Stock
+               ---------------------------------------------------------------- #}
+            {{ campo_numero(
+                'stock',
+                'Stock',
+                value=producto.stock if producto else 0,
+                min=0
+            ) }}
 
-        <!-- Botones de acción -->
-        <div class="form-actions">
-            <button type="submit" class="btn btn-success">
-                {% if producto %}Guardar Cambios{% else %}Crear Producto{% endif %}
-            </button>
-            <a href="{{ url_for('listar_productos') }}" class="btn btn-secondary">Cancelar</a>
-        </div>
-    </form>
+            {# ----------------------------------------------------------------
+               CAMPO: Categoría (select)
+               ----------------------------------------------------------------
+               campo_select(name, label, options, value_attr, text_attr, selected, placeholder, required)
+               ---------------------------------------------------------------- #}
+            {{ campo_select(
+                'categoria_id',
+                'Categoría',
+                categorias,
+                selected=producto.categoria_id if producto else None,
+                placeholder='-- Sin categoría --'
+            ) }}
+
+            {# ----------------------------------------------------------------
+               BOTONES DE ACCIÓN
+               ---------------------------------------------------------------- #}
+            <div class="form-actions">
+                {# Botón submit - el texto cambia según crear/editar #}
+                {{ boton(
+                    'Guardar Cambios' if producto else 'Crear Producto',
+                    'success',
+                    submit=true
+                ) }}
+
+                {# Botón cancelar - enlace a la lista #}
+                {{ boton('Cancelar', 'secondary', url=url_for('listar_productos')) }}
+            </div>
+
+        </form>
+    </div>
 </div>
 
-<!--
-============================================================================
-NOTAS PARA AGREGAR NUEVOS CAMPOS:
-============================================================================
-1. Agrega la columna en el modelo Producto (en app_flask.py)
-2. Agrega el input/select aquí en el formulario
-3. Procesa el campo en las rutas crear_producto y editar_producto
-============================================================================
--->
+
+{# ============================================================================
+   NOTAS PARA AGREGAR CAMPOS
+   ============================================================================
+
+   1. AGREGAR UN CAMPO DE TEXTO:
+      {{ campo_texto('mi_campo', 'Etiqueta', value=objeto.mi_campo if objeto else '') }}
+
+   2. AGREGAR UN CAMPO NUMÉRICO:
+      {{ campo_numero('cantidad', 'Cantidad', min=0, max=100) }}
+
+   3. AGREGAR UN TEXTAREA:
+      {{ campo_textarea('notas', 'Notas adicionales', rows=3) }}
+
+   4. AGREGAR UN SELECT:
+      {{ campo_select('categoria_id', 'Categoría', lista_opciones) }}
+
+   5. AGREGAR UN CHECKBOX:
+      {{ campo_checkbox('activo', 'Está activo', checked=objeto.activo) }}
+
+   RECUERDA:
+   - Agregar la columna correspondiente en el modelo (app_flask.py)
+   - Procesar el campo en la ruta: request.form['mi_campo']
+
+   ============================================================================ #}
+
 {% endblock %}

@@ -1,80 +1,110 @@
+{# ============================================================================
+   PÁGINA DE INICIO
+   ============================================================================
+   Esta es la página principal de la aplicación.
+   Muestra estadísticas y accesos rápidos a las secciones.
+
+   PARA MODIFICAR:
+   - Cambia las estadísticas según tu aplicación
+   - Agrega más tarjetas para nuevas secciones
+   ============================================================================ #}
+
 {% extends "base.html" %}
+
+{# Importamos los macros que vamos a usar #}
+{% from "macros.html" import stat_card, boton %}
 
 {% block title %}Inicio - Flask + Neon{% endblock %}
 
 {% block content %}
-<!--
-============================================================================
-PÁGINA DE INICIO
-============================================================================
-Muestra un resumen de la aplicación con estadísticas y accesos rápidos.
-============================================================================
--->
 
+{# ============================================================================
+   TÍTULO Y DESCRIPCIÓN
+   ============================================================================ #}
 <h1>Bienvenido a la Aplicación</h1>
 
-<p style="margin-bottom: 2rem; color: #7f8c8d;">
+<p class="text-muted mb-4">
     Esta es una aplicación de ejemplo para aprender Flask con Neon (PostgreSQL).
     Explora las secciones de Categorías y Productos para ver el CRUD completo.
 </p>
 
-<!-- Estadísticas -->
-<div class="stats-grid">
-    <div class="stat-card">
-        <div class="number">{{ total_categorias }}</div>
-        <div class="label">Categorías</div>
-    </div>
-    <div class="stat-card">
-        <div class="number">{{ total_productos }}</div>
-        <div class="label">Productos</div>
-    </div>
-    <div class="stat-card">
-        <div class="number">{{ productos_activos }}</div>
-        <div class="label">Productos Activos</div>
-    </div>
-    <div class="stat-card">
-        <div class="number">{{ productos_sin_stock }}</div>
-        <div class="label">Sin Stock</div>
-    </div>
+
+{# ============================================================================
+   ESTADÍSTICAS
+   ============================================================================
+   Las estadísticas se pasan desde Python en app_flask.py:
+
+   return render_template('index.html',
+       total_categorias=session.query(Categoria).count(),
+       total_productos=session.query(Producto).count(),
+       ...
+   )
+
+   Usamos el macro stat_card para mostrar cada estadística.
+   ============================================================================ #}
+<div class="grid-4 mb-5">
+    {# Cada stat_card recibe: número, etiqueta #}
+    {{ stat_card(total_categorias, 'Categorías') }}
+    {{ stat_card(total_productos, 'Productos') }}
+    {{ stat_card(productos_activos, 'Activos') }}
+    {{ stat_card(productos_sin_stock, 'Sin Stock') }}
 </div>
 
-<!-- Acciones rápidas -->
+
+{# ============================================================================
+   ACCIONES RÁPIDAS
+   ============================================================================
+   Tarjetas con enlaces directos a las acciones más comunes.
+   ============================================================================ #}
 <h2>Acciones Rápidas</h2>
-<div class="cards-grid">
-    <div class="card">
-        <h3>Categorías</h3>
-        <p style="color: #7f8c8d; margin: 1rem 0;">
-            Gestiona las categorías de productos.
-        </p>
-        <div class="actions">
-            <a href="{{ url_for('listar_categorias') }}" class="btn btn-primary">Ver todas</a>
-            <a href="{{ url_for('crear_categoria') }}" class="btn btn-success">+ Nueva</a>
+
+<div class="grid-2 mb-4">
+    {# Tarjeta de Categorías #}
+    <div class="card card-hover">
+        <div class="card-body">
+            <h3>Categorías</h3>
+            <p class="text-muted">
+                Gestiona las categorías de productos.
+            </p>
+            <div class="btn-group">
+                {{ boton('Ver todas', 'primary', url=url_for('listar_categorias')) }}
+                {{ boton('+ Nueva', 'success', url=url_for('crear_categoria')) }}
+            </div>
         </div>
     </div>
 
-    <div class="card">
-        <h3>Productos</h3>
-        <p style="color: #7f8c8d; margin: 1rem 0;">
-            Gestiona el catálogo de productos.
-        </p>
-        <div class="actions">
-            <a href="{{ url_for('listar_productos') }}" class="btn btn-primary">Ver todos</a>
-            <a href="{{ url_for('crear_producto') }}" class="btn btn-success">+ Nuevo</a>
+    {# Tarjeta de Productos #}
+    <div class="card card-hover">
+        <div class="card-body">
+            <h3>Productos</h3>
+            <p class="text-muted">
+                Gestiona el catálogo de productos.
+            </p>
+            <div class="btn-group">
+                {{ boton('Ver todos', 'primary', url=url_for('listar_productos')) }}
+                {{ boton('+ Nuevo', 'success', url=url_for('crear_producto')) }}
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Información del proyecto -->
-<div class="card" style="margin-top: 2rem;">
-    <h3>Sobre esta aplicación</h3>
-    <p style="margin-top: 1rem; color: #7f8c8d;">
-        Esta aplicación demuestra cómo crear un sistema web completo usando:
-    </p>
-    <ul style="margin: 1rem 0 0 1.5rem; color: #7f8c8d;">
-        <li><strong>Flask</strong> - Framework web minimalista de Python</li>
-        <li><strong>SQLAlchemy</strong> - ORM para trabajar con bases de datos</li>
-        <li><strong>Neon</strong> - PostgreSQL serverless en la nube</li>
-        <li><strong>Jinja2</strong> - Motor de plantillas HTML</li>
-    </ul>
+
+{# ============================================================================
+   INFORMACIÓN DEL PROYECTO
+   ============================================================================ #}
+<div class="card">
+    <div class="card-body">
+        <h3>Sobre esta aplicación</h3>
+        <p class="text-muted mt-3">
+            Esta aplicación demuestra cómo crear un sistema web completo usando:
+        </p>
+        <ul class="text-muted">
+            <li><strong>Flask</strong> - Framework web minimalista de Python</li>
+            <li><strong>SQLAlchemy</strong> - ORM para trabajar con bases de datos</li>
+            <li><strong>Neon</strong> - PostgreSQL serverless en la nube</li>
+            <li><strong>Jinja2</strong> - Motor de plantillas HTML</li>
+        </ul>
+    </div>
 </div>
+
 {% endblock %}

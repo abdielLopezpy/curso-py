@@ -1,0 +1,394 @@
+{# ============================================================================
+   MACROS - COMPONENTES REUTILIZABLES
+   ============================================================================
+
+   Este archivo contiene macros (componentes) que puedes usar en cualquier
+   plantilla. Los macros te ahorran escribir el mismo HTML una y otra vez.
+
+   CÓMO USAR:
+   ──────────
+   1. Importa los macros en tu plantilla:
+      {% from "macros.html" import campo_texto, boton %}
+
+   2. Usa el macro:
+      {{ campo_texto('nombre', 'Nombre del producto', required=true) }}
+
+   ÍNDICE DE MACROS:
+   ─────────────────
+   1. Formularios: campo_texto, campo_numero, campo_textarea, campo_select
+   2. Botones: boton, boton_eliminar
+   3. Badges: badge_estado, badge_stock
+   4. Tablas: acciones_tabla
+   5. Layout: card
+
+   ============================================================================ #}
+
+
+{# ============================================================================
+   1. FORMULARIOS
+   ============================================================================ #}
+
+{# ----------------------------------------------------------------------------
+   CAMPO DE TEXTO
+   ----------------------------------------------------------------------------
+   Genera un campo de texto completo con label y estilos.
+
+   PARÁMETROS:
+   - name: nombre del campo (requerido)
+   - label: etiqueta visible (requerido)
+   - value: valor inicial (default: '')
+   - type: tipo de input (default: 'text')
+   - placeholder: texto de ayuda (default: '')
+   - required: si es obligatorio (default: false)
+   - help_text: texto de ayuda debajo del campo (default: '')
+
+   EJEMPLO:
+   {{ campo_texto('email', 'Correo electrónico', type='email', required=true) }}
+   ---------------------------------------------------------------------------- #}
+{% macro campo_texto(name, label, value='', type='text', placeholder='', required=false, help_text='') %}
+<div class="form-group">
+    <label for="{{ name }}" class="form-label">
+        {{ label }}{% if required %} *{% endif %}
+    </label>
+    <input type="{{ type }}"
+           id="{{ name }}"
+           name="{{ name }}"
+           value="{{ value }}"
+           placeholder="{{ placeholder }}"
+           class="form-control"
+           {% if required %}required{% endif %}>
+    {% if help_text %}
+    <small class="form-help">{{ help_text }}</small>
+    {% endif %}
+</div>
+{% endmacro %}
+
+
+{# ----------------------------------------------------------------------------
+   CAMPO NUMÉRICO
+   ----------------------------------------------------------------------------
+   Genera un campo para números con validación.
+
+   PARÁMETROS:
+   - name: nombre del campo
+   - label: etiqueta visible
+   - value: valor inicial
+   - min: valor mínimo (default: 0)
+   - max: valor máximo (default: none)
+   - step: incremento (default: '1', usa '0.01' para decimales)
+   - required: si es obligatorio
+
+   EJEMPLO:
+   {{ campo_numero('precio', 'Precio', min=0, step='0.01', required=true) }}
+   ---------------------------------------------------------------------------- #}
+{% macro campo_numero(name, label, value='', min=0, max=None, step='1', required=false) %}
+<div class="form-group">
+    <label for="{{ name }}" class="form-label">
+        {{ label }}{% if required %} *{% endif %}
+    </label>
+    <input type="number"
+           id="{{ name }}"
+           name="{{ name }}"
+           value="{{ value }}"
+           min="{{ min }}"
+           {% if max is not none %}max="{{ max }}"{% endif %}
+           step="{{ step }}"
+           class="form-control"
+           {% if required %}required{% endif %}>
+</div>
+{% endmacro %}
+
+
+{# ----------------------------------------------------------------------------
+   CAMPO TEXTAREA
+   ----------------------------------------------------------------------------
+   Genera un área de texto para descripciones largas.
+
+   PARÁMETROS:
+   - name: nombre del campo
+   - label: etiqueta visible
+   - value: valor inicial
+   - rows: número de filas visibles (default: 4)
+   - placeholder: texto de ayuda
+   - required: si es obligatorio
+
+   EJEMPLO:
+   {{ campo_textarea('descripcion', 'Descripción', rows=6) }}
+   ---------------------------------------------------------------------------- #}
+{% macro campo_textarea(name, label, value='', rows=4, placeholder='', required=false) %}
+<div class="form-group">
+    <label for="{{ name }}" class="form-label">
+        {{ label }}{% if required %} *{% endif %}
+    </label>
+    <textarea id="{{ name }}"
+              name="{{ name }}"
+              rows="{{ rows }}"
+              placeholder="{{ placeholder }}"
+              class="form-control"
+              {% if required %}required{% endif %}>{{ value }}</textarea>
+</div>
+{% endmacro %}
+
+
+{# ----------------------------------------------------------------------------
+   CAMPO SELECT
+   ----------------------------------------------------------------------------
+   Genera un dropdown con opciones.
+
+   PARÁMETROS:
+   - name: nombre del campo
+   - label: etiqueta visible
+   - options: lista de objetos con las opciones
+   - value_attr: atributo a usar como value (default: 'id')
+   - text_attr: atributo a mostrar como texto (default: 'nombre')
+   - selected: valor seleccionado (default: None)
+   - placeholder: texto de la opción vacía (default: '-- Seleccionar --')
+   - required: si es obligatorio
+
+   EJEMPLO:
+   {{ campo_select('categoria_id', 'Categoría', categorias, selected=producto.categoria_id) }}
+   ---------------------------------------------------------------------------- #}
+{% macro campo_select(name, label, options, value_attr='id', text_attr='nombre', selected=None, placeholder='-- Seleccionar --', required=false) %}
+<div class="form-group">
+    <label for="{{ name }}" class="form-label">
+        {{ label }}{% if required %} *{% endif %}
+    </label>
+    <select id="{{ name }}"
+            name="{{ name }}"
+            class="form-control"
+            {% if required %}required{% endif %}>
+        <option value="">{{ placeholder }}</option>
+        {% for option in options %}
+        <option value="{{ option[value_attr] }}"
+                {% if option[value_attr] == selected %}selected{% endif %}>
+            {{ option[text_attr] }}
+        </option>
+        {% endfor %}
+    </select>
+</div>
+{% endmacro %}
+
+
+{# ----------------------------------------------------------------------------
+   CAMPO CHECKBOX
+   ----------------------------------------------------------------------------
+
+   EJEMPLO:
+   {{ campo_checkbox('activo', 'Producto activo', checked=producto.activo) }}
+   ---------------------------------------------------------------------------- #}
+{% macro campo_checkbox(name, label, checked=false) %}
+<div class="form-group">
+    <label class="form-check">
+        <input type="checkbox"
+               id="{{ name }}"
+               name="{{ name }}"
+               {% if checked %}checked{% endif %}>
+        {{ label }}
+    </label>
+</div>
+{% endmacro %}
+
+
+{# ============================================================================
+   2. BOTONES
+   ============================================================================ #}
+
+{# ----------------------------------------------------------------------------
+   BOTÓN
+   ----------------------------------------------------------------------------
+   Genera un botón o enlace con estilos.
+
+   PARÁMETROS:
+   - texto: texto del botón
+   - tipo: variante de color ('primary', 'success', 'danger', 'secondary', 'warning')
+   - url: si se proporciona, es un enlace <a>; si no, es un <button>
+   - submit: si es un botón de submit (default: false)
+   - size: tamaño ('sm', 'lg', o vacío para normal)
+
+   EJEMPLOS:
+   {{ boton('Guardar', 'success', submit=true) }}
+   {{ boton('Cancelar', 'secondary', url=url_for('index')) }}
+   {{ boton('Eliminar', 'danger', size='sm') }}
+   ---------------------------------------------------------------------------- #}
+{% macro boton(texto, tipo='primary', url=None, submit=false, size='') %}
+{% set size_class = 'btn-' + size if size else '' %}
+{% if url %}
+<a href="{{ url }}" class="btn btn-{{ tipo }} {{ size_class }}">{{ texto }}</a>
+{% else %}
+<button type="{{ 'submit' if submit else 'button' }}"
+        class="btn btn-{{ tipo }} {{ size_class }}">
+    {{ texto }}
+</button>
+{% endif %}
+{% endmacro %}
+
+
+{# ----------------------------------------------------------------------------
+   BOTÓN ELIMINAR CON CONFIRMACIÓN
+   ----------------------------------------------------------------------------
+   Genera un formulario con botón que pide confirmación antes de eliminar.
+
+   PARÁMETROS:
+   - url: URL de la acción de eliminar
+   - mensaje: mensaje de confirmación
+   - texto: texto del botón (default: 'Eliminar')
+   - size: tamaño del botón
+
+   EJEMPLO:
+   {{ boton_eliminar(url_for('eliminar_producto', id=producto.id)) }}
+   ---------------------------------------------------------------------------- #}
+{% macro boton_eliminar(url, mensaje='¿Está seguro de eliminar?', texto='Eliminar', size='') %}
+<form action="{{ url }}" method="POST" style="display: inline;"
+      onsubmit="return confirm('{{ mensaje }}');">
+    <button type="submit" class="btn btn-danger {{ 'btn-' + size if size else '' }}">
+        {{ texto }}
+    </button>
+</form>
+{% endmacro %}
+
+
+{# ============================================================================
+   3. BADGES (ETIQUETAS DE ESTADO)
+   ============================================================================ #}
+
+{# ----------------------------------------------------------------------------
+   BADGE DE ESTADO (Activo/Inactivo)
+   ----------------------------------------------------------------------------
+
+   EJEMPLO:
+   {{ badge_estado(producto.activo) }}
+   ---------------------------------------------------------------------------- #}
+{% macro badge_estado(activo, texto_activo='Activo', texto_inactivo='Inactivo') %}
+{% if activo %}
+<span class="badge badge-success">{{ texto_activo }}</span>
+{% else %}
+<span class="badge badge-danger">{{ texto_inactivo }}</span>
+{% endif %}
+{% endmacro %}
+
+
+{# ----------------------------------------------------------------------------
+   BADGE DE STOCK
+   ----------------------------------------------------------------------------
+   Muestra el stock con colores según la cantidad.
+
+   EJEMPLO:
+   {{ badge_stock(producto.stock) }}
+   ---------------------------------------------------------------------------- #}
+{% macro badge_stock(cantidad, limite_bajo=5, limite_medio=15) %}
+{% if cantidad > limite_medio %}
+<span class="badge badge-success">{{ cantidad }}</span>
+{% elif cantidad > limite_bajo %}
+<span class="badge badge-warning">{{ cantidad }}</span>
+{% elif cantidad > 0 %}
+<span class="badge badge-danger">{{ cantidad }}</span>
+{% else %}
+<span class="badge badge-danger">Sin stock</span>
+{% endif %}
+{% endmacro %}
+
+
+{# ----------------------------------------------------------------------------
+   BADGE PERSONALIZADO
+   ----------------------------------------------------------------------------
+
+   EJEMPLO:
+   {{ badge('Nuevo', 'info') }}
+   {{ badge('Oferta', 'success') }}
+   ---------------------------------------------------------------------------- #}
+{% macro badge(texto, tipo='secondary') %}
+<span class="badge badge-{{ tipo }}">{{ texto }}</span>
+{% endmacro %}
+
+
+{# ============================================================================
+   4. TABLAS
+   ============================================================================ #}
+
+{# ----------------------------------------------------------------------------
+   ACCIONES DE TABLA (Editar + Eliminar)
+   ----------------------------------------------------------------------------
+   Genera los botones típicos de acciones en una tabla.
+
+   PARÁMETROS:
+   - editar_url: URL para editar
+   - eliminar_url: URL para eliminar
+   - ver_url: URL para ver detalle (opcional)
+   - confirmar: mensaje de confirmación para eliminar
+
+   EJEMPLO:
+   {{ acciones_tabla(
+       url_for('editar_producto', id=p.id),
+       url_for('eliminar_producto', id=p.id)
+   ) }}
+   ---------------------------------------------------------------------------- #}
+{% macro acciones_tabla(editar_url, eliminar_url, ver_url=None, confirmar='¿Eliminar este elemento?') %}
+<div class="btn-group">
+    {% if ver_url %}
+    <a href="{{ ver_url }}" class="btn btn-secondary btn-sm">Ver</a>
+    {% endif %}
+    <a href="{{ editar_url }}" class="btn btn-primary btn-sm">Editar</a>
+    <form action="{{ eliminar_url }}" method="POST" style="display: inline;"
+          onsubmit="return confirm('{{ confirmar }}');">
+        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+    </form>
+</div>
+{% endmacro %}
+
+
+{# ============================================================================
+   5. LAYOUT
+   ============================================================================ #}
+
+{# ----------------------------------------------------------------------------
+   PÁGINA VACÍA (Empty State)
+   ----------------------------------------------------------------------------
+   Muestra un mensaje cuando no hay datos.
+
+   EJEMPLO:
+   {{ empty_state('No hay productos', url_for('crear_producto'), 'Crear primero') }}
+   ---------------------------------------------------------------------------- #}
+{% macro empty_state(mensaje, url_crear=None, texto_boton='Crear nuevo') %}
+<div class="card">
+    <div class="empty-state">
+        <p>{{ mensaje }}</p>
+        {% if url_crear %}
+        <a href="{{ url_crear }}" class="btn btn-success">+ {{ texto_boton }}</a>
+        {% endif %}
+    </div>
+</div>
+{% endmacro %}
+
+
+{# ----------------------------------------------------------------------------
+   ENCABEZADO DE PÁGINA
+   ----------------------------------------------------------------------------
+   Genera un encabezado con título y botón de acción.
+
+   EJEMPLO:
+   {{ page_header('Productos', url_for('crear_producto'), '+ Nuevo') }}
+   ---------------------------------------------------------------------------- #}
+{% macro page_header(titulo, url_accion=None, texto_accion='+ Nuevo') %}
+<div class="page-header">
+    <h1>{{ titulo }}</h1>
+    {% if url_accion %}
+    <a href="{{ url_accion }}" class="btn btn-success">{{ texto_accion }}</a>
+    {% endif %}
+</div>
+{% endmacro %}
+
+
+{# ----------------------------------------------------------------------------
+   TARJETA DE ESTADÍSTICA
+   ----------------------------------------------------------------------------
+   Muestra un número grande con etiqueta.
+
+   EJEMPLO:
+   {{ stat_card(42, 'Productos') }}
+   ---------------------------------------------------------------------------- #}
+{% macro stat_card(numero, etiqueta) %}
+<div class="stat-card">
+    <div class="stat-number">{{ numero }}</div>
+    <div class="stat-label">{{ etiqueta }}</div>
+</div>
+{% endmacro %}

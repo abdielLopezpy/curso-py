@@ -1,81 +1,81 @@
+{# ============================================================================
+   DETALLE DE CATEGORÍA
+   ============================================================================ #}
+
 {% extends "base.html" %}
+{% from "macros.html" import badge_estado, badge_stock, boton, boton_eliminar %}
 
 {% block title %}{{ categoria.nombre }} - Flask + Neon{% endblock %}
 
 {% block content %}
-<!--
-============================================================================
-DETALLE DE CATEGORÍA
-============================================================================
-Muestra la información completa de una categoría y sus productos.
-============================================================================
--->
 
-<h1>{{ categoria.nombre }}</h1>
+<div class="card mb-4">
+    <div class="card-header">
+        <h1 class="card-title">{{ categoria.nombre }}</h1>
+        {{ badge_estado(categoria.activa) }}
+    </div>
 
-<div class="card">
-    <p><strong>ID:</strong> {{ categoria.id }}</p>
-    <p><strong>Descripción:</strong> {{ categoria.descripcion or 'Sin descripción' }}</p>
-    <p><strong>Estado:</strong>
-        {% if categoria.activa %}
-            <span class="badge badge-success">Activa</span>
-        {% else %}
-            <span class="badge badge-danger">Inactiva</span>
-        {% endif %}
-    </p>
-    <p><strong>Fecha de creación:</strong> {{ categoria.fecha_creacion.strftime('%d/%m/%Y %H:%M') if categoria.fecha_creacion else 'N/A' }}</p>
+    <div class="card-body">
+        <p><strong>Descripción:</strong></p>
+        <p class="text-muted">{{ categoria.descripcion or 'Sin descripción' }}</p>
 
-    <div class="form-actions">
-        <a href="{{ url_for('editar_categoria', id=categoria.id) }}" class="btn btn-primary">Editar</a>
-        <a href="{{ url_for('listar_categorias') }}" class="btn btn-secondary">Volver</a>
+        <p class="mt-3">
+            <strong>Fecha de creación:</strong>
+            <span class="text-muted">
+                {{ categoria.fecha_creacion.strftime('%d/%m/%Y %H:%M') if categoria.fecha_creacion else 'N/A' }}
+            </span>
+        </p>
+    </div>
+
+    <div class="card-footer">
+        <div class="btn-group">
+            {{ boton('Editar', 'primary', url=url_for('editar_categoria', id=categoria.id)) }}
+            {{ boton('Volver', 'secondary', url=url_for('listar_categorias')) }}
+        </div>
     </div>
 </div>
 
-<!-- Productos de esta categoría -->
-<h2 style="margin-top: 2rem;">Productos en esta categoría ({{ categoria.cantidad_productos }})</h2>
+{# Productos de esta categoría #}
+<h2>Productos en esta categoría ({{ categoria.cantidad_productos }})</h2>
 
 {% if categoria.productos %}
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for producto in categoria.productos %}
-            <tr>
-                <td>{{ producto.id }}</td>
-                <td>
-                    <a href="{{ url_for('ver_producto', id=producto.id) }}">
-                        {{ producto.nombre }}
-                    </a>
-                </td>
-                <td>{{ producto.precio_formateado }}</td>
-                <td>
-                    {% if producto.stock > 10 %}
-                        <span class="badge badge-success">{{ producto.stock }}</span>
-                    {% elif producto.stock > 0 %}
-                        <span class="badge badge-warning">{{ producto.stock }}</span>
-                    {% else %}
-                        <span class="badge badge-danger">Sin stock</span>
-                    {% endif %}
-                </td>
-                <td>
-                    <a href="{{ url_for('editar_producto', id=producto.id) }}"
-                       class="btn btn-primary btn-sm">Editar</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in categoria.productos %}
+                <tr>
+                    <td>{{ producto.id }}</td>
+                    <td>
+                        <a href="{{ url_for('ver_producto', id=producto.id) }}">
+                            {{ producto.nombre }}
+                        </a>
+                    </td>
+                    <td>${{ producto.precio | round(2) }}</td>
+                    <td>{{ badge_stock(producto.stock) }}</td>
+                    <td>
+                        {{ boton('Editar', 'primary', url=url_for('editar_producto', id=producto.id), size='sm') }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% else %}
-    <div class="card empty-state">
-        <p>No hay productos en esta categoría.</p>
-        <a href="{{ url_for('crear_producto') }}" class="btn btn-success">Agregar producto</a>
+    <div class="card">
+        <div class="empty-state">
+            <p>No hay productos en esta categoría</p>
+            {{ boton('+ Agregar producto', 'success', url=url_for('crear_producto')) }}
+        </div>
     </div>
 {% endif %}
+
 {% endblock %}

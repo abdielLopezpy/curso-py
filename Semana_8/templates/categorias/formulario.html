@@ -1,59 +1,44 @@
+{# ============================================================================
+   FORMULARIO DE CATEGORÍA
+   ============================================================================ #}
+
 {% extends "base.html" %}
+{% from "macros.html" import campo_texto, campo_textarea, boton %}
 
 {% block title %}
     {% if categoria %}Editar{% else %}Nueva{% endif %} Categoría - Flask + Neon
 {% endblock %}
 
 {% block content %}
-<!--
-============================================================================
-FORMULARIO DE CATEGORÍA
-============================================================================
-Formulario reutilizable para crear y editar categorías.
-Si 'categoria' existe, es edición; si no, es creación.
-============================================================================
--->
 
 <h1>{% if categoria %}Editar{% else %}Nueva{% endif %} Categoría</h1>
 
 <div class="card">
-    <form method="POST">
-        <!-- Campo: Nombre -->
-        <div class="form-group">
-            <label for="nombre">Nombre *</label>
-            <input type="text"
-                   id="nombre"
-                   name="nombre"
-                   value="{{ categoria.nombre if categoria else '' }}"
-                   placeholder="Ej: Electrónica, Ropa, Hogar..."
-                   required>
-        </div>
+    <div class="card-body">
+        <form method="POST" class="form">
 
-        <!-- Campo: Descripción -->
-        <div class="form-group">
-            <label for="descripcion">Descripción</label>
-            <textarea id="descripcion"
-                      name="descripcion"
-                      placeholder="Descripción opcional de la categoría...">{{ categoria.descripcion if categoria else '' }}</textarea>
-        </div>
+            {{ campo_texto(
+                'nombre',
+                'Nombre de la categoría',
+                value=categoria.nombre if categoria else '',
+                placeholder='Ej: Electrónica, Ropa, Hogar...',
+                required=true
+            ) }}
 
-        <!-- Botones de acción -->
-        <div class="form-actions">
-            <button type="submit" class="btn btn-success">
-                {% if categoria %}Guardar Cambios{% else %}Crear Categoría{% endif %}
-            </button>
-            <a href="{{ url_for('listar_categorias') }}" class="btn btn-secondary">Cancelar</a>
-        </div>
-    </form>
+            {{ campo_textarea(
+                'descripcion',
+                'Descripción',
+                value=categoria.descripcion if categoria else '',
+                placeholder='Descripción opcional de la categoría...'
+            ) }}
+
+            <div class="form-actions">
+                {{ boton('Guardar' if categoria else 'Crear Categoría', 'success', submit=true) }}
+                {{ boton('Cancelar', 'secondary', url=url_for('listar_categorias')) }}
+            </div>
+
+        </form>
+    </div>
 </div>
 
-<!--
-============================================================================
-NOTAS PARA AGREGAR NUEVOS CAMPOS:
-============================================================================
-1. Agrega la columna en el modelo (en app_flask.py)
-2. Agrega el campo en este formulario
-3. Agrega el procesamiento en la ruta (request.form['campo'])
-============================================================================
--->
 {% endblock %}

@@ -39,7 +39,7 @@ from datetime import datetime
 # ╔═══════════════════════════════════════════════════════════════════════════╗
 # ║  CONFIGURA TU CADENA DE CONEXIÓN AQUÍ                                     ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝
-DATABASE_URL = "postgresql://usuario:contraseña@ep-xxx.region.aws.neon.tech/neondb?sslmode=require"
+DATABASE_URL = "postgresql://neondb_owner:npg_xnKz5VIdoiv7@ep-hidden-voice-ahdtczjv-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
 
 # Crear el engine y la base
 engine = create_engine(DATABASE_URL, echo=False)

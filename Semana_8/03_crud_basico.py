@@ -44,7 +44,7 @@ from datetime import datetime
 # ╔═══════════════════════════════════════════════════════════════════════════╗
 # ║  CONFIGURA TU CADENA DE CONEXIÓN AQUÍ                                     ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝
-DATABASE_URL = "postgresql://usuario:contraseña@ep-xxx.region.aws.neon.tech/neondb?sslmode=require"
+DATABASE_URL = "postgresql://neondb_owner:npg_xnKz5VIdoiv7@ep-hidden-voice-ahdtczjv-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
 
 # Configuración de SQLAlchemy
 engine = create_engine(DATABASE_URL, echo=False)
@@ -83,7 +83,12 @@ class Producto(Base):
 # CREATE - Crear nuevos registros
 # ============================================================================
 
-def crear_producto(nombre: str, precio: float, descripcion: str = "", stock: int = 0) -> Producto:
+def crear_producto(
+    nombre: str,
+    precio: float,
+    descripcion: str = "",
+    stock: int = 0
+    ) -> Producto:
     """
     Crea un nuevo producto en la base de datos.
 
@@ -122,7 +127,9 @@ def crear_producto(nombre: str, precio: float, descripcion: str = "", stock: int
         return producto
 
 
-def crear_varios_productos(productos_data: list) -> list:
+def crear_varios_productos(
+    productos_data: list
+    ) -> list:
     """
     Crea múltiples productos de una vez.
 
@@ -134,7 +141,7 @@ def crear_varios_productos(productos_data: list) -> list:
 
     Ejemplo:
         datos = [
-            {"nombre": "Mouse", "precio": 29.99},
+            "nombre": "Mouse", "precio": 29.99,
             {"nombre": "Teclado", "precio": 59.99}
         ]
         productos = crear_varios_productos(datos)

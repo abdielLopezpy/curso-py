@@ -1,58 +1,102 @@
+{# ============================================================================
+   DETALLE DE PRODUCTO
+   ============================================================================
+   Muestra toda la información de un producto específico.
+
+   DATOS RECIBIDOS DESDE PYTHON:
+   - producto: objeto Producto con todos sus atributos
+
+   PARA CREAR UNA PÁGINA DE DETALLE SIMILAR:
+   1. Copia este archivo a templates/tu_entidad/detalle.html
+   2. Cambia los campos que se muestran
+   3. Actualiza las URLs
+   ============================================================================ #}
+
 {% extends "base.html" %}
+
+{# Importar macros #}
+{% from "macros.html" import badge_estado, badge_stock, boton, boton_eliminar %}
 
 {% block title %}{{ producto.nombre }} - Flask + Neon{% endblock %}
 
 {% block content %}
-<!--
-============================================================================
-DETALLE DE PRODUCTO
-============================================================================
-Muestra la información completa de un producto.
-============================================================================
--->
 
-<h1>{{ producto.nombre }}</h1>
-
+{# ============================================================================
+   TARJETA DE DETALLE
+   ============================================================================ #}
 <div class="card">
-    <p><strong>ID:</strong> {{ producto.id }}</p>
-    <p><strong>Descripción:</strong> {{ producto.descripcion or 'Sin descripción' }}</p>
-    <p><strong>Precio:</strong> <span style="font-size: 1.5em; color: #27ae60;">{{ producto.precio_formateado }}</span></p>
-    <p><strong>Stock:</strong>
-        {% if producto.stock > 10 %}
-            <span class="badge badge-success">{{ producto.stock }} unidades</span>
-        {% elif producto.stock > 0 %}
-            <span class="badge badge-warning">{{ producto.stock }} unidades (bajo stock)</span>
-        {% else %}
-            <span class="badge badge-danger">Sin stock</span>
-        {% endif %}
-    </p>
-    <p><strong>Categoría:</strong>
-        {% if producto.categoria %}
-            <a href="{{ url_for('ver_categoria', id=producto.categoria.id) }}">
-                {{ producto.categoria.nombre }}
-            </a>
-        {% else %}
-            <span style="color: #999;">Sin categoría</span>
-        {% endif %}
-    </p>
-    <p><strong>Estado:</strong>
-        {% if producto.activo %}
-            <span class="badge badge-success">Activo</span>
-        {% else %}
-            <span class="badge badge-danger">Inactivo</span>
-        {% endif %}
-    </p>
-    <p><strong>Fecha de creación:</strong> {{ producto.fecha_creacion.strftime('%d/%m/%Y %H:%M') if producto.fecha_creacion else 'N/A' }}</p>
+    {# ------------------------------------------------------------------------
+       ENCABEZADO
+       ------------------------------------------------------------------------ #}
+    <div class="card-header">
+        <h1 class="card-title">{{ producto.nombre }}</h1>
+        {{ badge_estado(producto.activo) }}
+    </div>
 
-    <div class="form-actions">
-        <a href="{{ url_for('editar_producto', id=producto.id) }}" class="btn btn-primary">Editar</a>
-        <form action="{{ url_for('eliminar_producto', id=producto.id) }}"
-              method="POST"
-              style="display: inline;"
-              onsubmit="return confirm('¿Eliminar este producto?');">
-            <button type="submit" class="btn btn-danger">Eliminar</button>
-        </form>
-        <a href="{{ url_for('listar_productos') }}" class="btn btn-secondary">Volver</a>
+    {# ------------------------------------------------------------------------
+       CUERPO - Información del producto
+       ------------------------------------------------------------------------ #}
+    <div class="card-body">
+        <div class="grid-2">
+            {# Columna izquierda: Descripción #}
+            <div>
+                <p><strong>Descripción:</strong></p>
+                <p class="text-muted">
+                    {{ producto.descripcion or 'Sin descripción' }}
+                </p>
+            </div>
+
+            {# Columna derecha: Detalles #}
+            <div>
+                <p>
+                    <strong>Precio:</strong>
+                    <span style="font-size: 1.5em; color: var(--color-success);">
+                        ${{ producto.precio | round(2) }}
+                    </span>
+                </p>
+
+                <p>
+                    <strong>Stock:</strong>
+                    {{ badge_stock(producto.stock) }}
+                    {% if producto.stock > 0 %}
+                        unidades
+                    {% endif %}
+                </p>
+
+                <p>
+                    <strong>Categoría:</strong>
+                    {% if producto.categoria %}
+                        <a href="{{ url_for('ver_categoria', id=producto.categoria.id) }}">
+                            {{ producto.categoria.nombre }}
+                        </a>
+                    {% else %}
+                        <span class="text-muted">Sin categoría</span>
+                    {% endif %}
+                </p>
+
+                <p>
+                    <strong>Fecha de creación:</strong>
+                    <span class="text-muted">
+                        {{ producto.fecha_creacion.strftime('%d/%m/%Y %H:%M') if producto.fecha_creacion else 'N/A' }}
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    {# ------------------------------------------------------------------------
+       PIE - Acciones
+       ------------------------------------------------------------------------ #}
+    <div class="card-footer">
+        <div class="btn-group">
+            {{ boton('Editar', 'primary', url=url_for('editar_producto', id=producto.id)) }}
+            {{ boton_eliminar(
+                url_for('eliminar_producto', id=producto.id),
+                mensaje='¿Eliminar el producto "' ~ producto.nombre ~ '"?'
+            ) }}
+            {{ boton('Volver a la lista', 'secondary', url=url_for('listar_productos')) }}
+        </div>
     </div>
 </div>
+
 {% endblock %}

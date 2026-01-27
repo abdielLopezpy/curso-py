@@ -1,89 +1,125 @@
+{# ============================================================================
+   LISTA DE PRODUCTOS
+   ============================================================================
+   Muestra todos los productos en una tabla con acciones CRUD.
+
+   DATOS RECIBIDOS DESDE PYTHON:
+   - productos: lista de objetos Producto
+
+   PARA CREAR UNA LISTA SIMILAR PARA OTRA ENTIDAD:
+   1. Copia este archivo a templates/tu_entidad/lista.html
+   2. Cambia 'productos' por tu variable
+   3. Ajusta las columnas de la tabla
+   4. Actualiza las URLs (url_for)
+   ============================================================================ #}
+
 {% extends "base.html" %}
+
+{# Importar los macros que vamos a usar #}
+{% from "macros.html" import page_header, badge_stock, badge_estado, acciones_tabla, empty_state %}
 
 {% block title %}Productos - Flask + Neon{% endblock %}
 
 {% block content %}
-<!--
-============================================================================
-LISTA DE PRODUCTOS
-============================================================================
-Muestra todos los productos en una tabla con acciones CRUD.
-============================================================================
--->
 
-<div class="card-header">
-    <h1>Productos</h1>
-    <a href="{{ url_for('crear_producto') }}" class="btn btn-success">+ Nuevo Producto</a>
-</div>
+{# ============================================================================
+   ENCABEZADO DE PÁGINA
+   ============================================================================
+   El macro page_header genera un título con botón de acción.
+   Parámetros: (titulo, url_accion, texto_boton)
+   ============================================================================ #}
+{{ page_header('Productos', url_for('crear_producto'), '+ Nuevo Producto') }}
 
+
+{# ============================================================================
+   TABLA DE PRODUCTOS
+   ============================================================================
+   Verificamos si hay productos antes de mostrar la tabla.
+   Si no hay, mostramos un estado vacío con empty_state.
+   ============================================================================ #}
 {% if productos %}
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Categoría</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for producto in productos %}
-            <tr>
-                <td>{{ producto.id }}</td>
-                <td>
-                    <a href="{{ url_for('ver_producto', id=producto.id) }}">
-                        {{ producto.nombre }}
-                    </a>
-                </td>
-                <td>
-                    {% if producto.categoria %}
-                        <a href="{{ url_for('ver_categoria', id=producto.categoria.id) }}">
-                            {{ producto.categoria.nombre }}
+    <div class="table-responsive">
+        <table class="table table-hover">
+            {# ------------------------------------------------------------
+               ENCABEZADO DE LA TABLA
+               ------------------------------------------------------------ #}
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            {# ------------------------------------------------------------
+               CUERPO DE LA TABLA
+               ------------------------------------------------------------
+               Iteramos sobre cada producto y mostramos sus datos.
+               Usamos macros para badges y acciones.
+               ------------------------------------------------------------ #}
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    {# ID #}
+                    <td>{{ producto.id }}</td>
+
+                    {# Nombre con enlace al detalle #}
+                    <td>
+                        <a href="{{ url_for('ver_producto', id=producto.id) }}">
+                            {{ producto.nombre }}
                         </a>
-                    {% else %}
-                        <span style="color: #999;">Sin categoría</span>
-                    {% endif %}
-                </td>
-                <td>{{ producto.precio_formateado }}</td>
-                <td>
-                    {% if producto.stock > 10 %}
-                        <span class="badge badge-success">{{ producto.stock }}</span>
-                    {% elif producto.stock > 0 %}
-                        <span class="badge badge-warning">{{ producto.stock }}</span>
-                    {% else %}
-                        <span class="badge badge-danger">Sin stock</span>
-                    {% endif %}
-                </td>
-                <td>
-                    {% if producto.activo %}
-                        <span class="badge badge-success">Activo</span>
-                    {% else %}
-                        <span class="badge badge-danger">Inactivo</span>
-                    {% endif %}
-                </td>
-                <td>
-                    <div class="actions">
-                        <a href="{{ url_for('editar_producto', id=producto.id) }}"
-                           class="btn btn-primary btn-sm">Editar</a>
-                        <form action="{{ url_for('eliminar_producto', id=producto.id) }}"
-                              method="POST"
-                              style="display: inline;"
-                              onsubmit="return confirm('¿Eliminar este producto?');">
-                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <div class="card empty-state">
-        <p>No hay productos registrados.</p>
-        <a href="{{ url_for('crear_producto') }}" class="btn btn-success">Crear primer producto</a>
+                    </td>
+
+                    {# Categoría (puede ser None) #}
+                    <td>
+                        {% if producto.categoria %}
+                            <a href="{{ url_for('ver_categoria', id=producto.categoria.id) }}">
+                                {{ producto.categoria.nombre }}
+                            </a>
+                        {% else %}
+                            <span class="text-muted">Sin categoría</span>
+                        {% endif %}
+                    </td>
+
+                    {# Precio formateado #}
+                    <td>${{ producto.precio | round(2) }}</td>
+
+                    {# Stock con badge de color según cantidad #}
+                    <td>{{ badge_stock(producto.stock) }}</td>
+
+                    {# Estado activo/inactivo #}
+                    <td>{{ badge_estado(producto.activo) }}</td>
+
+                    {# Botones de acción #}
+                    <td>
+                        {{ acciones_tabla(
+                            url_for('editar_producto', id=producto.id),
+                            url_for('eliminar_producto', id=producto.id),
+                            confirmar='¿Eliminar el producto "' ~ producto.nombre ~ '"?'
+                        ) }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+
+{% else %}
+    {# ========================================================================
+       ESTADO VACÍO
+       ========================================================================
+       Se muestra cuando no hay productos.
+       El macro empty_state genera un mensaje con botón opcional.
+       ======================================================================== #}
+    {{ empty_state(
+        'No hay productos registrados',
+        url_for('crear_producto'),
+        'Crear primer producto'
+    ) }}
 {% endif %}
+
 {% endblock %}
