@@ -487,9 +487,8 @@ if __name__ == '__main__':
     print("SEMANA 8: Aplicación Flask con Neon")
     print("=" * 70)
 
-    # Crear las tablas (reset=True elimina y recrea las tablas)
-    # Cambia a reset=False después de la primera ejecución para conservar datos
-    crear_tablas(reset=True)
+    # Crear las tablas (reset=False conserva los datos existentes)
+    crear_tablas(reset=False)
 
     print("""
 ╔═══════════════════════════════════════════════════════════════════════════╗
