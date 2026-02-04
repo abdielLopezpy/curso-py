@@ -2,17 +2,22 @@
 
 Bienvenido a la Semana 8 del curso. Esta semana aprenderás a crear **aplicaciones web con Flask** usando **Neon**, una base de datos PostgreSQL serverless moderna y gratuita.
 
+**⚡ NUEVO:** Esta semana también incluye una **introducción completa a HTML y CSS** para que entiendas cómo funcionan los motores de plantillas y puedas crear interfaces web profesionales.
+
 ---
 
 ## Objetivos de Aprendizaje
 
 Al finalizar esta semana serás capaz de:
 
-- Configurar una base de datos PostgreSQL en Neon (gratis)
-- Conectar Flask con PostgreSQL usando SQLAlchemy
-- Crear modelos y realizar operaciones CRUD
-- Construir una aplicación web completa
-- Agregar nuevas entidades fácilmente
+- 🌐 **Dominar HTML y CSS** para crear interfaces web modernas
+- 🎨 **Entender cómo funcionan los motores de plantillas** (Jinja2)
+- 💾 Configurar una base de datos PostgreSQL en Neon (gratis)
+- 🔗 Conectar Flask con PostgreSQL usando SQLAlchemy
+- 📊 Crear modelos y realizar operaciones CRUD
+- 🚀 Construir una aplicación web completa con diseño responsivo
+- ➕ Agregar nuevas entidades fácilmente
+- 📱 Crear formularios interactivos y componentes reutilizables
 
 ---
 
@@ -45,6 +50,13 @@ Al finalizar esta semana serás capaz de:
 ```
 Semana_8/
 ├── README_SEMANA_8.md              <-- Este archivo
+├── GUIA_HTML_CSS.md                📖 Guía completa de HTML y CSS
+├── GUIA_JINJA2.md                  📖 Guía del motor de plantillas
+│
+├── ejemplos_html_css/              🎯 EJEMPLOS PRÁCTICOS NUEVOS
+│   ├── 01_basico.html              HTML básico con ejemplos
+│   ├── 02_css_avanzado.html        CSS moderno y responsivo
+│   └── 03_flask_integrado.py       Aplicación Flask completa
 │
 ├── 01_intro_neon.py                Paso 1: Conectar con Neon
 ├── 02_modelos_sqlalchemy.py        Paso 2: Definir modelos
@@ -65,7 +77,8 @@ Semana_8/
 │       └── formulario.html
 │
 └── static/                         Archivos estáticos
-    └── style.css                   Estilos CSS
+    └── css/
+        └── styles.css              Estilos CSS avanzados
 ```
 
 ---
@@ -388,17 +401,43 @@ def eliminar_mi_entidad(id):
 
 ---
 
-## Orden de Estudio Recomendado
+## 🗺️ Orden de Estudio Recomendado
 
-1. **`01_intro_neon.py`** - Configurar y probar conexión
-2. **`02_modelos_sqlalchemy.py`** - Entender los modelos
-3. **`03_crud_basico.py`** - Practicar operaciones CRUD
-4. **`04_relaciones.py`** - Relaciones entre tablas
-5. **`app_flask.py`** - Ejecutar la aplicación completa
+### Parte 1: Fundamentos Web (NUEVO)
+1. **`GUIA_HTML_CSS.md`** - 📖 Leer la guía completa de HTML y CSS
+2. **`ejemplos_html_css/01_basico.html`** - 🌐 Abrir en el navegador para ver HTML básico
+3. **`ejemplos_html_css/02_css_avanzado.html`** - 🎨 Ver CSS moderno en acción
+4. **`ejemplos_html_css/03_flask_integrado.py`** - 🚀 Ejecutar aplicación Flask completa
+
+### Parte 2: Base de Datos y Backend
+5. **`01_intro_neon.py`** - 💾 Configurar y probar conexión con Neon
+6. **`02_modelos_sqlalchemy.py`** - 📊 Entender los modelos
+7. **`03_crud_basico.py`** - ⚙️ Practicar operaciones CRUD
+8. **`04_relaciones.py`** - 🔗 Relaciones entre tablas
+
+### Parte 3: Integración Completa
+9. **`app_flask.py`** - 🎯 Ejecutar la aplicación completa
+10. **`GUIA_JINJA2.md`** - 📖 Dominar el motor de plantillas
 
 ---
 
-## Ejecutar la Aplicación
+## 🚀 Ejecutar las Aplicaciones
+
+### Ejemplos HTML/CSS (SIN base de datos)
+
+```bash
+# 1. Ver HTML básico
+# Abrir ejemplos_html_css/01_basico.html en tu navegador
+
+# 2. Ver CSS avanzado  
+# Abrir ejemplos_html_css/02_css_avanzado.html en tu navegador
+
+# 3. Ejecutar aplicación Flask integrada (con datos simulados)
+python ejemplos_html_css/03_flask_integrado.py
+# Abrir: http://localhost:5000
+```
+
+### Aplicación completa con Neon (CON base de datos)
 
 ```bash
 # Asegúrate de tener las dependencias instaladas
@@ -413,23 +452,34 @@ python app_flask.py
 
 ---
 
-## Checklist de la Semana
+## ✅ Checklist de la Semana
 
-### Configuración
+### 🌐 Fundamentos Web (NUEVO)
+- [ ] Leí la `GUIA_HTML_CSS.md` completa
+- [ ] Abrí `01_basico.html` en el navegador
+- [ ] Exploré `02_css_avanzado.html` y sus efectos
+- [ ] Ejecuté `03_flask_integrado.py` correctamente
+- [ ] Entiendo cómo HTML + CSS + Flask trabajan juntos
+- [ ] Comprendo el concepto de diseño responsivo
+- [ ] Sé crear formularios HTML funcionales
+
+### 💾 Base de Datos y Backend
 - [ ] Creé una cuenta en Neon
 - [ ] Creé un proyecto y obtuve la cadena de conexión
 - [ ] Instalé las dependencias
-
-### Práctica
 - [ ] Ejecuté `01_intro_neon.py` y conecté con Neon
 - [ ] Entendí los modelos en `02_modelos_sqlalchemy.py`
 - [ ] Practiqué CRUD en `03_crud_basico.py`
 - [ ] Entendí las relaciones en `04_relaciones.py`
 - [ ] Ejecuté `app_flask.py`
 
-### Proyecto
-- [ ] Agregué una nueva entidad
+### 🎯 Integración y Proyecto
+- [ ] Entiendo cómo Jinja2 conecta Python con HTML
+- [ ] Sé usar variables, filtros y bucles en plantillas
+- [ ] Agregué una nueva entidad al proyecto
 - [ ] La aplicación funciona correctamente
+- [ ] Puedo crear formularios que envían datos a Flask
+- [ ] Entiendo la estructura MVC (Model-View-Controller)
 
 ---
 
@@ -448,14 +498,43 @@ python app_flask.py
 
 ---
 
-## Recursos
+## 📚 Recursos Adicionales
 
-- [Documentación de Neon](https://neon.tech/docs)
+### HTML y CSS
+- [MDN Web Docs - HTML](https://developer.mozilla.org/es/docs/Web/HTML)
+- [MDN Web Docs - CSS](https://developer.mozilla.org/es/docs/Web/CSS)
+- [CSS Grid Guide](https://css-tricks.com/snippets/css/complete-guide-grid/)
+- [Flexbox Guide](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+
+### Flask y Jinja2  
 - [Documentación de Flask](https://flask.palletsprojects.com/)
-- [Documentación de SQLAlchemy](https://docs.sqlalchemy.org/)
+- [Documentación de Jinja2](https://jinja.palletsprojects.com/)
+- [SQLAlchemy](https://docs.sqlalchemy.org/)
+
+### Base de Datos
+- [Documentación de Neon](https://neon.tech/docs)
+- [PostgreSQL Tutorial](https://www.postgresql.org/docs/)
 
 ---
 
-**¡Bienvenido al desarrollo web con bases de datos en la nube!**
+---
 
-> "La mejor base de datos es la que no tienes que administrar."
+## 🎉 ¡Felicitaciones!
+
+Al completar esta semana, habrás aprendido:
+
+- ✅ **HTML semántico** para estructurar contenido web
+- ✅ **CSS moderno** con Grid, Flexbox y efectos avanzados  
+- ✅ **Diseño responsivo** que funciona en móvil, tablet y desktop
+- ✅ **Flask** para crear aplicaciones web robustas
+- ✅ **Jinja2** para conectar Python con HTML dinámicamente
+- ✅ **PostgreSQL en la nube** con Neon
+- ✅ **Arquitectura MVC** para organizar tu código
+
+**¡Ahora tienes todas las herramientas para crear aplicaciones web completas y profesionales!**
+
+> *"El diseño no es solo cómo se ve o cómo se siente. El diseño es cómo funciona."* - Steve Jobs
+
+---
+
+**🌟 ¡Bienvenido al desarrollo web full-stack!**

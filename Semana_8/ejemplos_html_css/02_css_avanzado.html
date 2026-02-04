@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Avanzado - Ejemplos Prácticos</title>
+
+    <style>
+        /* ========================================================================
+           VARIABLES CSS (CUSTOM PROPERTIES)
+           ======================================================================== */
+        :root {
+            /* Colores principales */
+            --color-primary: #3498db;
+            --color-secondary: #2c3e50;
+            --color-success: #27ae60;
+            --color-warning: #f39c12;
+            --color-danger: #e74c3c;
+            --color-info: #17a2b8;
+
+            /* Colores neutros */
+            --color-light: #f8f9fa;
+            --color-dark: #343a40;
+            --color-muted: #6c757d;
+
+            /* Tipografía */
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-size-base: 16px;
+            --font-weight-normal: 400;
+            --font-weight-bold: 700;
+            --line-height: 1.6;
+
+            /* Espaciado */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 3rem;
+
+            /* Bordes */
+            --border-radius: 0.375rem;
+            --border-radius-lg: 0.75rem;
+            --border-width: 1px;
+
+            /* Sombras */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+
+            /* Transiciones */
+            --transition-fast: 0.15s ease-in-out;
+            --transition-normal: 0.3s ease-in-out;
+            --transition-slow: 0.5s ease-in-out;
+        }
+
+        /* ========================================================================
+           RESET Y BASE
+           ======================================================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height);
+            color: var(--color-dark);
+            background-color: var(--color-light);
+        }
+
+        /* ========================================================================
+           LAYOUT CON CSS GRID
+           ======================================================================== */
+        .page-layout {
+            display: grid;
+            grid-template-areas:
+                "header header"
+                "sidebar main"
+                "footer footer";
+            grid-template-columns: 250px 1fr;
+            grid-template-rows: auto 1fr auto;
+            min-height: 100vh;
+            gap: 0;
+        }
+
+        .header {
+            grid-area: header;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            padding: var(--spacing-lg);
+            text-align: center;
+        }
+
+        .sidebar {
+            grid-area: sidebar;
+            background: white;
+            padding: var(--spacing-lg);
+            border-right: var(--border-width) solid #e9ecef;
+        }
+
+        .main {
+            grid-area: main;
+            padding: var(--spacing-lg);
+            overflow-x: hidden;
+        }
+
+        .footer {
+            grid-area: footer;
+            background: var(--color-secondary);
+            color: white;
+            text-align: center;
+            padding: var(--spacing-md);
+        }
+
+        /* ========================================================================
+           NAVEGACIÓN CON FLEXBOX
+           ======================================================================== */
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .nav-item {
+            display: block;
+            padding: var(--spacing-md);
+            color: var(--color-dark);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+            transition: var(--transition-normal);
+        }
+
+        .nav-item:hover {
+            background-color: var(--color-primary);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .nav-item:hover::before {
+            left: 100%;
+        }
+
+        /* ========================================================================
+           COMPONENTES CON FLEXBOX Y GRID
+           ======================================================================== */
+
+        /* Cards Grid Responsivo */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            transition: var(--transition-normal);
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-success));
+            transform: scaleX(0);
+            transition: var(--transition-normal);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-header {
+            padding: var(--spacing-lg);
+            background: var(--color-light);
+            border-bottom: var(--border-width) solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: var(--font-weight-bold);
+            color: var(--color-secondary);
+        }
+
+        .card-body {
+            padding: var(--spacing-lg);
+        }
+
+        .card-footer {
+            padding: var(--spacing-lg);
+            background: var(--color-light);
+            border-top: var(--border-width) solid #e9ecef;
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: flex-end;
+        }
+
+        /* ========================================================================
+           BOTONES AVANZADOS CON EFECTOS
+           ======================================================================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-md) var(--spacing-lg);
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-normal);
+            text-decoration: none;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+            gap: var(--spacing-sm);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: var(--transition-fast);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Variantes de botones */
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-success {
+            background-color: var(--color-success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #229954;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-danger {
+            background-color: var(--color-danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--color-primary);
+            border: 2px solid var(--color-primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--color-primary);
+            color: white;
+        }
+
+        /* ========================================================================
+           FORMULARIOS AVANZADOS
+           ======================================================================== */
+        .form-advanced {
+            background: white;
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            font-weight: var(--font-weight-bold);
+            color: var(--color-secondary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-base);
+            transition: var(--transition-normal);
+            background: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .form-control:valid {
+            border-color: var(--color-success);
+        }
+
+        .form-control:invalid:not(:placeholder-shown) {
+            border-color: var(--color-danger);
+        }
+
+        /* Input con animación de placeholder */
+        .floating-label {
+            position: relative;
+        }
+
+        .floating-label input {
+            padding-top: 1.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .floating-label label {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            transition: var(--transition-normal);
+            pointer-events: none;
+            color: var(--color-muted);
+        }
+
+        .floating-label input:focus + label,
+        .floating-label input:not(:placeholder-shown) + label {
+            top: 0.25rem;
+            font-size: 0.875rem;
+            color: var(--color-primary);
+        }
+
+        /* ========================================================================
+           TABLA AVANZADA CON EFECTOS
+           ======================================================================== */
+        .table-container {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            margin: var(--spacing-lg) 0;
+        }
+
+        .table-advanced {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-advanced th {
+            background: linear-gradient(135deg, var(--color-secondary), #34495e);
+            color: white;
+            padding: var(--spacing-lg);
+            text-align: left;
+            font-weight: var(--font-weight-bold);
+            position: relative;
+        }
+
+        .table-advanced th::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--color-primary);
+        }
+
+        .table-advanced td {
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid #e9ecef;
+            transition: var(--transition-fast);
+        }
+
+        .table-advanced tr:hover td {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        .table-advanced tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ========================================================================
+           MODAL AVANZADO
+           ======================================================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn var(--transition-normal);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-xl);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp var(--transition-normal);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid #e9ecef;
+            background: var(--color-light);
+        }
+
+        .modal-body {
+            padding: var(--spacing-lg);
+        }
+
+        .modal-footer {
+            padding: var(--spacing-lg);
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: flex-end;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--color-muted);
+            transition: var(--transition-fast);
+        }
+
+        .modal-close:hover {
+            color: var(--color-danger);
+        }
+
+        /* ========================================================================
+           ANIMACIONES Y KEYFRAMES
+           ======================================================================== */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Clases de animación */
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        .animate-slide-in {
+            animation: slideInLeft 0.5s ease-out;
+        }
+
+        /* ========================================================================
+           LOADING SPINNER AVANZADO
+           ======================================================================== */
+        .spinner-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--color-light);
+            border-top: 4px solid var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .spinner-dots {
+            display: flex;
+            gap: 5px;
+        }
+
+        .spinner-dots div {
+            width: 10px;
+            height: 10px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            animation: pulse 1.4s ease-in-out infinite both;
+        }
+
+        .spinner-dots div:nth-child(1) { animation-delay: -0.32s; }
+        .spinner-dots div:nth-child(2) { animation-delay: -0.16s; }
+        .spinner-dots div:nth-child(3) { animation-delay: 0s; }
+
+        /* ========================================================================
+           PROGRESS BAR ANIMADO
+           ======================================================================== */
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e9ecef;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin: var(--spacing-md) 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-success));
+            border-radius: var(--border-radius);
+            transition: width var(--transition-slow);
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* ========================================================================
+           BADGES Y TAGS
+           ======================================================================== */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            font-size: 0.875rem;
+            font-weight: var(--font-weight-bold);
+            border-radius: var(--border-radius);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-success {
+            background-color: var(--color-success);
+            color: white;
+        }
+
+        .badge-warning {
+            background-color: var(--color-warning);
+            color: white;
+        }
+
+        .badge-danger {
+            background-color: var(--color-danger);
+            color: white;
+        }
+
+        .badge-info {
+            background-color: var(--color-info);
+            color: white;
+        }
+
+        /* ========================================================================
+           RESPONSIVE DESIGN
+           ======================================================================== */
+
+        /* Tablets y pantallas medianas */
+        @media (max-width: 1024px) {
+            .page-layout {
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "footer";
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .cards-container {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        /* Móviles */
+        @media (max-width: 768px) {
+            :root {
+                --font-size-base: 14px;
+                --spacing-lg: 1rem;
+                --spacing-xl: 2rem;
+            }
+
+            .header {
+                padding: var(--spacing-md);
+            }
+
+            .main {
+                padding: var(--spacing-md);
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn {
+                width: 100%;
+                margin-bottom: var(--spacing-sm);
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 1rem;
+            }
+        }
+
+        /* Móviles pequeños */
+        @media (max-width: 480px) {
+            .table-container {
+                overflow-x: auto;
+            }
+
+            .table-advanced {
+                min-width: 600px;
+            }
+        }
+
+        /* ========================================================================
+           UTILIDADES Y HELPERS
+           ======================================================================== */
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+
+        .d-flex { display: flex; }
+        .d-grid { display: grid; }
+        .d-none { display: none; }
+        .d-block { display: block; }
+
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-end { justify-content: flex-end; }
+
+        .align-center { align-items: center; }
+        .align-start { align-items: flex-start; }
+        .align-end { align-items: flex-end; }
+
+        .gap-sm { gap: var(--spacing-sm); }
+        .gap-md { gap: var(--spacing-md); }
+        .gap-lg { gap: var(--spacing-lg); }
+
+        .mt-sm { margin-top: var(--spacing-sm); }
+        .mt-md { margin-top: var(--spacing-md); }
+        .mt-lg { margin-top: var(--spacing-lg); }
+        .mb-sm { margin-bottom: var(--spacing-sm); }
+        .mb-md { margin-bottom: var(--spacing-md); }
+        .mb-lg { margin-bottom: var(--spacing-lg); }
+
+        .p-sm { padding: var(--spacing-sm); }
+        .p-md { padding: var(--spacing-md); }
+        .p-lg { padding: var(--spacing-lg); }
+
+        /* ========================================================================
+           EFECTOS ESPECIALES
+           ======================================================================== */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .neon-glow {
+            box-shadow:
+                0 0 5px var(--color-primary),
+                0 0 10px var(--color-primary),
+                0 0 15px var(--color-primary),
+                0 0 20px var(--color-primary);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+
+<body class="page-layout">
+    <!-- HEADER -->
+    <header class="header">
+        <h1 class="gradient-text">🎨 CSS Avanzado</h1>
+        <p>Ejemplos prácticos de técnicas modernas de CSS</p>
+    </header>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h3>Navegación</h3>
+        <nav></nav>
+            <ul class="nav-menu">
+                <li><a href="#grid" class="nav-item">🏗️ CSS Grid</a></li>
+                <li><a href="#flexbox" class="nav-item">📦 Flexbox</a></li>
+                <li><a href="#animations" class="nav-item">✨ Animaciones</a></li>
+                <li><a href="#components" class="nav-item">🧩 Componentes</a></li>
+                <li><a href="#forms" class="nav-item">📝 Formularios</a></li>
+                <li><a href="#effects" class="nav-item">🎭 Efectos</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        <!-- SECCIÓN: CARDS CON GRID -->
+        <section id="grid">
+            <h2>🏗️ CSS Grid - Layout de Tarjetas</h2>
+            <p>Grid automático que se adapta al tamaño de la pantalla:</p>
+
+            <div class="cards-container">
+                <div class="card animate-slide-in">
+                    <div class="card-header">
+                        <h3 class="card-title">Producto 1</h3>
+                        <span class="badge badge-success">Nuevo</span>
+                    </div>
+                    <div class="card-body">
+                        <p>Este es un ejemplo de tarjeta con efectos avanzados de CSS. Hover para ver la animación.</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%;"></div>
+                        </div>
+                        <p><small>Progreso: 75%</small></p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline">Ver más</button>
+                        <button class="btn btn-primary">Comprar</button>
+                    </div>
+                </div>
+
+                <div class="card animate-slide-in" style="animation-delay: 0.1s;">
+                    <div class="card-header">
+                        <h3 class="card-title">Producto 2</h3>
+                        <span class="badge badge-warning">Popular</span>
+                    </div>
+                    <div class="card-body">
+                        <p>Otra tarjeta con animaciones CSS personalizadas y efectos de hover modernos.</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 45%;"></div>
+                        </div>
+                        <p><small>Progreso: 45%</small></p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline">Ver más</button>
+                        <button class="btn btn-success">Agregar</button>
+                    </div>
+                </div>
+
+                <div class="card animate-slide-in" style="animation-delay: 0.2s;">
+                    <div class="card-header">
+                        <h3 class="card-title">Producto 3</h3>
+                        <span class="badge badge-danger">Oferta</span>
+                    </div>
+                    <div class="card-body">
+                        <p>Ejemplo con diferentes estados y efectos visuales avanzados usando CSS puro.</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 90%;"></div>
+                        </div>
+                        <p><small>Progreso: 90%</small></p>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-outline">Ver más</button>
+                        <button class="btn btn-danger">¡Oferta!</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: FORMULARIO AVANZADO -->
+        <section id="forms">
+            <h2>📝 Formulario con Efectos Avanzados</h2>
+
+            <form class="form-advanced">
+                <div class="form-grid">
+                    <div class="floating-label form-group">
+                        <input type="text" id="nombre" name="nombre" class="form-control" placeholder=" " required>
+                        <label for="nombre">Nombre completo</label>
+                    </div>
+
+                    <div class="floating-label form-group">
+                        <input type="email" id="email" name="email" class="form-control" placeholder=" " required>
+                        <label for="email">Correo electrónico</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="mensaje" class="form-label">Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" class="form-control" rows="4" required placeholder="Escribe tu mensaje aquí..."></textarea>
+                </div>
+
+                <div class="d-flex gap-md justify-end">
+                    <button type="reset" class="btn btn-outline">Limpiar</button>
+                    <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- SECCIÓN: TABLA AVANZADA -->
+        <section>
+            <h2>📊 Tabla con Efectos Visuales</h2>
+
+            <div class="table-container">
+                <table class="table-advanced">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>001</td>
+                            <td>Laptop Gaming</td>
+                            <td>$1,299.99</td>
+                            <td>15</td>
+                            <td></td><span class="badge badge-success">Disponible</span></td>
+                        </tr>
+                        <tr>
+                            <td>002</td>
+                            <td>Mouse Inalámbrico</td>
+                            <td>$29.99</td>
+                            <td>0</td>
+                            <td><span class="badge badge-danger">Agotado</span></td>
+                        </tr>
+                        <tr>
+                            <td>003</td>
+                            <td>Teclado Mecánico</td>
+                            <td>$89.99</td>
+                            <td>8</td>
+                            <td><span class="badge badge-warning">Poco Stock</span></td>
+                        </tr>
+                        <tr>
+                            <td>004</td>
+                            <td>Monitor 4K</td>
+                            <td>$399.99</td>
+                            <td>25</td>
+                            <td><span class="badge badge-info">Nuevo</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: ANIMACIONES Y EFECTOS -->
+        <section id="animations">
+            <h2>✨ Animaciones y Efectos Especiales</h2>
+
+            <div class="d-flex gap-lg mb-lg">
+                <div class="card animate-pulse">
+                    <div class="card-body text-center">
+                        <h4></h4>Efecto Pulse</h4>
+                        <p>Esta tarjeta pulsa continuamente</p>
+                    </div>
+                </div>
+
+                <div class="card glass-effect">
+                    <div class="card-body text-center">
+                        <h4>Efecto Cristal</h4>
+                        <p>Fondo translúcido con blur</p>
+                    </div>
+                </div>
+
+                <div class="card neon-glow">
+                    <div class="card-body text-center">
+                        <h4>Efecto Neón</h4>
+                        <p>Resplandor tipo neón</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mb-lg">
+                <h3 class="gradient-text">Texto con Gradiente</h3>
+                <p>Usando background-clip para crear texto con gradiente</p>
+            </div>
+
+            <!-- Loading Spinners -->
+            <h3>Indicadores de Carga</h3>
+            <div class="d-flex gap-lg justify-center align-center mb-lg">
+                <div class="spinner-container">
+                    <div class="spinner"></div>
+                </div>
+                <div class="spinner-container">
+                    <div class="spinner-dots">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Trigger -->
+            <div class="text-center">
+                <button class="btn btn-primary" onclick="openModal()">
+                    Abrir Modal Avanzado
+                </button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: COMPONENTES INTERACTIVOS -->
+        <section id="components">
+            <h2>🧩 Componentes Interactivos</h2>
+
+            <!-- Botones con diferentes efectos -->
+            <div class="mb-lg">
+                <h3>Botones con Efectos</h3>
+                <div class="d-flex gap-md mb-md">
+                    <button class="btn btn-primary">Primario</button>
+                    <button class="btn btn-success">Éxito</button>
+                    <button class="btn btn-danger">Peligro</button>
+                    <button class="btn btn-outline">Outline</button>
+                </div>
+                <p><small>Hover sobre los botones para ver los efectos de shimmer y elevación</small></p>
+            </div>
+
+            <!-- Progress Bars Animadas -->
+            <div class="mb-lg">
+                <h3>Barras de Progreso Animadas</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 25%;"></div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 60%;"></div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 90%;"></div>
+                </div>
+            </div>
+
+            <!-- Badges -->
+            <div class="mb-lg">
+                <h3>Badges y Etiquetas</h3>
+                <div class="d-flex gap-md">
+                    <span class="badge badge-success">Activo</span>
+                    <span class="badge badge-warning">Pendiente</span>
+                    <span class="badge badge-danger">Error</span>
+                    <span class="badge badge-info">Info</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: RESPONSIVE DEMO -->
+        <section>
+            <h2>📱 Diseño Responsivo</h2>
+            <p>Esta página se adapta automáticamente a diferentes tamaños de pantalla:</p>
+
+            <div class="card">
+                <div class="card-body">
+                    <h4>Breakpoints CSS</h4>
+                    <ul>
+                        <li><strong>Móvil:</strong> 0px - 768px</li>
+                        <li><strong>Tablet:</strong> 769px - 1024px</li>
+                        <li><strong>Desktop:</strong> 1025px+</li>
+                    </ul>
+                    <p>Redimensiona la ventana del navegador para ver los cambios en el layout.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- INFORMACIÓN TÉCNICA -->
+        <section>
+            <h2>🔧 Técnicas Utilizadas</h2>
+
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Variables CSS</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Custom Properties para mantener consistencia en colores, espaciados y transiciones.</p>
+                        <pre>:root {
+  --color-primary: #3498db;
+  --spacing-lg: 1.5rem;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">CSS Grid & Flexbox</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Layout moderno con Grid para la estructura principal y Flexbox para componentes.</p>
+                        <pre>.page-layout {
+  display: grid;
+  grid-template-areas: ...
+}</pre>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Pseudoelementos</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Efectos avanzados usando ::before y ::after para animaciones y decoraciones.</p>
+                        <pre>.btn::before {
+  content: '';
+  position: absolute;
+  /* animaciones */
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>&copy; 2024 Curso Python - Ejemplos de CSS Avanzado</p>
+        <p>Técnicas modernas para desarrollo web</p>
+    </footer>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Modal Avanzado con CSS</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Este es un ejemplo de modal creado completamente con CSS avanzado.</p>
+                <p></p>Incluye:</p>
+                <ul>
+                    <li>Backdrop blur effect</li>
+                    <li>Animaciones de entrada</li>
+                    <li>Diseño responsivo</li>
+                    <li>Efectos de transición</li>
+                </ul>
+
+                <div class="form-group">
+                    <label for="modal-input" class="form-label">Campo de ejemplo:</label>
+                    <input type="text" id="modal-input" class="form-control" placeholder="Escribe algo...">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="closeModal()">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT PARA INTERACTIVIDAD -->
+    <script>
+        // Modal functionality
+        function openModal() {
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Cerrar modal al hacer clic en el overlay
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Cerrar modal con ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('modalOverlay').classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Animación de las barras de progreso al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+
+            // Animar barras de progreso con un pequeño delay
+            setTimeout(() => {
+                progressBars.forEach((bar, index) => {
+                    setTimeout(() => {
+                        const width = bar.style.width;
+                        bar.style.width = '0%';
+                        setTimeout(() => {
+                            bar.style.width = width;
+                        }, 100);
+                    }, index * 200);
+                });
+            }, 500);
+
+            console.log('🎨 CSS Avanzado cargado correctamente');
+            console.log('📱 Layout responsivo activo');
+            console.log('✨ Animaciones iniciadas');
+        });
+
+        // Efecto parallax suave en scroll (opcional)
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.card');
+
+            parallaxElements.forEach((element, index) => {
+                const speed = 0.02;
+                const yPos = -(scrolled * speed * (index + 1));
+                element.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+
+        // Animación de entrada para elementos al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Observar todos los elementos de card para animación
+        document.querySelectorAll('.card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+
+</body>
+</html>

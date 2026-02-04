@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- ========================================================================
+         METADATOS - Información sobre la página (no visible al usuario)
+         ======================================================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ejemplo básico de HTML para aprender desarrollo web">
+    <meta name="author" content="Curso Python Semana 8">
+
+    <title>HTML Básico - Ejemplo Práctico</title>
+
+    <!-- CSS básico incluido en el mismo archivo para simplificar -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3 {
+            color: #333;
+        }
+
+        .highlight {
+            background-color: yellow;
+            padding: 2px 4px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            background: #fafafa;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ========================================================================
+         CONTENIDO PRINCIPAL DE LA PÁGINA
+         ======================================================================== -->
+
+    <div class="container">
+        <!-- ENCABEZADO -->
+        <header>
+            <h1>🌐 Ejemplo Básico de HTML</h1>
+            <p>Esta página demuestra los elementos HTML más importantes que usarás en tus aplicaciones Flask.</p>
+        </header>
+
+        <!-- NAVEGACIÓN -->
+        <nav>
+            <p></p><strong>Navegación interna:</strong></p>
+            <ul>
+                <li><a href="#textos">Textos y Títulos</a></li>
+                <li><a href="#listas">Listas</a></li>
+                <li><a href="#enlaces">Enlaces e Imágenes</a></li>
+                <li><a href="#formularios">Formularios</a></li>
+                <li><a href="#tablas">Tablas</a></li>
+            </ul>
+        </nav>
+
+        <hr>
+
+        <!-- SECCIÓN 1: TEXTOS Y TÍTULOS -->
+        <section id="textos">
+            <h2></h2>📝 Textos y Títulos</h2>
+
+            <h3>Diferentes niveles de títulos:</h3>
+            <h1>Título nivel 1 (h1) - Principal</h1>
+            <h2>Título nivel 2 (h2) - Secciones</h2>
+            <h3>Título nivel 3 (h3) - Subsecciones</h3>
+            <h4>Título nivel 4 (h4) - Menor</h4>
+            <h5>Título nivel 5 (h5) - Muy menor</h5>
+            <h6>Título nivel 6 (h6) - El más pequeño</h6>
+
+            <h3>Formateado de texto:</h3>
+            <p>Este es un <strong>párrafo normal</strong> con texto <em>en cursiva</em>.</p>
+            <p>También puedes usar <b>negrita</b> y <i>cursiva</i> con otras etiquetas.</p>
+            <p>Texto <u>subrayado</u> y <mark class="highlight">resaltado</mark>.</p>
+
+            <blockquote>
+                "Esta es una cita importante que queremos destacar del resto del texto."
+            </blockquote>
+
+            <pre>
+Este texto mantiene
+    los espacios
+        y saltos de línea
+            exactamente como los escribes
+            </pre>
+        </section>
+
+        <hr>
+
+        <!-- SECCIÓN 2: LISTAS -->
+        <section id="listas">
+            <h2>📋 Listas</h2>
+
+            <h3>Lista no ordenada (viñetas):</h3>
+            <ul>
+                <li>Primer elemento</li>
+                <li>Segundo elemento</li>
+                <li>Tercer elemento con una sub-lista:
+                    <ul>
+                        <li>Sub-elemento 1</li>
+                        <li>Sub-elemento 2</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Lista ordenada (numerada):</h3>
+            <ol>
+                <li>Primer paso del proceso</li>
+                <li>Segundo paso del proceso</li>
+                <li>Tercer paso del proceso</li>
+            </ol>
+
+            <h3>Lista de definiciones:</h3>
+            <dl>
+                <dt>HTML</dt>
+                <dd>Lenguaje de marcado para crear páginas web</dd>
+
+                <dt>CSS</dt>
+                <dd>Lenguaje para estilizar páginas web</dd>
+
+                <dt>Flask</dt>
+                <dd>Framework web de Python</dd>
+            </dl>
+        </section>
+
+        <hr>
+
+        <!-- SECCIÓN 3: ENLACES E IMÁGENES -->
+        <section id="enlaces">
+            <h2>🔗 Enlaces e Imágenes</h2>
+
+            <h3>Diferentes tipos de enlaces:</h3>
+            <ul>
+                <li><a href="https://www.google.com" target="_blank">Enlace externo (se abre en nueva pestaña)</a></li>
+                <li><a href="#textos">Enlace interno (a otra sección de esta página)</a></li>
+                <li><a href="mailto:ejemplo@email.com">Enlace de email</a></li>
+                <li><a href="tel:+1234567890">Enlace de teléfono</a></li>
+            </ul>
+
+            <h3>Imágenes:</h3>
+            <p></p><strong>Nota:</strong> En Flask, las imágenes van en la carpeta <code>/static/images/</code></p>
+
+            <!-- En una aplicación Flask real, usarías: -->
+            <!-- <img src="{{ url_for('static', filename='images/producto.jpg') }}" alt="Descripción"> -->
+
+            <div class="card">
+                <p></p>🖼️ Aquí iría una imagen en una aplicación real.</p>
+                <p></p><strong>En Flask:</strong> <code>&lt;img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo"&gt;</code></p>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- SECCIÓN 4: FORMULARIOS -->
+        <section id="formularios">
+            <h2>📝 Formularios</h2>
+            <p>Los formularios son esenciales para interactuar con el usuario en aplicaciones Flask.</p>
+
+            <form action="#" method="post">
+                <h3>Formulario de Ejemplo:</h3>
+
+                <div class="form-group">
+                    <label for="nombre">Nombre completo *</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Ingresa tu nombre">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="edad">Edad</label>
+                    <input type="number" id="edad" name="edad" min="18" max="100">
+                </div>
+
+                <div class="form-group">
+                    <label for="categoria">Categoría favorita</label>
+                    <select id="categoria" name="categoria">
+                        <option value="">Selecciona una opción</option>
+                        <option value="tecnologia">Tecnología</option>
+                        <option value="deportes">Deportes</option>
+                        <option value="musica">Música</option>
+                        <option value="libros">Libros</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="comentarios">Comentarios</label>
+                    <textarea id="comentarios" name="comentarios" rows="4" placeholder="Escribe tus comentarios aquí..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Opciones (checkboxes):</label>
+                    <input type="checkbox" id="newsletter" name="newsletter" value="si">
+                    <label for="newsletter">Recibir newsletter</label><br>
+
+                    <input type="checkbox" id="promociones" name="promociones" value="si">
+                    <label for="promociones">Recibir promociones</label>
+                </div>
+
+                <div class="form-group">
+                    <label>Género (radio buttons):</label>
+                    <input type="radio" id="masculino" name="genero" value="M">
+                    <label for="masculino">Masculino</label><br>
+
+                    <input type="radio" id="femenino" name="genero" value="F">
+                    <label for="femenino">Femenino</label><br>
+
+                    <input type="radio" id="otro" name="genero" value="O">
+                    <label for="otro">Otro</label>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit">Enviar Formulario</button>
+                    <button type="reset">Limpiar</button>
+                </div>
+            </form>
+
+            <div class="card">
+                <p></p><strong>💡 En Flask:</strong> El formulario se procesa en Python así:</p>
+                <pre>@app.route('/formulario', methods=['POST'])
+def procesar_formulario():
+    nombre = request.form['nombre']
+    email = request.form['email']
+    # ... procesar datos
+    return redirect(url_for('exito'))</pre>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- SECCIÓN 5: TABLAS -->
+        <section id="tablas">
+            <h2>📊 Tablas</h2>
+            <p>Las tablas son perfectas para mostrar datos estructurados, como listas de productos o usuarios.</p>
+
+            <table>
+                <caption>Lista de Productos</caption>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Laptop Gaming</td>
+                        <td>$1,299.99</td>
+                        <td>15</td>
+                        <td></td>✅ Disponible</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Mouse Inalámbrico</td>
+                        <td>$29.99</td>
+                        <td>50</td>
+                        <td>✅ Disponible</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Teclado Mecánico</td>
+                        <td>$89.99</td>
+                        <td>0</td>
+                        <td>❌</td> Agotado</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3"><strong>Total de productos:</strong></td>
+                        <td><strong>65</strong></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="card">
+                <p><strong>💡 En Flask con Jinja2:</strong></p>
+                <pre>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;Nombre&lt;/th&gt;&lt;th&gt;Precio&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    {% for producto in productos %}
+    &lt;tr&gt;
+      &lt;td&gt;{{ producto.nombre }}&lt;/td&gt;
+      &lt;td&gt;${{ "%.2f"|format(producto.precio) }}&lt;/td&gt;
+    &lt;/tr&gt;
+    {% endfor %}
+  &lt;/tbody&gt;
+&lt;/table&gt;</pre>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- CONTENEDORES Y ESTRUCTURA SEMÁNTICA -->
+        <section id="estructura">
+            <h2>🏗️ Estructura Semántica</h2>
+
+            <article class="card">
+                <header>
+                    <h3>Artículo de Ejemplo</h3>
+                    <p><small>Publicado el 15 de enero, 2024 por Juan Pérez</small></p>
+                </header>
+
+                <main>
+                    <p>Este es el contenido principal del artículo. Los elementos semánticos como
+                    <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;header&gt;</code>,
+                    y <code>&lt;footer&gt;</code> ayudan a organizar el contenido de manera meaningful.</p>
+                </main>
+
+                <footer>
+                    <p><small>Tags: HTML, CSS, Flask, Programación</small></p>
+                </footer>
+            </article>
+
+            <aside class="card">
+                <h4></h4>💡 Información Relacionada</h4>
+                <p>El elemento <code>&lt;aside&gt;</code> es para contenido relacionado pero no esencial,
+                como barras laterales, información adicional, o enlaces relacionados.</p>
+            </aside>
+        </section>
+
+        <hr>
+
+        <!-- ELEMENTOS MULTIMEDIA (CONCEPTUAL) -->
+        <section id="multimedia">
+            <h2>🎵 Multimedia (Conceptual)</h2>
+
+            <div class="card">
+                <h3>Audio</h3>
+                <p></p><strong>Ejemplo:</strong> <code>&lt;audio controls&gt;&lt;source src="audio.mp3"&gt;&lt;/audio&gt;</code></p>
+                <p>🎵 Aquí estaría un reproductor de audio</p>
+            </div>
+
+            <div class="card">
+                <h3>Video</h3>
+                <p><strong>Ejemplo:</strong> <code>&lt;video controls width="400"&gt;&lt;source src="video.mp4"&gt;&lt;/video&gt;</code></p>
+                <p>🎬 Aquí estaría un reproductor de video</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- FOOTER DE LA PÁGINA -->
+    <footer style="text-align: center; margin-top: 40px; padding: 20px; background: #333; color: white;">
+        <p>&copy; 2024 Curso de Python - Semana 8</p>
+        <p>Ejemplo de HTML básico para aprender desarrollo web con Flask</p>
+    </footer>
+
+    <!-- JAVASCRIPT BÁSICO -->
+    <script>
+        // JavaScript básico para interactividad
+        console.log('¡Página cargada! HTML básico funcionando correctamente.');
+
+        // Ejemplo de interactividad simple
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mostrar un mensaje cuando se hace clic en cualquier botón
+            const botones = document.querySelectorAll('button');
+            botones.forEach(boton => {
+                boton.addEventListener('click', function(e) {
+                    if (this.type === 'submit') {
+                        e.preventDefault(); // Evitar envío real del formulario en este ejemplo
+                        alert('¡Formulario enviado! (En una app real, esto iría a Flask)');
+                    } else if (this.type === 'reset') {
+                        alert('Formulario limpiado');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
