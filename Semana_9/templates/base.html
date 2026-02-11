@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Semana 9 - Autenticación{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    {# ========================================================================
+       NAVEGACIÓN CON AUTENTICACIÓN
+       ========================================================================
+       La navbar cambia según si el usuario está logueado o no.
+       Usamos las variables inyectadas por @app.context_processor:
+       - esta_logueado: True/False
+       - usuario_actual: objeto Usuario o None
+       - es_admin: True/False
+       ======================================================================== #}
+    <nav class="navbar">
+        <a href="{{ url_for('index') if esta_logueado else url_for('login') }}" class="navbar-brand">
+            Semana 9 - Autenticación
+        </a>
+
+        <div class="navbar-menu">
+            {% if esta_logueado %}
+                {# ── Menú para usuarios logueados ──────────────────────── #}
+                <a href="{{ url_for('index') }}">Inicio</a>
+                <a href="{{ url_for('listar_categorias') }}">Categorías</a>
+                <a href="{{ url_for('listar_productos') }}">Productos</a>
+
+                {% if es_admin %}
+                <a href="{{ url_for('listar_usuarios') }}" class="nav-admin">Usuarios</a>
+                {% endif %}
+
+                {# ── Menú de usuario (dropdown) ────────────────────────── #}
+                <div class="navbar-user">
+                    <span class="navbar-user-name">{{ usuario_actual.nombre }}</span>
+                    <div class="navbar-dropdown">
+                        <a href="{{ url_for('perfil') }}">Mi Perfil</a>
+                        <a href="{{ url_for('cambiar_password') }}">Cambiar Contraseña</a>
+                        <hr>
+                        <a href="{{ url_for('logout') }}" class="nav-logout">Cerrar Sesión</a>
+                    </div>
+                </div>
+            {% else %}
+                {# ── Menú para visitantes ──────────────────────────────── #}
+                <a href="{{ url_for('login') }}">Iniciar Sesión</a>
+                <a href="{{ url_for('registro') }}">Registrarse</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="container">
+        {# ── Mensajes Flash ────────────────────────────────────────────── #}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}
+        <p>Bienvenido a la aplicación</p>
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>Semana 9 - Curso de Python | Autenticación en Flask</p>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

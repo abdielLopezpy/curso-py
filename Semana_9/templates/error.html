@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Error - Semana 9{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="empty-state">
+        <p>{{ mensaje }}</p>
+        {% if esta_logueado %}
+        <a href="{{ url_for('index') }}" class="btn btn-primary">Volver al Inicio</a>
+        {% else %}
+        <a href="{{ url_for('login') }}" class="btn btn-primary">Ir al Login</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

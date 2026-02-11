@@ -1,0 +1,86 @@
+{# ============================================================================
+   LISTA DE USUARIOS (solo admin)
+   ============================================================================
+   Panel de administración de usuarios.
+   Protegido por @admin_required.
+   ============================================================================ #}
+{% extends "base.html" %}
+
+{% block title %}Gestión de Usuarios - Semana 9{% endblock %}
+
+{% block content %}
+
+{% from "macros.html" import badge_estado, badge, page_header %}
+
+{{ page_header('Gestión de Usuarios') }}
+
+{% if usuarios %}
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th>Fecha Registro</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in usuarios %}
+            <tr>
+                <td>{{ u.id }}</td>
+                <td>
+                    <strong>{{ u.nombre }}</strong>
+                    {% if u.id == usuario_actual.id %}
+                        {{ badge('Tú', 'info') }}
+                    {% endif %}
+                </td>
+                <td>{{ u.email }}</td>
+                <td>
+                    {{ badge(u.rol|capitalize, 'primary' if u.es_admin else 'secondary') }}
+                </td>
+                <td>{{ badge_estado(u.activo) }}</td>
+                <td>{{ u.fecha_creacion.strftime('%d/%m/%Y') }}</td>
+                <td>
+                    {% if u.id != usuario_actual.id %}
+                    <div class="btn-group">
+                        {# ── Toggle activo/inactivo ───────────────────── #}
+                        <form action="{{ url_for('toggle_usuario', id=u.id) }}" method="POST" style="display:inline;">
+                            {% if u.activo %}
+                            <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('¿Desactivar a {{ u.nombre }}?')">
+                                Desactivar
+                            </button>
+                            {% else %}
+                            <button type="submit" class="btn btn-success btn-sm">
+                                Activar
+                            </button>
+                            {% endif %}
+                        </form>
+
+                        {# ── Cambiar rol ──────────────────────────────── #}
+                        <form action="{{ url_for('cambiar_rol_usuario', id=u.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-primary btn-sm"
+                                    onclick="return confirm('¿Cambiar rol de {{ u.nombre }} a {{ 'Admin' if u.rol == 'usuario' else 'Usuario' }}?')">
+                                Hacer {{ 'Admin' if u.rol == 'usuario' else 'Usuario' }}
+                            </button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <span class="text-muted">-</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+{% from "macros.html" import empty_state %}
+{{ empty_state('No hay usuarios registrados') }}
+{% endif %}
+
+{% endblock %}

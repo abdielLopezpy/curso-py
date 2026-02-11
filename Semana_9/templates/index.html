@@ -1,0 +1,71 @@
+{# ============================================================================
+   PÁGINA PRINCIPAL - DASHBOARD
+   ============================================================================
+   Muestra estadísticas generales y accesos rápidos.
+   Esta página requiere login (protegida por @login_required).
+   ============================================================================ #}
+{% extends "base.html" %}
+
+{% block title %}Inicio - Semana 9{% endblock %}
+
+{% block content %}
+
+{# ── Bienvenida personalizada ──────────────────────────────────────────── #}
+<div class="welcome-banner">
+    <h1>Bienvenido, {{ usuario_actual.nombre }}</h1>
+    <p>Panel de control de tu aplicación</p>
+</div>
+
+{# ── Tarjetas de estadísticas ─────────────────────────────────────────── #}
+{% from "macros.html" import stat_card %}
+
+<div class="grid-4 mb-5">
+    {{ stat_card(total_categorias, 'Categorías') }}
+    {{ stat_card(total_productos, 'Productos') }}
+    {{ stat_card(productos_activos, 'Activos') }}
+    {{ stat_card(total_usuarios, 'Usuarios') }}
+</div>
+
+{# ── Accesos rápidos ──────────────────────────────────────────────────── #}
+<h2>Acciones Rápidas</h2>
+<div class="grid-3 mb-4">
+    <div class="card card-hover">
+        <div class="card-body text-center">
+            <h3>Categorías</h3>
+            <p class="mb-3">Gestiona las categorías de productos</p>
+            <a href="{{ url_for('listar_categorias') }}" class="btn btn-primary">Ver Categorías</a>
+        </div>
+    </div>
+
+    <div class="card card-hover">
+        <div class="card-body text-center">
+            <h3>Productos</h3>
+            <p class="mb-3">Administra tu catálogo de productos</p>
+            <a href="{{ url_for('listar_productos') }}" class="btn btn-primary">Ver Productos</a>
+        </div>
+    </div>
+
+    <div class="card card-hover">
+        <div class="card-body text-center">
+            <h3>Mi Perfil</h3>
+            <p class="mb-3">Revisa y edita tu información</p>
+            <a href="{{ url_for('perfil') }}" class="btn btn-primary">Ver Perfil</a>
+        </div>
+    </div>
+</div>
+
+{% if es_admin %}
+{# ── Panel de administración (solo visible para admins) ────────────── #}
+<div class="card">
+    <div class="card-header">
+        <span class="card-title">Panel de Administración</span>
+        <span class="badge badge-primary">Admin</span>
+    </div>
+    <div class="card-body">
+        <p class="mb-3">Tienes acceso de administrador. Puedes gestionar usuarios del sistema.</p>
+        <a href="{{ url_for('listar_usuarios') }}" class="btn btn-primary">Gestionar Usuarios</a>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

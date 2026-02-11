@@ -1,0 +1,30 @@
+{# ============================================================================
+   EDITAR PERFIL
+   ============================================================================ #}
+{% extends "base.html" %}
+
+{% block title %}Editar Perfil - Semana 9{% endblock %}
+
+{% block content %}
+
+{% from "macros.html" import campo_texto, boton %}
+
+<div class="page-header">
+    <h1>Editar Perfil</h1>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('editar_perfil') }}" class="form">
+            {{ campo_texto('nombre', 'Nombre Completo', value=usuario.nombre, required=true) }}
+            {{ campo_texto('email', 'Correo Electrónico', value=usuario.email, type='email', required=true) }}
+
+            <div class="form-actions">
+                {{ boton('Guardar Cambios', 'success', submit=true) }}
+                {{ boton('Cancelar', 'secondary', url=url_for('perfil')) }}
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

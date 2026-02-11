@@ -1,0 +1,70 @@
+{# ============================================================================
+   PERFIL DE USUARIO
+   ============================================================================
+   Muestra la información del usuario logueado.
+   Protegido por @login_required.
+   ============================================================================ #}
+{% extends "base.html" %}
+
+{% block title %}Mi Perfil - Semana 9{% endblock %}
+
+{% block content %}
+
+{% from "macros.html" import badge %}
+
+<div class="page-header">
+    <h1>Mi Perfil</h1>
+    <a href="{{ url_for('editar_perfil') }}" class="btn btn-primary">Editar Perfil</a>
+</div>
+
+<div class="grid-2">
+    {# ── Información del usuario ──────────────────────────────────────── #}
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">Información Personal</span>
+            {{ badge(usuario.rol|capitalize, 'primary' if usuario.es_admin else 'secondary') }}
+        </div>
+        <div class="card-body">
+            <div class="profile-info">
+                <div class="profile-avatar">
+                    {{ usuario.nombre[0]|upper }}
+                </div>
+                <div class="profile-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Nombre</span>
+                        <span class="detail-value">{{ usuario.nombre }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Email</span>
+                        <span class="detail-value">{{ usuario.email }}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Rol</span>
+                        <span class="detail-value">
+                            {{ badge(usuario.rol|capitalize, 'primary' if usuario.es_admin else 'info') }}
+                        </span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Miembro desde</span>
+                        <span class="detail-value">{{ usuario.fecha_creacion.strftime('%d/%m/%Y') }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# ── Seguridad ────────────────────────────────────────────────────── #}
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">Seguridad</span>
+        </div>
+        <div class="card-body">
+            <p class="mb-3">Mantén tu cuenta segura actualizando tu contraseña regularmente.</p>
+            <a href="{{ url_for('cambiar_password') }}" class="btn btn-primary">
+                Cambiar Contraseña
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

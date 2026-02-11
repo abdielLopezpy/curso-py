@@ -1,0 +1,72 @@
+{# ============================================================================
+   DETALLE DE PRODUCTO
+   ============================================================================ #}
+
+{% extends "base.html" %}
+{% from "macros.html" import badge_estado, badge_stock, boton, boton_eliminar %}
+
+{% block title %}{{ producto.nombre }} - Semana 9{% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">{{ producto.nombre }}</h1>
+        {{ badge_estado(producto.activo) }}
+    </div>
+
+    <div class="card-body">
+        <div class="grid-2">
+            <div>
+                <p><strong>Descripción:</strong></p>
+                <p class="text-muted">{{ producto.descripcion or 'Sin descripción' }}</p>
+            </div>
+
+            <div>
+                <p>
+                    <strong>Precio:</strong>
+                    <span style="font-size: 1.5em; color: var(--success);">
+                        ${{ producto.precio | round(2) }}
+                    </span>
+                </p>
+
+                <p>
+                    <strong>Stock:</strong>
+                    {{ badge_stock(producto.stock) }}
+                    {% if producto.stock > 0 %}unidades{% endif %}
+                </p>
+
+                <p>
+                    <strong>Categoría:</strong>
+                    {% if producto.categoria %}
+                        <a href="{{ url_for('ver_categoria', id=producto.categoria.id) }}">
+                            {{ producto.categoria.nombre }}
+                        </a>
+                    {% else %}
+                        <span class="text-muted">Sin categoría</span>
+                    {% endif %}
+                </p>
+
+                <p>
+                    <strong>Fecha de creación:</strong>
+                    <span class="text-muted">
+                        {{ producto.fecha_creacion.strftime('%d/%m/%Y %H:%M') if producto.fecha_creacion else 'N/A' }}
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <div class="btn-group">
+            {{ boton('Editar', 'primary', url=url_for('editar_producto', id=producto.id)) }}
+            {{ boton_eliminar(
+                url_for('eliminar_producto', id=producto.id),
+                mensaje='¿Eliminar el producto "' ~ producto.nombre ~ '"?'
+            ) }}
+            {{ boton('Volver a la lista', 'secondary', url=url_for('listar_productos')) }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

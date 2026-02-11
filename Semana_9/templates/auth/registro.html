@@ -1,0 +1,87 @@
+{# ============================================================================
+   PÁGINA DE REGISTRO
+   ============================================================================
+   Formulario para crear una nueva cuenta.
+
+   CONCEPTOS:
+   - Se pide confirmar la contraseña para evitar errores de tipeo
+   - La validación se hace tanto en el frontend (required, minlength)
+     como en el backend (Python)
+   - NUNCA confíes solo en la validación del frontend
+   ============================================================================ #}
+{% extends "base.html" %}
+
+{% block title %}Registrarse - Semana 9{% endblock %}
+
+{% block content %}
+
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1>Crear Cuenta</h1>
+            <p>Completa el formulario para registrarte</p>
+        </div>
+
+        <form method="POST" action="{{ url_for('registro') }}" class="auth-form">
+            {# ── Nombre ───────────────────────────────────────────────── #}
+            <div class="form-group">
+                <label for="nombre" class="form-label">Nombre Completo *</label>
+                <input type="text"
+                       id="nombre"
+                       name="nombre"
+                       value="{{ nombre|default('') }}"
+                       placeholder="Tu nombre"
+                       class="form-control"
+                       required
+                       autofocus>
+            </div>
+
+            {# ── Email ────────────────────────────────────────────────── #}
+            <div class="form-group">
+                <label for="email" class="form-label">Correo Electrónico *</label>
+                <input type="email"
+                       id="email"
+                       name="email"
+                       value="{{ email|default('') }}"
+                       placeholder="tu@email.com"
+                       class="form-control"
+                       required>
+            </div>
+
+            {# ── Contraseña ──────────────────────────────────────────── #}
+            <div class="form-group">
+                <label for="password" class="form-label">Contraseña *</label>
+                <input type="password"
+                       id="password"
+                       name="password"
+                       placeholder="Mínimo 6 caracteres"
+                       class="form-control"
+                       minlength="6"
+                       required>
+                <small class="form-help">Debe tener al menos 6 caracteres</small>
+            </div>
+
+            {# ── Confirmar Contraseña ─────────────────────────────────── #}
+            <div class="form-group">
+                <label for="confirmar_password" class="form-label">Confirmar Contraseña *</label>
+                <input type="password"
+                       id="confirmar_password"
+                       name="confirmar_password"
+                       placeholder="Repite tu contraseña"
+                       class="form-control"
+                       minlength="6"
+                       required>
+            </div>
+
+            <button type="submit" class="btn btn-success btn-lg btn-block">
+                Crear Cuenta
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>¿Ya tienes cuenta? <a href="{{ url_for('login') }}">Inicia sesión</a></p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,209 @@
+{# ============================================================================
+   MACROS - COMPONENTES REUTILIZABLES
+   ============================================================================
+   Igual que Semana 8, con la misma estructura de macros.
+
+   CÓMO USAR:
+   {% from "macros.html" import campo_texto, boton %}
+   {{ campo_texto('nombre', 'Nombre del producto', required=true) }}
+   ============================================================================ #}
+
+
+{# ============================================================================
+   1. FORMULARIOS
+   ============================================================================ #}
+
+{% macro campo_texto(name, label, value='', type='text', placeholder='', required=false, help_text='') %}
+<div class="form-group">
+    <label for="{{ name }}" class="form-label">
+        {{ label }}{% if required %} *{% endif %}
+    </label>
+    <input type="{{ type }}"
+           id="{{ name }}"
+           name="{{ name }}"
+           value="{{ value }}"
+           placeholder="{{ placeholder }}"
+           class="form-control"
+           {% if required %}required{% endif %}>
+    {% if help_text %}
+    <small class="form-help">{{ help_text }}</small>
+    {% endif %}
+</div>
+{% endmacro %}
+
+
+{% macro campo_numero(name, label, value='', min=0, max=None, step='1', required=false) %}
+<div class="form-group">
+    <label for="{{ name }}" class="form-label">
+        {{ label }}{% if required %} *{% endif %}
+    </label>
+    <input type="number"
+           id="{{ name }}"
+           name="{{ name }}"
+           value="{{ value }}"
+           min="{{ min }}"
+           {% if max is not none %}max="{{ max }}"{% endif %}
+           step="{{ step }}"
+           class="form-control"
+           {% if required %}required{% endif %}>
+</div>
+{% endmacro %}
+
+
+{% macro campo_textarea(name, label, value='', rows=4, placeholder='', required=false) %}
+<div class="form-group">
+    <label for="{{ name }}" class="form-label">
+        {{ label }}{% if required %} *{% endif %}
+    </label>
+    <textarea id="{{ name }}"
+              name="{{ name }}"
+              rows="{{ rows }}"
+              placeholder="{{ placeholder }}"
+              class="form-control"
+              {% if required %}required{% endif %}>{{ value }}</textarea>
+</div>
+{% endmacro %}
+
+
+{% macro campo_select(name, label, options, value_attr='id', text_attr='nombre', selected=None, placeholder='-- Seleccionar --', required=false) %}
+<div class="form-group">
+    <label for="{{ name }}" class="form-label">
+        {{ label }}{% if required %} *{% endif %}
+    </label>
+    <select id="{{ name }}"
+            name="{{ name }}"
+            class="form-control"
+            {% if required %}required{% endif %}>
+        <option value="">{{ placeholder }}</option>
+        {% for option in options %}
+        <option value="{{ option[value_attr] }}"
+                {% if option[value_attr] == selected %}selected{% endif %}>
+            {{ option[text_attr] }}
+        </option>
+        {% endfor %}
+    </select>
+</div>
+{% endmacro %}
+
+
+{% macro campo_checkbox(name, label, checked=false) %}
+<div class="form-group">
+    <label class="form-check">
+        <input type="checkbox"
+               id="{{ name }}"
+               name="{{ name }}"
+               {% if checked %}checked{% endif %}>
+        {{ label }}
+    </label>
+</div>
+{% endmacro %}
+
+
+{# ============================================================================
+   2. BOTONES
+   ============================================================================ #}
+
+{% macro boton(texto, tipo='primary', url=None, submit=false, size='') %}
+{% set size_class = 'btn-' + size if size else '' %}
+{% if url %}
+<a href="{{ url }}" class="btn btn-{{ tipo }} {{ size_class }}">{{ texto }}</a>
+{% else %}
+<button type="{{ 'submit' if submit else 'button' }}"
+        class="btn btn-{{ tipo }} {{ size_class }}">
+    {{ texto }}
+</button>
+{% endif %}
+{% endmacro %}
+
+
+{% macro boton_eliminar(url, mensaje='¿Está seguro de eliminar?', texto='Eliminar', size='') %}
+<form action="{{ url }}" method="POST" style="display: inline;"
+      onsubmit="return confirm('{{ mensaje }}');">
+    <button type="submit" class="btn btn-danger {{ 'btn-' + size if size else '' }}">
+        {{ texto }}
+    </button>
+</form>
+{% endmacro %}
+
+
+{# ============================================================================
+   3. BADGES
+   ============================================================================ #}
+
+{% macro badge_estado(activo, texto_activo='Activo', texto_inactivo='Inactivo') %}
+{% if activo %}
+<span class="badge badge-success">{{ texto_activo }}</span>
+{% else %}
+<span class="badge badge-danger">{{ texto_inactivo }}</span>
+{% endif %}
+{% endmacro %}
+
+
+{% macro badge_stock(cantidad, limite_bajo=5, limite_medio=15) %}
+{% if cantidad > limite_medio %}
+<span class="badge badge-success">{{ cantidad }}</span>
+{% elif cantidad > limite_bajo %}
+<span class="badge badge-warning">{{ cantidad }}</span>
+{% elif cantidad > 0 %}
+<span class="badge badge-danger">{{ cantidad }}</span>
+{% else %}
+<span class="badge badge-danger">Sin stock</span>
+{% endif %}
+{% endmacro %}
+
+
+{% macro badge(texto, tipo='secondary') %}
+<span class="badge badge-{{ tipo }}">{{ texto }}</span>
+{% endmacro %}
+
+
+{# ============================================================================
+   4. TABLAS
+   ============================================================================ #}
+
+{% macro acciones_tabla(editar_url, eliminar_url, ver_url=None, confirmar='¿Eliminar este elemento?') %}
+<div class="btn-group">
+    {% if ver_url %}
+    <a href="{{ ver_url }}" class="btn btn-secondary btn-sm">Ver</a>
+    {% endif %}
+    <a href="{{ editar_url }}" class="btn btn-primary btn-sm">Editar</a>
+    <form action="{{ eliminar_url }}" method="POST" style="display: inline;"
+          onsubmit="return confirm('{{ confirmar }}');">
+        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+    </form>
+</div>
+{% endmacro %}
+
+
+{# ============================================================================
+   5. LAYOUT
+   ============================================================================ #}
+
+{% macro empty_state(mensaje, url_crear=None, texto_boton='Crear nuevo') %}
+<div class="card">
+    <div class="empty-state">
+        <p>{{ mensaje }}</p>
+        {% if url_crear %}
+        <a href="{{ url_crear }}" class="btn btn-success">+ {{ texto_boton }}</a>
+        {% endif %}
+    </div>
+</div>
+{% endmacro %}
+
+
+{% macro page_header(titulo, url_accion=None, texto_accion='+ Nuevo') %}
+<div class="page-header">
+    <h1>{{ titulo }}</h1>
+    {% if url_accion %}
+    <a href="{{ url_accion }}" class="btn btn-success">{{ texto_accion }}</a>
+    {% endif %}
+</div>
+{% endmacro %}
+
+
+{% macro stat_card(numero, etiqueta) %}
+<div class="stat-card">
+    <div class="stat-number">{{ numero }}</div>
+    <div class="stat-label">{{ etiqueta }}</div>
+</div>
+{% endmacro %}

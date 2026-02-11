@@ -1,0 +1,65 @@
+{# ============================================================================
+   LISTA DE PRODUCTOS (protegida por @login_required)
+   ============================================================================ #}
+
+{% extends "base.html" %}
+{% from "macros.html" import page_header, badge_stock, badge_estado, acciones_tabla, empty_state %}
+
+{% block title %}Productos - Semana 9{% endblock %}
+
+{% block content %}
+
+{{ page_header('Productos', url_for('crear_producto'), '+ Nuevo Producto') }}
+
+{% if productos %}
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto.id }}</td>
+                    <td>
+                        <a href="{{ url_for('ver_producto', id=producto.id) }}">
+                            {{ producto.nombre }}
+                        </a>
+                    </td>
+                    <td>
+                        {% if producto.categoria %}
+                            <a href="{{ url_for('ver_categoria', id=producto.categoria.id) }}">
+                                {{ producto.categoria.nombre }}
+                            </a>
+                        {% else %}
+                            <span class="text-muted">Sin categoría</span>
+                        {% endif %}
+                    </td>
+                    <td>${{ producto.precio | round(2) }}</td>
+                    <td>{{ badge_stock(producto.stock) }}</td>
+                    <td>{{ badge_estado(producto.activo) }}</td>
+                    <td>
+                        {{ acciones_tabla(
+                            url_for('editar_producto', id=producto.id),
+                            url_for('eliminar_producto', id=producto.id),
+                            confirmar='¿Eliminar el producto "' ~ producto.nombre ~ '"?'
+                        ) }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    {{ empty_state('No hay productos registrados', url_for('crear_producto'), 'Crear primer producto') }}
+{% endif %}
+
+{% endblock %}

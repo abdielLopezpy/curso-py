@@ -1,0 +1,69 @@
+{# ============================================================================
+   FORMULARIO DE PRODUCTO
+   ============================================================================ #}
+
+{% extends "base.html" %}
+{% from "macros.html" import campo_texto, campo_numero, campo_textarea, campo_select, boton %}
+
+{% block title %}
+    {% if producto %}Editar{% else %}Nuevo{% endif %} Producto - Semana 9
+{% endblock %}
+
+{% block content %}
+
+<h1>{% if producto %}Editar{% else %}Nuevo{% endif %} Producto</h1>
+
+<div class="card">
+    <div class="card-body">
+        <form method="POST" class="form">
+
+            {{ campo_texto(
+                'nombre',
+                'Nombre del producto',
+                value=producto.nombre if producto else '',
+                placeholder='Ej: Laptop Gaming, Mouse Inalámbrico...',
+                required=true
+            ) }}
+
+            {{ campo_textarea(
+                'descripcion',
+                'Descripción',
+                value=producto.descripcion if producto else '',
+                placeholder='Descripción detallada del producto...',
+                rows=4
+            ) }}
+
+            {{ campo_numero(
+                'precio',
+                'Precio',
+                value=producto.precio if producto else '',
+                min=0,
+                step='0.01',
+                required=true
+            ) }}
+
+            {{ campo_numero(
+                'stock',
+                'Stock',
+                value=producto.stock if producto else 0,
+                min=0
+            ) }}
+
+            {{ campo_select(
+                'categoria_id',
+                'Categoría',
+                categorias,
+                selected=producto.categoria_id if producto else None,
+                placeholder='-- Sin categoría --'
+            ) }}
+
+            <div class="form-actions">
+                {{ boton('Guardar Cambios' if producto else 'Crear Producto', 'success', submit=true) }}
+                {{ boton('Cancelar', 'secondary', url=url_for('listar_productos')) }}
+            </div>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}
