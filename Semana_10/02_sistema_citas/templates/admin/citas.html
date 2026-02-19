@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% from "macros.html" import badge_estado, empty_state %}
+{% block title %}Admin - Citas{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128197; Gestionar Citas</h1>
+</div>
+
+{% if citas %}
+<div class="card">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Cliente</th>
+                    <th>Servicio</th>
+                    <th>Profesional</th>
+                    <th>Estado</th>
+                    <th>Cambiar Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cita in citas %}
+                <tr>
+                    <td>{{ cita.id }}</td>
+                    <td>{{ cita.fecha.strftime('%d/%m/%Y') }}</td>
+                    <td><strong>{{ cita.hora }}</strong></td>
+                    <td>{{ cita.cliente.nombre if cita.cliente else 'N/A' }}</td>
+                    <td>{{ cita.servicio.nombre if cita.servicio else 'N/A' }}</td>
+                    <td>{{ cita.profesional.nombre if cita.profesional else 'N/A' }}</td>
+                    <td>{{ badge_estado(cita.estado) }}</td>
+                    <td>
+                        <form action="{{ url_for('admin_cambiar_estado_cita', id=cita.id) }}" method="post"
+                              style="display: flex; gap: 0.5rem;">
+                            <select name="estado" class="form-control" style="width: auto; padding: 0.3rem 0.5rem; font-size: 0.8rem;">
+                                {% for est in ['pendiente', 'confirmada', 'completada', 'cancelada'] %}
+                                <option value="{{ est }}" {{ 'selected' if est == cita.estado }}>{{ est|capitalize }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit" class="btn btn-primary btn-sm">Actualizar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+    {{ empty_state('No hay citas registradas') }}
+{% endif %}
+{% endblock %}

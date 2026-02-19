@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ShopPy{% endblock %} | E-Commerce</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- ================================================================== -->
+    <!-- NAVBAR                                                             -->
+    <!-- La barra de navegacion muestra diferentes opciones segun:          -->
+    <!-- - Si el usuario esta logueado o no                                 -->
+    <!-- - Si el usuario es admin o cliente normal                          -->
+    <!-- ================================================================== -->
+    <nav class="navbar">
+        <a href="{{ url_for('index') }}" class="navbar-brand">&#128722; ShopPy</a>
+
+        <ul class="navbar-nav">
+            <li><a href="{{ url_for('index') }}" class="{{ 'active' if request.endpoint == 'index' }}">Inicio</a></li>
+            <li><a href="{{ url_for('catalogo') }}" class="{{ 'active' if request.endpoint == 'catalogo' }}">Catalogo</a></li>
+            {% if es_admin %}
+            <li><a href="{{ url_for('admin_dashboard') }}" class="{{ 'active' if 'admin' in request.endpoint|default('') }}">Admin</a></li>
+            {% endif %}
+        </ul>
+
+        <div class="nav-right">
+            {% if esta_logueado %}
+                <!-- Icono del carrito con contador de items -->
+                <a href="{{ url_for('ver_carrito') }}" class="cart-icon">
+                    &#128722;
+                    {% if carrito_count > 0 %}
+                    <span class="cart-badge">{{ carrito_count }}</span>
+                    {% endif %}
+                </a>
+
+                <!-- Menu de usuario con dropdown -->
+                <div class="user-menu">
+                    <button class="user-btn">
+                        <span class="user-avatar">{{ usuario_actual.nombre[0]|upper }}</span>
+                        {{ usuario_actual.nombre }}
+                    </button>
+                    <div class="dropdown">
+                        <a href="{{ url_for('mis_pedidos') }}">&#128230; Mis Pedidos</a>
+                        <a href="{{ url_for('logout') }}" class="danger">&#128682; Cerrar Sesion</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn btn-secondary btn-sm">Iniciar Sesion</a>
+                <a href="{{ url_for('registro') }}" class="btn btn-primary btn-sm">Registrarse</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- ================================================================== -->
+    <!-- FLASH MESSAGES                                                     -->
+    <!-- Muestra mensajes de retroalimentacion al usuario                   -->
+    <!-- (exito, error, advertencia, informacion)                           -->
+    <!-- ================================================================== -->
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

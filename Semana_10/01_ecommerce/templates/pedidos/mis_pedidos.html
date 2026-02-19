@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% from "macros.html" import badge_estado, empty_state %}
+{% block title %}Mis Pedidos{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128230; Mis Pedidos</h1>
+</div>
+
+{% if pedidos %}
+<div class="card">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Fecha</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pedido in pedidos %}
+                <tr>
+                    <td><strong>#{{ pedido.id }}</strong></td>
+                    <td>{{ pedido.fecha_creacion.strftime('%d/%m/%Y') }}</td>
+                    <td>{{ pedido.items|length }} articulo{{ 's' if pedido.items|length != 1 }}</td>
+                    <td style="font-weight: 700;">{{ pedido.total_formateado }}</td>
+                    <td>{{ badge_estado(pedido.estado) }}</td>
+                    <td>
+                        <a href="{{ url_for('ver_pedido', id=pedido.id) }}" class="btn btn-secondary btn-sm">Ver Detalle</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+    {{ empty_state('No tienes pedidos aun', url_for('catalogo'), 'Empezar a Comprar') }}
+{% endif %}
+{% endblock %}

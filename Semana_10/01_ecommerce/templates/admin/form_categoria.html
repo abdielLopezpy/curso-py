@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% from "macros.html" import campo_texto, campo_textarea, campo_checkbox, boton %}
+{% block title %}{{ 'Editar' if categoria else 'Nueva' }} Categoria{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>{{ '&#9998; Editar' if categoria else '&#10010; Nueva' }} Categoria</h1>
+</div>
+
+<div class="card" style="max-width: 600px;">
+    <div class="card-body">
+        <form method="post">
+            {{ campo_texto('nombre', 'Nombre de la Categoria', categoria.nombre if categoria else '') }}
+            {{ campo_textarea('descripcion', 'Descripcion', categoria.descripcion if categoria else '') }}
+            {% if categoria %}
+            {{ campo_checkbox('activa', 'Categoria activa', categoria.activa) }}
+            {% endif %}
+
+            <div class="form-actions">
+                {{ boton('Guardar', 'primary', submit=true) }}
+                {{ boton('Cancelar', 'secondary', url=url_for('admin_categorias')) }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

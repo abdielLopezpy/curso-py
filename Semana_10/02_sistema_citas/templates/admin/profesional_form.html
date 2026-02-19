@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% from "macros.html" import campo_texto, campo_checkbox, boton %}
+{% block title %}{{ 'Editar' if profesional else 'Nuevo' }} Profesional{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>{{ 'Editar' if profesional else 'Nuevo' }} Profesional</h1>
+</div>
+
+<div class="card" style="max-width: 600px;">
+    <div class="card-body">
+        <form method="post">
+            {{ campo_texto('nombre', 'Nombre completo', profesional.nombre if profesional else '') }}
+            {{ campo_texto('especialidad', 'Especialidad', profesional.especialidad if profesional else '', required=false) }}
+            {{ campo_texto('email', 'Email', profesional.email if profesional else '', type='email', required=false) }}
+            {{ campo_texto('telefono', 'Telefono', profesional.telefono if profesional else '', required=false) }}
+            {% if profesional %}
+            {{ campo_checkbox('activo', 'Profesional activo', profesional.activo) }}
+            {% endif %}
+            <div class="form-actions">
+                {{ boton('Guardar', 'primary', submit=true) }}
+                {{ boton('Cancelar', 'secondary', url=url_for('admin_profesionales')) }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

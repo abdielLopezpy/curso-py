@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% from "macros.html" import empty_state %}
+{% block title %}Admin - Aeropuertos{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#9992; Gestionar Aeropuertos</h1>
+    <a href="{{ url_for('admin_crear_aeropuerto') }}" class="btn btn-primary">+ Nuevo Aeropuerto</a>
+</div>
+
+{% if aeropuertos %}
+<div class="card">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>IATA</th>
+                    <th>Nombre</th>
+                    <th>Ciudad</th>
+                    <th>Pais</th>
+                    <th>Pasajeros</th>
+                    <th>Espacios</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in aeropuertos %}
+                <tr>
+                    <td><span class="iata-code" style="font-size: 0.8rem; padding: 0.15rem 0.4rem;">{{ a.codigo_iata }}</span></td>
+                    <td><strong>{{ a.nombre }}</strong></td>
+                    <td>{{ a.ciudad }}</td>
+                    <td>{{ a.pais }}</td>
+                    <td>{{ a.pasajeros_formateado }}</td>
+                    <td><span class="badge badge-info">{{ a.espacios|length }}</span></td>
+                    <td><span class="badge badge-{{ 'success' if a.activo else 'danger' }}">{{ 'Activo' if a.activo else 'Inactivo' }}</span></td>
+                    <td>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <a href="{{ url_for('admin_editar_aeropuerto', id=a.id) }}" class="btn btn-secondary btn-sm">Editar</a>
+                            <form action="{{ url_for('admin_eliminar_aeropuerto', id=a.id) }}" method="post"
+                                  onsubmit="return confirm('Eliminar aeropuerto y todos sus espacios?')">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+    {{ empty_state('No hay aeropuertos', url_for('admin_crear_aeropuerto'), 'Agregar Primer Aeropuerto') }}
+{% endif %}
+{% endblock %}

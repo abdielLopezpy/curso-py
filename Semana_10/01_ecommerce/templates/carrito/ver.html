@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% from "macros.html" import empty_state %}
+{% block title %}Mi Carrito{% endblock %}
+
+{% block content %}
+<!-- ================================================================== -->
+<!-- CARRITO DE COMPRAS                                                 -->
+<!-- Muestra los items, permite cambiar cantidad y eliminar.            -->
+<!-- Al final muestra el total y boton de checkout.                     -->
+<!-- ================================================================== -->
+
+<div class="page-header">
+    <h1>&#128722; Mi Carrito</h1>
+    <a href="{{ url_for('catalogo') }}" class="btn btn-secondary btn-sm">Seguir Comprando</a>
+</div>
+
+{% if carrito.items %}
+<div class="card">
+    <div class="card-body" style="padding: 0;">
+        {% for item in carrito.items %}
+        <div class="cart-item" style="padding: 1rem 1.5rem;">
+            <div class="cart-item-img">&#128230;</div>
+            <div class="cart-item-info">
+                <div class="cart-item-name">
+                    <a href="{{ url_for('ver_producto', id=item.producto.id) }}">{{ item.producto.nombre }}</a>
+                </div>
+                <div class="cart-item-price">{{ item.producto.precio_formateado }} c/u</div>
+            </div>
+            <div class="cart-item-qty">
+                <form action="{{ url_for('actualizar_carrito', item_id=item.id) }}" method="post"
+                      style="display: flex; gap: 0.5rem; align-items: center;">
+                    <input type="number" name="cantidad" value="{{ item.cantidad }}"
+                           min="1" max="{{ item.producto.stock }}"
+                           style="width: 60px; text-align: center; padding: 0.3rem; border: 1px solid var(--gray-300); border-radius: var(--radius);">
+                    <button type="submit" class="btn btn-secondary btn-sm">Actualizar</button>
+                </form>
+            </div>
+            <div style="font-weight: 700; color: var(--primary-dark); min-width: 80px; text-align: right;">
+                ${{ "%.2f"|format(item.subtotal) }}
+            </div>
+            <form action="{{ url_for('eliminar_del_carrito', item_id=item.id) }}" method="post">
+                <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Eliminar este producto?')">&#10007;</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Resumen del carrito -->
+<div class="cart-summary">
+    <div class="flex-between">
+        <div>
+            <div style="color: var(--gray-500);">{{ carrito.cantidad_items }} articulo{{ 's' if carrito.cantidad_items != 1 }} en el carrito</div>
+            <div class="cart-total mt-1">Total: {{ carrito.total_formateado }}</div>
+        </div>
+        <a href="{{ url_for('checkout') }}" class="btn btn-primary btn-lg">Proceder al Checkout &#8594;</a>
+    </div>
+</div>
+
+{% else %}
+    {{ empty_state('Tu carrito esta vacio', url_for('catalogo'), 'Explorar Productos') }}
+{% endif %}
+{% endblock %}

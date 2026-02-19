@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% from "macros.html" import empty_state %}
+{% block title %}Admin - Categorias{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128193; Gestionar Categorias</h1>
+    <a href="{{ url_for('admin_crear_categoria') }}" class="btn btn-primary">+ Nueva Categoria</a>
+</div>
+
+{% if categorias %}
+<div class="card">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Productos</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cat in categorias %}
+                <tr>
+                    <td>{{ cat.id }}</td>
+                    <td><strong>{{ cat.nombre }}</strong></td>
+                    <td style="color: var(--gray-500);">{{ cat.descripcion[:50] ~ '...' if cat.descripcion and cat.descripcion|length > 50 else cat.descripcion or '-' }}</td>
+                    <td><span class="badge badge-info">{{ cat.cantidad_productos }}</span></td>
+                    <td>
+                        <span class="badge badge-{{ 'success' if cat.activa else 'danger' }}">
+                            {{ 'Activa' if cat.activa else 'Inactiva' }}
+                        </span>
+                    </td>
+                    <td>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <a href="{{ url_for('admin_editar_categoria', id=cat.id) }}" class="btn btn-secondary btn-sm">Editar</a>
+                            <form action="{{ url_for('admin_eliminar_categoria', id=cat.id) }}" method="post"
+                                  onsubmit="return confirm('Eliminar esta categoria y todos sus productos?')">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+    {{ empty_state('No hay categorias', url_for('admin_crear_categoria'), 'Crear Primera Categoria') }}
+{% endif %}
+{% endblock %}

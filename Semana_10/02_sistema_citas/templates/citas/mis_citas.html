@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% from "macros.html" import badge_estado, empty_state %}
+{% block title %}Mis Citas{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128197; Mis Citas</h1>
+    <a href="{{ url_for('agendar_cita') }}" class="btn btn-primary">+ Nueva Cita</a>
+</div>
+
+<!-- Filtros -->
+<div class="filter-tabs">
+    <a href="{{ url_for('mis_citas', filtro='todas') }}" class="filter-tab {{ 'active' if filtro == 'todas' }}">Todas</a>
+    <a href="{{ url_for('mis_citas', filtro='proximas') }}" class="filter-tab {{ 'active' if filtro == 'proximas' }}">Proximas</a>
+    <a href="{{ url_for('mis_citas', filtro='pasadas') }}" class="filter-tab {{ 'active' if filtro == 'pasadas' }}">Pasadas</a>
+    <a href="{{ url_for('mis_citas', filtro='canceladas') }}" class="filter-tab {{ 'active' if filtro == 'canceladas' }}">Canceladas</a>
+</div>
+
+{% if citas %}
+    {% for cita in citas %}
+    <div class="appointment-card">
+        <div class="appointment-date">
+            <div class="day">{{ cita.fecha.strftime('%d') }}</div>
+            <div class="month">{{ cita.fecha.strftime('%b') }}</div>
+        </div>
+        <div class="appointment-info">
+            <h4>{{ cita.servicio.nombre if cita.servicio else 'Servicio' }}</h4>
+            <p>{{ cita.profesional.nombre if cita.profesional else '' }}</p>
+        </div>
+        <div class="appointment-time">{{ cita.hora }}</div>
+        {{ badge_estado(cita.estado) }}
+        <a href="{{ url_for('ver_cita', id=cita.id) }}" class="btn btn-secondary btn-sm">Ver</a>
+    </div>
+    {% endfor %}
+{% else %}
+    {{ empty_state('No hay citas para este filtro', url_for('agendar_cita'), 'Agendar una Cita') }}
+{% endif %}
+{% endblock %}

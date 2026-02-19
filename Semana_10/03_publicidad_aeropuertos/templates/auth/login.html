@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Iniciar Sesion{% endblock %}
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2 class="auth-title">&#9992; AeroAds</h2>
+        <p class="auth-subtitle">Plataforma de Publicidad Aeroportuaria</p>
+        <form method="post">
+            <div class="form-group">
+                <label class="form-label">Email corporativo</label>
+                <input type="email" name="email" class="form-control" value="{{ email|default('') }}" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Contrasena</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg">Iniciar Sesion</button>
+        </form>
+        <div class="auth-footer">
+            Nuevo cliente? <a href="{{ url_for('registro') }}">Registra tu empresa</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

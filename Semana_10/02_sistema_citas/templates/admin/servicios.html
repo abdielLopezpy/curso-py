@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% from "macros.html" import empty_state %}
+{% block title %}Admin - Servicios{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128188; Gestionar Servicios</h1>
+    <a href="{{ url_for('admin_crear_servicio') }}" class="btn btn-primary">+ Nuevo Servicio</a>
+</div>
+
+{% if servicios %}
+<div class="card">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Servicio</th>
+                    <th>Duracion</th>
+                    <th>Precio</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in servicios %}
+                <tr>
+                    <td>{{ s.id }}</td>
+                    <td><strong>{{ s.nombre }}</strong></td>
+                    <td>{{ s.duracion_formateada }}</td>
+                    <td>{{ s.precio_formateado }}</td>
+                    <td><span class="badge badge-{{ 'success' if s.activo else 'danger' }}">{{ 'Activo' if s.activo else 'Inactivo' }}</span></td>
+                    <td>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <a href="{{ url_for('admin_editar_servicio', id=s.id) }}" class="btn btn-secondary btn-sm">Editar</a>
+                            <form action="{{ url_for('admin_eliminar_servicio', id=s.id) }}" method="post"
+                                  onsubmit="return confirm('Eliminar este servicio?')">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+    {{ empty_state('No hay servicios', url_for('admin_crear_servicio'), 'Crear Primer Servicio') }}
+{% endif %}
+{% endblock %}

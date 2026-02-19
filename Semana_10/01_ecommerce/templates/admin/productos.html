@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% from "macros.html" import badge_estado, empty_state %}
+{% block title %}Admin - Productos{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128230; Gestionar Productos</h1>
+    <a href="{{ url_for('admin_crear_producto') }}" class="btn btn-primary">+ Nuevo Producto</a>
+</div>
+
+{% if productos %}
+<div class="card">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Producto</th>
+                    <th>Categoria</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Destacado</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in productos %}
+                <tr>
+                    <td>{{ p.id }}</td>
+                    <td><strong>{{ p.nombre }}</strong></td>
+                    <td>{{ p.categoria.nombre if p.categoria else '-' }}</td>
+                    <td>{{ p.precio_formateado }}</td>
+                    <td>
+                        {% if p.stock == 0 %}
+                        <span class="badge badge-danger">Sin stock</span>
+                        {% elif p.stock < 10 %}
+                        <span class="badge badge-warning">{{ p.stock }}</span>
+                        {% else %}
+                        <span class="badge badge-success">{{ p.stock }}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ '&#11088;' if p.destacado else '-' }}</td>
+                    <td>
+                        <span class="badge badge-{{ 'success' if p.activo else 'danger' }}">
+                            {{ 'Activo' if p.activo else 'Inactivo' }}
+                        </span>
+                    </td>
+                    <td>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <a href="{{ url_for('admin_editar_producto', id=p.id) }}" class="btn btn-secondary btn-sm">Editar</a>
+                            <form action="{{ url_for('admin_eliminar_producto', id=p.id) }}" method="post"
+                                  onsubmit="return confirm('Eliminar este producto?')">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+    {{ empty_state('No hay productos', url_for('admin_crear_producto'), 'Crear Primer Producto') }}
+{% endif %}
+{% endblock %}

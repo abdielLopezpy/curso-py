@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% from "macros.html" import campo_texto, campo_numero, campo_textarea, boton %}
+{% block title %}{{ 'Editar' if campana else 'Nueva' }} Campana{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>{{ 'Editar' if campana else 'Nueva' }} Campana Publicitaria</h1>
+</div>
+
+<div class="card" style="max-width: 700px;">
+    <div class="card-body">
+        <form method="post">
+            {{ campo_texto('nombre', 'Nombre de la Campana', campana.nombre if campana else '', placeholder='Ej: Lanzamiento Producto Verano 2026') }}
+            {{ campo_textarea('descripcion', 'Descripcion', campana.descripcion if campana else '') }}
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label class="form-label" for="fecha_inicio">Fecha de Inicio</label>
+                    <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control"
+                           value="{{ campana.fecha_inicio.strftime('%Y-%m-%d') if campana and campana.fecha_inicio else '' }}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="fecha_fin">Fecha de Fin</label>
+                    <input type="date" id="fecha_fin" name="fecha_fin" class="form-control"
+                           value="{{ campana.fecha_fin.strftime('%Y-%m-%d') if campana and campana.fecha_fin else '' }}">
+                </div>
+            </div>
+
+            {{ campo_numero('presupuesto', 'Presupuesto Total ($)', campana.presupuesto if campana else '', min='0', step='0.01') }}
+
+            <div class="form-actions">
+                {{ boton('Guardar Campana', 'primary', submit=true) }}
+                {{ boton('Cancelar', 'secondary', url=url_for('listar_campanas')) }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

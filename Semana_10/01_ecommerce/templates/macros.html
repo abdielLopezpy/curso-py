@@ -1,0 +1,126 @@
+{# ============================================================================ #}
+{# MACROS REUTILIZABLES                                                       #}
+{# Los macros son como "funciones" en Jinja2.                                 #}
+{# Se definen una vez y se usan en multiples templates.                       #}
+{# Esto evita repetir codigo (principio DRY: Don't Repeat Yourself).         #}
+{# ============================================================================ #}
+
+{# --- Campo de texto --- #}
+{% macro campo_texto(name, label, value='', type='text', placeholder='', required=true) %}
+<div class="form-group">
+    <label class="form-label" for="{{ name }}">{{ label }}</label>
+    <input type="{{ type }}" id="{{ name }}" name="{{ name }}"
+           class="form-control" value="{{ value }}"
+           placeholder="{{ placeholder }}"
+           {{ 'required' if required }}>
+</div>
+{% endmacro %}
+
+{# --- Campo numerico --- #}
+{% macro campo_numero(name, label, value='', min='', max='', step='0.01', required=true) %}
+<div class="form-group">
+    <label class="form-label" for="{{ name }}">{{ label }}</label>
+    <input type="number" id="{{ name }}" name="{{ name }}"
+           class="form-control" value="{{ value }}"
+           min="{{ min }}" max="{{ max }}" step="{{ step }}"
+           {{ 'required' if required }}>
+</div>
+{% endmacro %}
+
+{# --- Campo textarea --- #}
+{% macro campo_textarea(name, label, value='', rows=3) %}
+<div class="form-group">
+    <label class="form-label" for="{{ name }}">{{ label }}</label>
+    <textarea id="{{ name }}" name="{{ name }}"
+              class="form-control" rows="{{ rows }}">{{ value }}</textarea>
+</div>
+{% endmacro %}
+
+{# --- Campo select --- #}
+{% macro campo_select(name, label, options, value_attr='id', text_attr='nombre', selected=None, required=true) %}
+<div class="form-group">
+    <label class="form-label" for="{{ name }}">{{ label }}</label>
+    <select id="{{ name }}" name="{{ name }}" class="form-control" {{ 'required' if required }}>
+        <option value="">-- Seleccionar --</option>
+        {% for opt in options %}
+        <option value="{{ opt[value_attr] }}"
+                {{ 'selected' if opt[value_attr]|string == selected|string }}>
+            {{ opt[text_attr] }}
+        </option>
+        {% endfor %}
+    </select>
+</div>
+{% endmacro %}
+
+{# --- Checkbox --- #}
+{% macro campo_checkbox(name, label, checked=false) %}
+<div class="form-group">
+    <label class="form-check">
+        <input type="checkbox" name="{{ name }}" {{ 'checked' if checked }}>
+        <span>{{ label }}</span>
+    </label>
+</div>
+{% endmacro %}
+
+{# --- Boton --- #}
+{% macro boton(texto, tipo='primary', url='', submit=false, size='') %}
+{% if submit %}
+<button type="submit" class="btn btn-{{ tipo }} {{ 'btn-' + size if size }}">{{ texto }}</button>
+{% else %}
+<a href="{{ url }}" class="btn btn-{{ tipo }} {{ 'btn-' + size if size }}">{{ texto }}</a>
+{% endif %}
+{% endmacro %}
+
+{# --- Tarjeta de producto --- #}
+{% macro product_card(producto) %}
+<div class="product-card">
+    <a href="{{ url_for('ver_producto', id=producto.id) }}">
+        <div class="product-img">&#128230;</div>
+        <div class="product-body">
+            {% if producto.categoria %}
+            <div class="product-category">{{ producto.categoria.nombre }}</div>
+            {% endif %}
+            <div class="product-name">{{ producto.nombre }}</div>
+            <div class="product-price">{{ producto.precio_formateado }}</div>
+            <div class="product-stock {{ 'out' if not producto.en_stock }}">
+                {{ 'En stock: ' ~ producto.stock ~ ' unidades' if producto.en_stock else 'Sin stock' }}
+            </div>
+        </div>
+    </a>
+    <div class="product-footer">
+        {% if producto.en_stock %}
+        <form action="{{ url_for('agregar_al_carrito', producto_id=producto.id) }}" method="post">
+            <input type="hidden" name="cantidad" value="1">
+            <button type="submit" class="btn btn-primary btn-sm btn-block">&#128722; Agregar al Carrito</button>
+        </form>
+        {% else %}
+        <button class="btn btn-secondary btn-sm btn-block" disabled>Sin Stock</button>
+        {% endif %}
+    </div>
+</div>
+{% endmacro %}
+
+{# --- Badge de estado --- #}
+{% macro badge_estado(estado) %}
+{% set tipos = {'pendiente': 'warning', 'pagado': 'info', 'enviado': 'primary', 'entregado': 'success', 'cancelado': 'danger'} %}
+<span class="badge badge-{{ tipos.get(estado, 'secondary') }}">{{ estado|capitalize }}</span>
+{% endmacro %}
+
+{# --- Stat card --- #}
+{% macro stat_card(numero, etiqueta) %}
+<div class="stat-card">
+    <div class="stat-number">{{ numero }}</div>
+    <div class="stat-label">{{ etiqueta }}</div>
+</div>
+{% endmacro %}
+
+{# --- Empty state --- #}
+{% macro empty_state(mensaje, url_accion='', texto_boton='') %}
+<div class="empty-state">
+    <div class="empty-state-icon">&#128230;</div>
+    <div class="empty-state-text">{{ mensaje }}</div>
+    {% if url_accion %}
+    <a href="{{ url_accion }}" class="btn btn-primary">{{ texto_boton }}</a>
+    {% endif %}
+</div>
+{% endmacro %}

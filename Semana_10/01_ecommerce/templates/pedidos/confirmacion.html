@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% from "macros.html" import badge_estado %}
+{% block title %}Pedido Confirmado{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 3rem 0;">
+    <div style="font-size: 4rem;">&#10003;&#65039;</div>
+    <h1 style="color: var(--primary-dark); margin: 1rem 0;">Pedido Confirmado!</h1>
+    <p style="color: var(--gray-500); font-size: 1.1rem;">Tu pedido #{{ pedido.id }} ha sido creado exitosamente.</p>
+
+    <div class="card" style="max-width: 500px; margin: 2rem auto; text-align: left;">
+        <div class="card-header">Detalles del Pedido</div>
+        <div class="card-body">
+            <p><strong>Pedido #:</strong> {{ pedido.id }}</p>
+            <p><strong>Total:</strong> {{ pedido.total_formateado }}</p>
+            <p><strong>Estado:</strong> {{ badge_estado(pedido.estado) }}</p>
+            <p><strong>Direccion:</strong> {{ pedido.direccion_envio }}</p>
+            <p><strong>Fecha:</strong> {{ pedido.fecha_creacion.strftime('%d/%m/%Y %H:%M') }}</p>
+        </div>
+        <div class="card-footer" style="text-align: center;">
+            <a href="{{ url_for('ver_pedido', id=pedido.id) }}" class="btn btn-primary">Ver Detalle</a>
+            <a href="{{ url_for('catalogo') }}" class="btn btn-secondary">Seguir Comprando</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

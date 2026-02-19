@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% from "macros.html" import campo_texto, campo_numero, campo_textarea, campo_select, campo_checkbox, boton %}
+{% block title %}{{ 'Editar' if espacio else 'Nuevo' }} Espacio{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>{{ 'Editar' if espacio else 'Nuevo' }} Espacio Publicitario</h1>
+</div>
+
+<div class="card" style="max-width: 700px;">
+    <div class="card-body">
+        <form method="post">
+            {{ campo_texto('nombre', 'Nombre del Espacio', espacio.nombre if espacio else '') }}
+            {{ campo_select('aeropuerto_id', 'Aeropuerto', aeropuertos, selected=espacio.aeropuerto_id if espacio else '') }}
+
+            <div class="form-group">
+                <label class="form-label" for="tipo">Tipo</label>
+                <select id="tipo" name="tipo" class="form-control" required>
+                    <option value="">-- Seleccionar --</option>
+                    {% for t in ['pantalla_digital', 'valla', 'banner', 'stand', 'display_interactivo'] %}
+                    <option value="{{ t }}" {{ 'selected' if espacio and espacio.tipo == t }}>{{ t|replace('_', ' ')|capitalize }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="ubicacion">Ubicacion</label>
+                <select id="ubicacion" name="ubicacion" class="form-control" required>
+                    <option value="">-- Seleccionar --</option>
+                    {% for u in ['terminal', 'sala_espera', 'pasillo', 'exterior', 'gate'] %}
+                    <option value="{{ u }}" {{ 'selected' if espacio and espacio.ubicacion == u }}>{{ u|replace('_', ' ')|capitalize }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            {{ campo_texto('dimensiones', 'Dimensiones', espacio.dimensiones if espacio else '', placeholder='Ej: 3m x 2m', required=false) }}
+            {{ campo_numero('precio_mensual', 'Precio Mensual ($)', espacio.precio_mensual if espacio else '', min='0', step='0.01') }}
+            {{ campo_textarea('descripcion', 'Descripcion', espacio.descripcion if espacio else '') }}
+
+            {% if espacio %}
+            {{ campo_checkbox('disponible', 'Espacio disponible', espacio.disponible) }}
+            {% endif %}
+
+            <div class="form-actions">
+                {{ boton('Guardar', 'primary', submit=true) }}
+                {{ boton('Cancelar', 'secondary', url=url_for('admin_espacios')) }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

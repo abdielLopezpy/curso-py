@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% from "macros.html" import campo_select, campo_textarea, boton %}
+{% block title %}Agendar Cita{% endblock %}
+
+{% block content %}
+<!-- ================================================================== -->
+<!-- FORMULARIO DE AGENDAMIENTO                                         -->
+<!-- El cliente selecciona: servicio, profesional, fecha y hora         -->
+<!-- ================================================================== -->
+
+<div class="page-header">
+    <h1>&#128197; Agendar Nueva Cita</h1>
+</div>
+
+<div class="card" style="max-width: 700px;">
+    <div class="card-body">
+        <form method="post">
+            <!-- Paso 1: Seleccionar servicio -->
+            {{ campo_select('servicio_id', 'Servicio', servicios) }}
+
+            <!-- Paso 2: Seleccionar profesional -->
+            {{ campo_select('profesional_id', 'Profesional', profesionales) }}
+
+            <!-- Paso 3: Seleccionar fecha -->
+            <div class="form-group">
+                <label class="form-label" for="fecha">Fecha</label>
+                <input type="date" id="fecha" name="fecha" class="form-control"
+                       min="{{ now().strftime('%Y-%m-%d') if now is defined else '' }}" required>
+            </div>
+
+            <!-- Paso 4: Seleccionar hora -->
+            <div class="form-group">
+                <label class="form-label" for="hora">Hora</label>
+                <select id="hora" name="hora" class="form-control" required>
+                    <option value="">-- Seleccionar hora --</option>
+                    {% for h in horas_disponibles %}
+                    <option value="{{ h }}">{{ h }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Notas opcionales -->
+            {{ campo_textarea('notas', 'Notas adicionales (opcional)', rows=2) }}
+
+            <div class="form-actions">
+                {{ boton('Confirmar Cita', 'primary', submit=true, size='lg') }}
+                {{ boton('Cancelar', 'secondary', url=url_for('index')) }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

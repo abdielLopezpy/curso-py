@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% from "macros.html" import stat_card, badge_estado %}
+{% block title %}Admin{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128202; Panel de Administracion</h1>
+</div>
+
+<div class="stats-grid">
+    {{ stat_card(stats.total_aeropuertos, 'Aeropuertos') }}
+    {{ stat_card(stats.total_espacios, 'Espacios') }}
+    {{ stat_card(stats.total_campanas, 'Campanas') }}
+    {{ stat_card(stats.total_contratos, 'Contratos') }}
+</div>
+
+<div class="grid-2">
+    <div class="card">
+        <div class="card-header">Acciones de Administracion</div>
+        <div class="card-body" style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <a href="{{ url_for('admin_aeropuertos') }}" class="btn btn-primary">&#9992; Gestionar Aeropuertos</a>
+            <a href="{{ url_for('admin_espacios') }}" class="btn btn-accent">&#128204; Gestionar Espacios</a>
+            <a href="{{ url_for('admin_campanas') }}" class="btn btn-secondary">&#128200; Ver Campanas</a>
+            <a href="{{ url_for('admin_contratos') }}" class="btn btn-secondary">&#128196; Gestionar Contratos</a>
+        </div>
+        <div class="card-footer">
+            <div style="font-size: 0.9rem;">
+                <strong>Ingresos por contratos:</strong>
+                <span style="color: var(--primary-dark); font-weight: 800; font-size: 1.1rem;">{{ stats.ingresos }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Contratos Recientes</div>
+        <div class="card-body" style="padding: 0;">
+            {% if contratos_recientes %}
+                {% for c in contratos_recientes %}
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--gray-100);">
+                    <div>
+                        <strong>{{ c.espacio.nombre if c.espacio else 'N/A' }}</strong>
+                        <div style="font-size: 0.8rem; color: var(--gray-500);">
+                            {{ c.campana.cliente.empresa if c.campana and c.campana.cliente else '' }}
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-weight: 600;">{{ c.precio_formateado }}</span>
+                        {{ badge_estado(c.estado) }}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+            <div style="padding: 2rem; text-align: center; color: var(--gray-400);">No hay contratos aun</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

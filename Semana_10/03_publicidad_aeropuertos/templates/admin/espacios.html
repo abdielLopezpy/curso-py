@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% from "macros.html" import empty_state %}
+{% block title %}Admin - Espacios{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128204; Gestionar Espacios</h1>
+    <a href="{{ url_for('admin_crear_espacio') }}" class="btn btn-primary">+ Nuevo Espacio</a>
+</div>
+
+{% if espacios %}
+<div class="card">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Espacio</th>
+                    <th>Aeropuerto</th>
+                    <th>Tipo</th>
+                    <th>Ubicacion</th>
+                    <th>Precio/Mes</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in espacios %}
+                <tr>
+                    <td>{{ e.id }}</td>
+                    <td><strong>{{ e.nombre }}</strong></td>
+                    <td>
+                        <span class="iata-code" style="font-size: 0.65rem; padding: 0.1rem 0.3rem;">{{ e.aeropuerto.codigo_iata if e.aeropuerto else '?' }}</span>
+                    </td>
+                    <td><span class="space-type">{{ e.tipo_display }}</span></td>
+                    <td>{{ e.ubicacion_display }}</td>
+                    <td style="font-weight: 700;">{{ e.precio_formateado }}</td>
+                    <td>
+                        <span class="badge badge-{{ 'success' if e.disponible else 'danger' }}">
+                            {{ 'Disponible' if e.disponible else 'Ocupado' }}
+                        </span>
+                    </td>
+                    <td>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <a href="{{ url_for('admin_editar_espacio', id=e.id) }}" class="btn btn-secondary btn-sm">Editar</a>
+                            <form action="{{ url_for('admin_eliminar_espacio', id=e.id) }}" method="post"
+                                  onsubmit="return confirm('Eliminar este espacio?')">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+    {{ empty_state('No hay espacios', url_for('admin_crear_espacio'), 'Crear Primer Espacio') }}
+{% endif %}
+{% endblock %}

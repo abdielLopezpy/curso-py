@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% from "macros.html" import product_card, empty_state %}
+{% block title %}Catalogo{% endblock %}
+
+{% block content %}
+<!-- ================================================================== -->
+<!-- CATALOGO CON FILTRO POR CATEGORIA                                  -->
+<!-- Usa un layout de 2 columnas: sidebar + grid de productos           -->
+<!-- El parametro ?categoria=ID filtra los productos                    -->
+<!-- ================================================================== -->
+
+<div class="page-header">
+    <h1>&#128722; Catalogo de Productos</h1>
+</div>
+
+<div class="catalog-layout">
+    <!-- Sidebar con categorias -->
+    <aside class="sidebar">
+        <h3>Categorias</h3>
+        <ul class="sidebar-list">
+            <li>
+                <a href="{{ url_for('catalogo') }}"
+                   class="{{ 'active' if not categoria_actual }}">
+                    Todas las categorias
+                </a>
+            </li>
+            {% for cat in categorias %}
+            <li>
+                <a href="{{ url_for('catalogo', categoria=cat.id) }}"
+                   class="{{ 'active' if categoria_actual == cat.id }}">
+                    {{ cat.nombre }} ({{ cat.cantidad_productos }})
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </aside>
+
+    <!-- Grid de productos -->
+    <div>
+        {% if productos %}
+        <p class="mb-2" style="color: var(--gray-500);">{{ productos|length }} producto{{ 's' if productos|length != 1 }} encontrado{{ 's' if productos|length != 1 }}</p>
+        <div class="product-grid">
+            {% for producto in productos %}
+                {{ product_card(producto) }}
+            {% endfor %}
+        </div>
+        {% else %}
+            {{ empty_state('No se encontraron productos en esta categoria', url_for('catalogo'), 'Ver todos los productos') }}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

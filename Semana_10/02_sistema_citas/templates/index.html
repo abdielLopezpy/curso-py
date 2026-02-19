@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% from "macros.html" import stat_card, badge_estado, empty_state %}
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="welcome-banner">
+    <h1>&#128197; Bienvenido, {{ usuario_actual.nombre }}!</h1>
+    <p>Gestiona tus citas de forma facil y rapida.</p>
+    <a href="{{ url_for('agendar_cita') }}" class="btn btn-warning" style="margin-top: 1rem;">+ Agendar Nueva Cita</a>
+</div>
+
+<!-- Estadisticas rapidas -->
+<div class="stats-grid" style="grid-template-columns: repeat(2, 1fr);">
+    {{ stat_card(total_citas, 'Total de Citas') }}
+    {{ stat_card(citas_pendientes, 'Citas Pendientes') }}
+</div>
+
+<!-- Proximas citas -->
+<div class="page-header">
+    <h2>&#128197; Proximas Citas</h2>
+    <a href="{{ url_for('mis_citas') }}" class="btn btn-secondary btn-sm">Ver todas</a>
+</div>
+
+{% if proximas_citas %}
+    {% for cita in proximas_citas %}
+    <div class="appointment-card">
+        <div class="appointment-date">
+            <div class="day">{{ cita.fecha.strftime('%d') }}</div>
+            <div class="month">{{ cita.fecha.strftime('%b') }}</div>
+        </div>
+        <div class="appointment-info">
+            <h4>{{ cita.servicio.nombre if cita.servicio else 'Servicio' }}</h4>
+            <p>{{ cita.profesional.nombre if cita.profesional else '' }} {{ '- ' ~ cita.profesional.especialidad if cita.profesional and cita.profesional.especialidad else '' }}</p>
+        </div>
+        <div class="appointment-time">{{ cita.hora }}</div>
+        {{ badge_estado(cita.estado) }}
+        <a href="{{ url_for('ver_cita', id=cita.id) }}" class="btn btn-secondary btn-sm">Ver</a>
+    </div>
+    {% endfor %}
+{% else %}
+    {{ empty_state('No tienes citas proximas', url_for('agendar_cita'), 'Agendar una Cita') }}
+{% endif %}
+{% endblock %}

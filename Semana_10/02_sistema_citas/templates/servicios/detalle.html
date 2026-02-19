@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{ servicio.nombre }}{% endblock %}
+{% block content %}
+<a href="{{ url_for('listar_servicios') }}" class="btn btn-secondary btn-sm mb-2">&#8592; Servicios</a>
+
+<div class="card" style="max-width: 700px;">
+    <div class="card-header" style="border-top: 3px solid var(--primary);">{{ servicio.nombre }}</div>
+    <div class="card-body">
+        {% if servicio.descripcion %}
+        <p style="color: var(--gray-600); margin-bottom: 1.5rem;">{{ servicio.descripcion }}</p>
+        {% endif %}
+
+        <div class="grid-2" style="max-width: 400px;">
+            <div>
+                <div style="font-size: 0.85rem; color: var(--gray-500);">Duracion</div>
+                <div style="font-size: 1.1rem; font-weight: 700;">&#128337; {{ servicio.duracion_formateada }}</div>
+            </div>
+            <div>
+                <div style="font-size: 0.85rem; color: var(--gray-500);">Precio</div>
+                <div style="font-size: 1.3rem; font-weight: 800; color: var(--primary-dark);">{{ servicio.precio_formateado }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <a href="{{ url_for('agendar_cita') }}" class="btn btn-primary">&#128197; Agendar este Servicio</a>
+    </div>
+</div>
+{% endblock %}

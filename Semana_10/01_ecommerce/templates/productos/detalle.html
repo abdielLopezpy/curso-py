@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}{{ producto.nombre }}{% endblock %}
+
+{% block content %}
+<!-- ================================================================== -->
+<!-- DETALLE DE PRODUCTO                                                -->
+<!-- Layout de 2 columnas: imagen + info                                -->
+<!-- Incluye boton de agregar al carrito con selector de cantidad        -->
+<!-- ================================================================== -->
+
+<a href="{{ url_for('catalogo') }}" class="btn btn-secondary btn-sm mb-2">&#8592; Volver al Catalogo</a>
+
+<div class="product-detail">
+    <div class="product-detail-img">&#128230;</div>
+
+    <div class="product-detail-info">
+        {% if producto.categoria %}
+        <span class="badge badge-primary">{{ producto.categoria.nombre }}</span>
+        {% endif %}
+
+        <h1>{{ producto.nombre }}</h1>
+        <div class="product-detail-price">{{ producto.precio_formateado }}</div>
+
+        {% if producto.descripcion %}
+        <p style="color: var(--gray-600); margin: 1rem 0;">{{ producto.descripcion }}</p>
+        {% endif %}
+
+        <div style="margin: 1rem 0;">
+            {% if producto.en_stock %}
+            <span class="badge badge-success">&#10003; En Stock ({{ producto.stock }} disponibles)</span>
+            {% else %}
+            <span class="badge badge-danger">&#10007; Sin Stock</span>
+            {% endif %}
+        </div>
+
+        {% if producto.en_stock %}
+        <form action="{{ url_for('agregar_al_carrito', producto_id=producto.id) }}" method="post"
+              style="display: flex; gap: 1rem; align-items: end; margin-top: 1.5rem;">
+            <div class="form-group" style="margin-bottom: 0; width: 100px;">
+                <label class="form-label">Cantidad</label>
+                <input type="number" name="cantidad" value="1" min="1" max="{{ producto.stock }}"
+                       class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">&#128722; Agregar al Carrito</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

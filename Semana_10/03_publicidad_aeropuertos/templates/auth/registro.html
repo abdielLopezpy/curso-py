@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Registro{% endblock %}
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2 class="auth-title">&#128188; Registro Empresarial</h2>
+        <p class="auth-subtitle">Registra tu empresa para contratar publicidad</p>
+        <form method="post">
+            <div class="form-group">
+                <label class="form-label">Nombre del contacto</label>
+                <input type="text" name="nombre" class="form-control" value="{{ nombre|default('') }}" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Empresa</label>
+                <input type="text" name="empresa" class="form-control" value="{{ empresa|default('') }}" placeholder="Nombre de tu empresa" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Email corporativo</label>
+                <input type="email" name="email" class="form-control" value="{{ email|default('') }}" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Telefono</label>
+                <input type="tel" name="telefono" class="form-control" value="{{ telefono|default('') }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Contrasena</label>
+                <input type="password" name="password" class="form-control" minlength="6" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Confirmar Contrasena</label>
+                <input type="password" name="confirmar_password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg">Registrar Empresa</button>
+        </form>
+        <div class="auth-footer">
+            Ya tienes cuenta? <a href="{{ url_for('login') }}">Inicia sesion</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

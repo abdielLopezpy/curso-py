@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AeroAds{% endblock %} | Publicidad Aeroportuaria</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('index') }}" class="navbar-brand">&#9992; AeroAds</a>
+
+        <ul class="navbar-nav">
+            {% if esta_logueado %}
+            <li><a href="{{ url_for('index') }}" class="{{ 'active' if request.endpoint == 'index' }}">Inicio</a></li>
+            <li><a href="{{ url_for('listar_aeropuertos') }}" class="{{ 'active' if 'aeropuerto' in request.endpoint|default('') }}">Aeropuertos</a></li>
+            <li><a href="{{ url_for('listar_espacios') }}" class="{{ 'active' if 'espacio' in request.endpoint|default('') }}">Espacios</a></li>
+            <li><a href="{{ url_for('listar_campanas') }}" class="{{ 'active' if 'campana' in request.endpoint|default('') }}">Campanas</a></li>
+            {% if es_admin %}
+            <li><a href="{{ url_for('admin_dashboard') }}" class="{{ 'active' if 'admin' in request.endpoint|default('') }}">Admin</a></li>
+            {% endif %}
+            {% endif %}
+        </ul>
+
+        <div class="nav-right">
+            {% if esta_logueado %}
+            <div class="user-menu">
+                <button class="user-btn">
+                    <span class="user-avatar">{{ usuario_actual.nombre[0]|upper }}</span>
+                    {{ usuario_actual.nombre }}
+                </button>
+                <div class="dropdown">
+                    <a href="{{ url_for('listar_campanas') }}">&#128200; Mis Campanas</a>
+                    <a href="{{ url_for('logout') }}" class="danger">&#128682; Cerrar Sesion</a>
+                </div>
+            </div>
+            {% else %}
+            <a href="{{ url_for('login') }}" class="btn btn-secondary btn-sm" style="color: var(--gray-300);">Iniciar Sesion</a>
+            <a href="{{ url_for('registro') }}" class="btn btn-accent btn-sm">Registrarse</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

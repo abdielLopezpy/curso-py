@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% from "macros.html" import empty_state %}
+{% block title %}Servicios{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128188; Nuestros Servicios</h1>
+    <a href="{{ url_for('agendar_cita') }}" class="btn btn-primary">+ Agendar Cita</a>
+</div>
+
+{% if servicios %}
+<div class="service-grid">
+    {% for servicio in servicios %}
+    <div class="service-card">
+        <h3>{{ servicio.nombre }}</h3>
+        <p style="color: var(--gray-500); font-size: 0.9rem;">{{ servicio.descripcion[:100] ~ '...' if servicio.descripcion and servicio.descripcion|length > 100 else servicio.descripcion or '' }}</p>
+        <div class="service-meta">
+            <span>&#128337; {{ servicio.duracion_formateada }}</span>
+        </div>
+        <div class="flex-between" style="margin-top: 1rem;">
+            <div class="service-price">{{ servicio.precio_formateado }}</div>
+            <a href="{{ url_for('ver_servicio', id=servicio.id) }}" class="btn btn-secondary btn-sm">Ver Detalle</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    {{ empty_state('No hay servicios disponibles') }}
+{% endif %}
+{% endblock %}

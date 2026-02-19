@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% from "macros.html" import empty_state %}
+{% block title %}Admin - Profesionales{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128100; Gestionar Profesionales</h1>
+    <a href="{{ url_for('admin_crear_profesional') }}" class="btn btn-primary">+ Nuevo Profesional</a>
+</div>
+
+{% if profesionales %}
+<div class="card">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Especialidad</th>
+                    <th>Email</th>
+                    <th>Telefono</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in profesionales %}
+                <tr>
+                    <td>{{ p.id }}</td>
+                    <td><strong>{{ p.nombre }}</strong></td>
+                    <td>{{ p.especialidad or '-' }}</td>
+                    <td>{{ p.email or '-' }}</td>
+                    <td>{{ p.telefono or '-' }}</td>
+                    <td><span class="badge badge-{{ 'success' if p.activo else 'danger' }}">{{ 'Activo' if p.activo else 'Inactivo' }}</span></td>
+                    <td>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <a href="{{ url_for('admin_editar_profesional', id=p.id) }}" class="btn btn-secondary btn-sm">Editar</a>
+                            <form action="{{ url_for('admin_eliminar_profesional', id=p.id) }}" method="post"
+                                  onsubmit="return confirm('Eliminar este profesional?')">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+    {{ empty_state('No hay profesionales', url_for('admin_crear_profesional'), 'Agregar Primer Profesional') }}
+{% endif %}
+{% endblock %}

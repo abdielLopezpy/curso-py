@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% from "macros.html" import stat_card, badge_estado %}
+{% block title %}Admin - Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128202; Dashboard de Administracion</h1>
+</div>
+
+<!-- Estadisticas -->
+<div class="stats-grid">
+    {{ stat_card(stats.total_productos, 'Productos') }}
+    {{ stat_card(stats.total_categorias, 'Categorias') }}
+    {{ stat_card(stats.total_pedidos, 'Pedidos') }}
+    {{ stat_card(stats.total_usuarios, 'Usuarios') }}
+</div>
+
+<div class="grid-2">
+    <!-- Acciones rapidas -->
+    <div class="card">
+        <div class="card-header">Acciones Rapidas</div>
+        <div class="card-body">
+            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <a href="{{ url_for('admin_productos') }}" class="btn btn-primary">&#128230; Gestionar Productos</a>
+                <a href="{{ url_for('admin_categorias') }}" class="btn btn-secondary">&#128193; Gestionar Categorias</a>
+                <a href="{{ url_for('admin_pedidos') }}" class="btn btn-info">&#128230; Gestionar Pedidos</a>
+            </div>
+
+            {% if stats.pedidos_pendientes > 0 %}
+            <div class="alert alert-warning mt-2">
+                &#9888; Hay {{ stats.pedidos_pendientes }} pedido{{ 's' if stats.pedidos_pendientes != 1 }} pendiente{{ 's' if stats.pedidos_pendientes != 1 }}
+            </div>
+            {% endif %}
+            {% if stats.productos_sin_stock > 0 %}
+            <div class="alert alert-danger mt-1">
+                &#9888; Hay {{ stats.productos_sin_stock }} producto{{ 's' if stats.productos_sin_stock != 1 }} sin stock
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Pedidos recientes -->
+    <div class="card">
+        <div class="card-header">Pedidos Recientes</div>
+        <div class="card-body" style="padding: 0;">
+            {% if pedidos_recientes %}
+            {% for pedido in pedidos_recientes %}
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--gray-100);">
+                <div>
+                    <strong>#{{ pedido.id }}</strong>
+                    <span style="color: var(--gray-500); font-size: 0.85rem;">
+                        - {{ pedido.fecha_creacion.strftime('%d/%m/%Y') }}
+                    </span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <span style="font-weight: 600;">{{ pedido.total_formateado }}</span>
+                    {{ badge_estado(pedido.estado) }}
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div style="padding: 2rem; text-align: center; color: var(--gray-400);">No hay pedidos aun</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

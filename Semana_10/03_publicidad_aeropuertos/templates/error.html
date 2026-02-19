@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Error{% endblock %}
+{% block content %}
+<div class="empty-state">
+    <div class="empty-state-icon">&#9888;&#65039;</div>
+    <div class="empty-state-text">{{ mensaje }}</div>
+    <a href="{{ url_for('index') }}" class="btn btn-primary">Volver al Inicio</a>
+</div>
+{% endblock %}

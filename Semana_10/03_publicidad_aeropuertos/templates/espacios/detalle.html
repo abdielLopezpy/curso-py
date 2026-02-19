@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}{{ espacio.nombre }}{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('listar_espacios') }}" class="btn btn-secondary btn-sm mb-2">&#8592; Espacios</a>
+
+<div class="grid-2">
+    <div class="card">
+        <div class="card-header">{{ espacio.nombre }}</div>
+        <div class="card-body">
+            <div class="space-type" style="margin-bottom: 1rem;">{{ espacio.tipo_display }}</div>
+
+            <div style="display: grid; gap: 1rem;">
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--gray-500); text-transform: uppercase;">Aeropuerto</div>
+                    <div style="font-weight: 600;">
+                        <span class="iata-code" style="font-size: 0.8rem; padding: 0.1rem 0.4rem;">{{ espacio.aeropuerto.codigo_iata }}</span>
+                        {{ espacio.aeropuerto.nombre }}
+                    </div>
+                </div>
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--gray-500); text-transform: uppercase;">Ubicacion</div>
+                    <div style="font-weight: 600;">{{ espacio.ubicacion_display }}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--gray-500); text-transform: uppercase;">Dimensiones</div>
+                    <div style="font-weight: 600;">{{ espacio.dimensiones or 'No especificadas' }}</div>
+                </div>
+                {% if espacio.descripcion %}
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--gray-500); text-transform: uppercase;">Descripcion</div>
+                    <div>{{ espacio.descripcion }}</div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Precio y Contratacion</div>
+        <div class="card-body text-center">
+            <div class="space-price" style="font-size: 2.5rem;">{{ espacio.precio_formateado }}</div>
+            <div style="color: var(--gray-500);">por mes</div>
+
+            <div style="margin: 1.5rem 0;">
+                {% if espacio.disponible %}
+                <span class="badge badge-success" style="font-size: 0.9rem; padding: 0.4rem 1rem;">Disponible</span>
+                {% else %}
+                <span class="badge badge-danger" style="font-size: 0.9rem; padding: 0.4rem 1rem;">No Disponible</span>
+                {% endif %}
+            </div>
+
+            {% if espacio.disponible %}
+            <a href="{{ url_for('contratar_espacio', espacio_id=espacio.id) }}" class="btn btn-accent btn-lg btn-block">
+                Contratar este Espacio
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

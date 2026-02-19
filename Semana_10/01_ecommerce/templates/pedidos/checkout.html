@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<!-- ================================================================== -->
+<!-- CHECKOUT                                                           -->
+<!-- Resumen del pedido + formulario de direccion de envio              -->
+<!-- Al enviar, se crea el pedido y se vacia el carrito                 -->
+<!-- ================================================================== -->
+
+<div class="page-header">
+    <h1>&#128179; Checkout</h1>
+</div>
+
+<form method="post">
+    <div class="checkout-grid">
+        <!-- Formulario de envio -->
+        <div class="card">
+            <div class="card-header">Direccion de Envio</div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="form-label" for="direccion">Direccion completa</label>
+                    <textarea id="direccion" name="direccion" class="form-control" rows="4"
+                              placeholder="Calle, numero, ciudad, codigo postal, pais..." required></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resumen del pedido -->
+        <div>
+            <div class="card">
+                <div class="card-header">Resumen del Pedido</div>
+                <div class="card-body" style="padding: 0;">
+                    {% for item in carrito.items %}
+                    <div style="display: flex; justify-content: space-between; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--gray-100);">
+                        <div>
+                            <div style="font-weight: 600;">{{ item.producto.nombre }}</div>
+                            <div style="font-size: 0.85rem; color: var(--gray-500);">Qty: {{ item.cantidad }} x {{ item.producto.precio_formateado }}</div>
+                        </div>
+                        <div style="font-weight: 700;">${{ "%.2f"|format(item.subtotal) }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="card-footer">
+                    <div class="flex-between">
+                        <span style="font-weight: 700; font-size: 1.1rem;">Total</span>
+                        <span style="font-weight: 800; font-size: 1.3rem; color: var(--primary-dark);">{{ carrito.total_formateado }}</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block btn-lg mt-2">
+                        &#10003; Confirmar Pedido
+                    </button>
+                    <a href="{{ url_for('ver_carrito') }}" class="btn btn-secondary btn-block btn-sm mt-1">
+                        &#8592; Volver al Carrito
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{{ aeropuerto.codigo_iata }} - {{ aeropuerto.nombre }}{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('listar_aeropuertos') }}" class="btn btn-secondary btn-sm mb-2">&#8592; Aeropuertos</a>
+
+<div class="card mb-2">
+    <div class="card-body">
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            <div class="iata-code" style="font-size: 2rem; padding: 0.5rem 1rem;">{{ aeropuerto.codigo_iata }}</div>
+            <div>
+                <h1 style="font-size: 1.5rem; margin-bottom: 0.25rem;">{{ aeropuerto.nombre }}</h1>
+                <p style="color: var(--gray-500);">{{ aeropuerto.ciudad }}, {{ aeropuerto.pais }}</p>
+                <p style="margin-top: 0.5rem;">
+                    <strong style="color: var(--primary-dark);">{{ aeropuerto.pasajeros_formateado }}</strong>
+                    <span style="color: var(--gray-500);">pasajeros anuales</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Espacios disponibles en este aeropuerto -->
+<div class="page-header">
+    <h2>Espacios Publicitarios Disponibles</h2>
+    <span class="badge badge-success">{{ aeropuerto.espacios_disponibles }} disponibles</span>
+</div>
+
+{% if aeropuerto.espacios %}
+<div class="space-grid">
+    {% for espacio in aeropuerto.espacios %}
+    {% if espacio.disponible %}
+    <div class="space-card">
+        <div class="space-type">{{ espacio.tipo_display }}</div>
+        <div class="space-name">{{ espacio.nombre }}</div>
+        <div class="space-location">{{ espacio.ubicacion_display }} &middot; {{ espacio.dimensiones }}</div>
+        <div class="space-price">{{ espacio.precio_formateado }} <small>/mes</small></div>
+        <div style="margin-top: 1rem;">
+            <a href="{{ url_for('contratar_espacio', espacio_id=espacio.id) }}" class="btn btn-accent btn-sm">Contratar</a>
+            <a href="{{ url_for('ver_espacio', id=espacio.id) }}" class="btn btn-secondary btn-sm">Detalle</a>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    <div class="empty-state-text">No hay espacios disponibles en este aeropuerto</div>
+</div>
+{% endif %}
+{% endblock %}

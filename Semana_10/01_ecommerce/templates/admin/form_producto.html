@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% from "macros.html" import campo_texto, campo_numero, campo_textarea, campo_select, campo_checkbox, boton %}
+{% block title %}{{ 'Editar' if producto else 'Nuevo' }} Producto{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>{{ '&#9998; Editar' if producto else '&#10010; Nuevo' }} Producto</h1>
+</div>
+
+<div class="card" style="max-width: 700px;">
+    <div class="card-body">
+        <form method="post">
+            {{ campo_texto('nombre', 'Nombre del Producto', producto.nombre if producto else '') }}
+            {{ campo_textarea('descripcion', 'Descripcion', producto.descripcion if producto else '') }}
+            {{ campo_numero('precio', 'Precio ($)', producto.precio if producto else '', min='0', step='0.01') }}
+            {{ campo_numero('stock', 'Stock', producto.stock if producto else '0', min='0', step='1') }}
+            {{ campo_texto('imagen_url', 'URL de Imagen (opcional)', producto.imagen_url if producto else '', required=false) }}
+            {{ campo_select('categoria_id', 'Categoria', categorias, selected=producto.categoria_id if producto else '') }}
+            {{ campo_checkbox('destacado', 'Producto destacado (aparece en la pagina principal)', producto.destacado if producto else false) }}
+            {% if producto %}
+            {{ campo_checkbox('activo', 'Producto activo (visible en la tienda)', producto.activo) }}
+            {% endif %}
+
+            <div class="form-actions">
+                {{ boton('Guardar', 'primary', submit=true) }}
+                {{ boton('Cancelar', 'secondary', url=url_for('admin_productos')) }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

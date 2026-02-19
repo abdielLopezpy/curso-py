@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% from "macros.html" import badge_estado %}
+{% block title %}Pedido #{{ pedido.id }}{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('mis_pedidos') }}" class="btn btn-secondary btn-sm mb-2">&#8592; Mis Pedidos</a>
+
+<div class="page-header">
+    <h1>Pedido #{{ pedido.id }}</h1>
+    {{ badge_estado(pedido.estado) }}
+</div>
+
+<div class="grid-2">
+    <!-- Items del pedido -->
+    <div class="card">
+        <div class="card-header">Productos</div>
+        <div class="card-body" style="padding: 0;">
+            {% for item in pedido.items %}
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--gray-100);">
+                <div>
+                    <div style="font-weight: 600;">{{ item.producto.nombre if item.producto else 'Producto eliminado' }}</div>
+                    <div style="font-size: 0.85rem; color: var(--gray-500);">
+                        {{ item.cantidad }} x ${{ "%.2f"|format(item.precio_unitario) }}
+                    </div>
+                </div>
+                <div style="font-weight: 700;">${{ "%.2f"|format(item.subtotal) }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="card-footer">
+            <div class="flex-between">
+                <strong>Total</strong>
+                <strong style="font-size: 1.2rem; color: var(--primary-dark);">{{ pedido.total_formateado }}</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- Informacion del pedido -->
+    <div class="card">
+        <div class="card-header">Informacion</div>
+        <div class="card-body">
+            <p><strong>Pedido #:</strong> {{ pedido.id }}</p>
+            <p><strong>Fecha:</strong> {{ pedido.fecha_creacion.strftime('%d/%m/%Y %H:%M') }}</p>
+            <p><strong>Estado:</strong> {{ badge_estado(pedido.estado) }}</p>
+            <p class="mt-2"><strong>Direccion de envio:</strong></p>
+            <p style="color: var(--gray-600);">{{ pedido.direccion_envio }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

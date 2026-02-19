@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% from "macros.html" import campo_select, boton %}
+{% block title %}Contratar Espacio{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('ver_espacio', id=espacio.id) }}" class="btn btn-secondary btn-sm mb-2">&#8592; Volver</a>
+
+<div class="page-header">
+    <h1>Contratar Espacio Publicitario</h1>
+</div>
+
+<div class="grid-2">
+    <!-- Formulario de contratacion -->
+    <div class="card">
+        <div class="card-header">Datos del Contrato</div>
+        <div class="card-body">
+            {% if campanas %}
+            <form method="post">
+                {{ campo_select('campana_id', 'Campana', campanas) }}
+
+                <div class="form-group">
+                    <label class="form-label" for="fecha_inicio">Fecha de Inicio</label>
+                    <input type="date" id="fecha_inicio" name="fecha_inicio" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="fecha_fin">Fecha de Fin</label>
+                    <input type="date" id="fecha_fin" name="fecha_fin" class="form-control" required>
+                </div>
+
+                <p style="font-size: 0.85rem; color: var(--gray-500); margin-top: 0.5rem;">
+                    El precio se calcula automaticamente: meses x {{ espacio.precio_formateado }}/mes
+                </p>
+
+                <div class="form-actions">
+                    {{ boton('Confirmar Contrato', 'accent', submit=true, size='lg') }}
+                    {{ boton('Cancelar', 'secondary', url=url_for('listar_espacios')) }}
+                </div>
+            </form>
+            {% else %}
+            <div class="alert alert-warning">
+                Necesitas crear una campana antes de contratar un espacio.
+            </div>
+            <a href="{{ url_for('crear_campana') }}" class="btn btn-primary">Crear Campana</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Resumen del espacio -->
+    <div class="card">
+        <div class="card-header">Espacio Seleccionado</div>
+        <div class="card-body">
+            <div class="space-type">{{ espacio.tipo_display }}</div>
+            <h3 style="margin: 0.5rem 0;">{{ espacio.nombre }}</h3>
+            <p style="color: var(--gray-500);">
+                <span class="iata-code" style="font-size: 0.7rem; padding: 0.1rem 0.4rem;">{{ espacio.aeropuerto.codigo_iata }}</span>
+                {{ espacio.aeropuerto.nombre }}
+            </p>
+            <p style="color: var(--gray-500); font-size: 0.9rem;">{{ espacio.ubicacion_display }} &middot; {{ espacio.dimensiones }}</p>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--gray-200); text-align: center;">
+                <div class="space-price" style="font-size: 2rem;">{{ espacio.precio_formateado }}</div>
+                <div style="color: var(--gray-500);">por mes</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

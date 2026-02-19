@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% from "macros.html" import badge_estado %}
+{% block title %}{{ campana.nombre }}{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('listar_campanas') }}" class="btn btn-secondary btn-sm mb-2">&#8592; Mis Campanas</a>
+
+<div class="page-header">
+    <h1>{{ campana.nombre }}</h1>
+    <div style="display: flex; gap: 0.5rem; align-items: center;">
+        {{ badge_estado(campana.estado) }}
+        <a href="{{ url_for('editar_campana', id=campana.id) }}" class="btn btn-secondary btn-sm">Editar</a>
+    </div>
+</div>
+
+<!-- Info de la campana -->
+<div class="grid-2 mb-2">
+    <div class="card">
+        <div class="card-header">Detalles</div>
+        <div class="card-body">
+            {% if campana.descripcion %}
+            <p style="margin-bottom: 1rem;">{{ campana.descripcion }}</p>
+            {% endif %}
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--gray-500);">Presupuesto</div>
+                    <div style="font-weight: 700; font-size: 1.2rem; color: var(--primary-dark);">{{ campana.presupuesto_formateado }}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--gray-500);">Total Invertido</div>
+                    <div style="font-weight: 700; font-size: 1.2rem;">${{ "%.2f"|format(campana.total_contratos) }}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--gray-500);">Inicio</div>
+                    <div>{{ campana.fecha_inicio.strftime('%d/%m/%Y') if campana.fecha_inicio else 'Sin definir' }}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.8rem; color: var(--gray-500);">Fin</div>
+                    <div>{{ campana.fecha_fin.strftime('%d/%m/%Y') if campana.fecha_fin else 'Sin definir' }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Acciones</div>
+        <div class="card-body" style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <a href="{{ url_for('listar_espacios') }}" class="btn btn-accent btn-block">+ Contratar Espacio</a>
+            <a href="{{ url_for('editar_campana', id=campana.id) }}" class="btn btn-secondary btn-block">Editar Campana</a>
+        </div>
+    </div>
+</div>
+
+<!-- Contratos de esta campana -->
+<div class="page-header">
+    <h2>Contratos ({{ campana.contratos|length }})</h2>
+</div>
+
+{% if campana.contratos %}
+<div class="card">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Espacio</th>
+                    <th>Aeropuerto</th>
+                    <th>Periodo</th>
+                    <th>Precio</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contrato in campana.contratos %}
+                <tr>
+                    <td>{{ contrato.id }}</td>
+                    <td><strong>{{ contrato.espacio.nombre if contrato.espacio else 'N/A' }}</strong></td>
+                    <td>
+                        {% if contrato.espacio and contrato.espacio.aeropuerto %}
+                        <span class="iata-code" style="font-size: 0.65rem; padding: 0.1rem 0.3rem;">{{ contrato.espacio.aeropuerto.codigo_iata }}</span>
+                        {% endif %}
+                    </td>
+                    <td style="font-size: 0.85rem;">{{ contrato.fecha_inicio.strftime('%d/%m/%Y') }} - {{ contrato.fecha_fin.strftime('%d/%m/%Y') }}</td>
+                    <td style="font-weight: 700;">{{ contrato.precio_formateado }}</td>
+                    <td>{{ badge_estado(contrato.estado) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<div class="empty-state">
+    <div class="empty-state-text">No hay contratos en esta campana</div>
+    <a href="{{ url_for('listar_espacios') }}" class="btn btn-accent">Explorar Espacios</a>
+</div>
+{% endif %}
+{% endblock %}

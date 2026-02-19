@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% from "macros.html" import badge_estado, empty_state %}
+{% block title %}Mis Campanas{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128200; Mis Campanas</h1>
+    <a href="{{ url_for('crear_campana') }}" class="btn btn-primary">+ Nueva Campana</a>
+</div>
+
+{% if campanas %}
+<div class="card">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Campana</th>
+                    <th>Presupuesto</th>
+                    <th>Fechas</th>
+                    <th>Contratos</th>
+                    <th>Total Invertido</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in campanas %}
+                <tr>
+                    <td><strong>{{ c.nombre }}</strong></td>
+                    <td>{{ c.presupuesto_formateado }}</td>
+                    <td style="font-size: 0.85rem;">
+                        {% if c.fecha_inicio %}{{ c.fecha_inicio.strftime('%d/%m/%Y') }}{% endif %}
+                        {% if c.fecha_fin %} - {{ c.fecha_fin.strftime('%d/%m/%Y') }}{% endif %}
+                    </td>
+                    <td>{{ c.contratos|length }}</td>
+                    <td style="font-weight: 700;">${{ "%.2f"|format(c.total_contratos) }}</td>
+                    <td>{{ badge_estado(c.estado) }}</td>
+                    <td>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <a href="{{ url_for('ver_campana', id=c.id) }}" class="btn btn-secondary btn-sm">Ver</a>
+                            <a href="{{ url_for('editar_campana', id=c.id) }}" class="btn btn-secondary btn-sm">Editar</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+    {{ empty_state('No tienes campanas. Crea una para empezar a contratar espacios.', url_for('crear_campana'), 'Crear Primera Campana') }}
+{% endif %}
+{% endblock %}

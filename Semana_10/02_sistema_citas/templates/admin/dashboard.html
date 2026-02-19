@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% from "macros.html" import stat_card, badge_estado %}
+{% block title %}Admin{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128202; Dashboard de Administracion</h1>
+</div>
+
+<div class="stats-grid">
+    {{ stat_card(stats.total_citas, 'Total Citas') }}
+    {{ stat_card(stats.citas_hoy, 'Citas Hoy') }}
+    {{ stat_card(stats.total_servicios, 'Servicios') }}
+    {{ stat_card(stats.total_profesionales, 'Profesionales') }}
+</div>
+
+{% if stats.citas_pendientes > 0 %}
+<div class="alert alert-warning mb-2">
+    &#9888; Hay {{ stats.citas_pendientes }} cita{{ 's' if stats.citas_pendientes != 1 }} pendiente{{ 's' if stats.citas_pendientes != 1 }} de confirmacion.
+</div>
+{% endif %}
+
+<div class="grid-2">
+    <!-- Acciones rapidas -->
+    <div class="card">
+        <div class="card-header">Acciones Rapidas</div>
+        <div class="card-body" style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <a href="{{ url_for('admin_citas') }}" class="btn btn-primary">&#128197; Gestionar Citas</a>
+            <a href="{{ url_for('admin_servicios') }}" class="btn btn-secondary">&#128188; Gestionar Servicios</a>
+            <a href="{{ url_for('admin_profesionales') }}" class="btn btn-secondary">&#128100; Gestionar Profesionales</a>
+        </div>
+    </div>
+
+    <!-- Citas de hoy -->
+    <div class="card">
+        <div class="card-header">&#128197; Citas de Hoy</div>
+        <div class="card-body" style="padding: 0;">
+            {% if citas_hoy %}
+                {% for cita in citas_hoy %}
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1.5rem; border-bottom: 1px solid var(--gray-100);">
+                    <div>
+                        <strong>{{ cita.hora }}</strong> - {{ cita.servicio.nombre if cita.servicio else 'N/A' }}
+                        <div style="font-size: 0.8rem; color: var(--gray-500);">
+                            {{ cita.cliente.nombre if cita.cliente else '' }} / {{ cita.profesional.nombre if cita.profesional else '' }}
+                        </div>
+                    </div>
+                    {{ badge_estado(cita.estado) }}
+                </div>
+                {% endfor %}
+            {% else %}
+            <div style="padding: 2rem; text-align: center; color: var(--gray-400);">No hay citas para hoy</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

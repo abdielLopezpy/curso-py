@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% from "macros.html" import empty_state %}
+{% block title %}Espacios Publicitarios{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128204; Espacios Publicitarios</h1>
+</div>
+
+<!-- Filtros -->
+<div class="filter-bar">
+    <div class="form-group">
+        <label class="form-label">Aeropuerto</label>
+        <select class="form-control" onchange="window.location.href=this.value" style="width: 200px;">
+            <option value="{{ url_for('listar_espacios', tipo=tipo_actual) }}">Todos</option>
+            {% for a in aeropuertos %}
+            <option value="{{ url_for('listar_espacios', aeropuerto=a.id, tipo=tipo_actual) }}"
+                    {{ 'selected' if aeropuerto_actual == a.id }}>
+                {{ a.codigo_iata }} - {{ a.nombre }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Tipo</label>
+        <select class="form-control" onchange="window.location.href=this.value" style="width: 200px;">
+            <option value="{{ url_for('listar_espacios', aeropuerto=aeropuerto_actual) }}">Todos</option>
+            {% for t in tipos %}
+            <option value="{{ url_for('listar_espacios', aeropuerto=aeropuerto_actual, tipo=t) }}"
+                    {{ 'selected' if tipo_actual == t }}>
+                {{ t|replace('_', ' ')|capitalize }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+
+{% if espacios %}
+<p style="color: var(--gray-500); margin-bottom: 1rem;">{{ espacios|length }} espacio{{ 's' if espacios|length != 1 }} encontrado{{ 's' if espacios|length != 1 }}</p>
+<div class="space-grid">
+    {% for espacio in espacios %}
+    <div class="space-card">
+        <div class="space-type">{{ espacio.tipo_display }}</div>
+        <div class="space-name">{{ espacio.nombre }}</div>
+        <div class="space-location">
+            <span class="iata-code" style="font-size: 0.7rem; padding: 0.1rem 0.4rem;">{{ espacio.aeropuerto.codigo_iata }}</span>
+            {{ espacio.ubicacion_display }} &middot; {{ espacio.dimensiones }}
+        </div>
+        <div class="space-price">{{ espacio.precio_formateado }} <small>/mes</small></div>
+        <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+            <a href="{{ url_for('contratar_espacio', espacio_id=espacio.id) }}" class="btn btn-accent btn-sm">Contratar</a>
+            <a href="{{ url_for('ver_espacio', id=espacio.id) }}" class="btn btn-secondary btn-sm">Detalle</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+    {{ empty_state('No se encontraron espacios con esos filtros', url_for('listar_espacios'), 'Ver Todos') }}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% from "macros.html" import badge_estado, empty_state %}
+{% block title %}Admin - Campanas{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128200; Todas las Campanas</h1>
+</div>
+
+{% if campanas %}
+<div class="card">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Campana</th>
+                    <th>Cliente</th>
+                    <th>Empresa</th>
+                    <th>Presupuesto</th>
+                    <th>Contratos</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in campanas %}
+                <tr>
+                    <td>{{ c.id }}</td>
+                    <td><strong>{{ c.nombre }}</strong></td>
+                    <td>{{ c.cliente.nombre if c.cliente else 'N/A' }}</td>
+                    <td>{{ c.cliente.empresa if c.cliente else '' }}</td>
+                    <td>{{ c.presupuesto_formateado }}</td>
+                    <td>{{ c.contratos|length }}</td>
+                    <td>{{ badge_estado(c.estado) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+    {{ empty_state('No hay campanas registradas') }}
+{% endif %}
+{% endblock %}

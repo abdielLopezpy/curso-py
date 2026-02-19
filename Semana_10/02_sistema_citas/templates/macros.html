@@ -1,0 +1,82 @@
+{# ============================================================================ #}
+{# MACROS REUTILIZABLES - SISTEMA DE CITAS                                    #}
+{# ============================================================================ #}
+
+{% macro campo_texto(name, label, value='', type='text', placeholder='', required=true) %}
+<div class="form-group">
+    <label class="form-label" for="{{ name }}">{{ label }}</label>
+    <input type="{{ type }}" id="{{ name }}" name="{{ name }}"
+           class="form-control" value="{{ value }}"
+           placeholder="{{ placeholder }}" {{ 'required' if required }}>
+</div>
+{% endmacro %}
+
+{% macro campo_numero(name, label, value='', min='', max='', step='1', required=true) %}
+<div class="form-group">
+    <label class="form-label" for="{{ name }}">{{ label }}</label>
+    <input type="number" id="{{ name }}" name="{{ name }}"
+           class="form-control" value="{{ value }}"
+           min="{{ min }}" max="{{ max }}" step="{{ step }}" {{ 'required' if required }}>
+</div>
+{% endmacro %}
+
+{% macro campo_textarea(name, label, value='', rows=3) %}
+<div class="form-group">
+    <label class="form-label" for="{{ name }}">{{ label }}</label>
+    <textarea id="{{ name }}" name="{{ name }}" class="form-control" rows="{{ rows }}">{{ value }}</textarea>
+</div>
+{% endmacro %}
+
+{% macro campo_select(name, label, options, value_attr='id', text_attr='nombre', selected=None, required=true) %}
+<div class="form-group">
+    <label class="form-label" for="{{ name }}">{{ label }}</label>
+    <select id="{{ name }}" name="{{ name }}" class="form-control" {{ 'required' if required }}>
+        <option value="">-- Seleccionar --</option>
+        {% for opt in options %}
+        <option value="{{ opt[value_attr] }}"
+                {{ 'selected' if opt[value_attr]|string == selected|string }}>
+            {{ opt[text_attr] }}
+        </option>
+        {% endfor %}
+    </select>
+</div>
+{% endmacro %}
+
+{% macro campo_checkbox(name, label, checked=false) %}
+<div class="form-group">
+    <label class="form-check">
+        <input type="checkbox" name="{{ name }}" {{ 'checked' if checked }}>
+        <span>{{ label }}</span>
+    </label>
+</div>
+{% endmacro %}
+
+{% macro boton(texto, tipo='primary', url='', submit=false, size='') %}
+{% if submit %}
+<button type="submit" class="btn btn-{{ tipo }} {{ 'btn-' + size if size }}">{{ texto }}</button>
+{% else %}
+<a href="{{ url }}" class="btn btn-{{ tipo }} {{ 'btn-' + size if size }}">{{ texto }}</a>
+{% endif %}
+{% endmacro %}
+
+{% macro badge_estado(estado) %}
+{% set tipos = {'pendiente': 'warning', 'confirmada': 'info', 'completada': 'success', 'cancelada': 'danger'} %}
+<span class="badge badge-{{ tipos.get(estado, 'secondary') }}">{{ estado|capitalize }}</span>
+{% endmacro %}
+
+{% macro stat_card(numero, etiqueta) %}
+<div class="stat-card">
+    <div class="stat-number">{{ numero }}</div>
+    <div class="stat-label">{{ etiqueta }}</div>
+</div>
+{% endmacro %}
+
+{% macro empty_state(mensaje, url_accion='', texto_boton='') %}
+<div class="empty-state">
+    <div class="empty-state-icon">&#128197;</div>
+    <div class="empty-state-text">{{ mensaje }}</div>
+    {% if url_accion %}
+    <a href="{{ url_accion }}" class="btn btn-primary">{{ texto_boton }}</a>
+    {% endif %}
+</div>
+{% endmacro %}

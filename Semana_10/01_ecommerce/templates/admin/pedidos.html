@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% from "macros.html" import badge_estado, empty_state %}
+{% block title %}Admin - Pedidos{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128230; Gestionar Pedidos</h1>
+</div>
+
+{% if pedidos %}
+<div class="card">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Cliente</th>
+                    <th>Fecha</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Cambiar Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pedido in pedidos %}
+                <tr>
+                    <td><strong>#{{ pedido.id }}</strong></td>
+                    <td>{{ pedido.usuario.nombre if pedido.usuario else 'N/A' }}</td>
+                    <td>{{ pedido.fecha_creacion.strftime('%d/%m/%Y %H:%M') }}</td>
+                    <td>{{ pedido.items|length }}</td>
+                    <td style="font-weight: 700;">{{ pedido.total_formateado }}</td>
+                    <td>{{ badge_estado(pedido.estado) }}</td>
+                    <td>
+                        <form action="{{ url_for('admin_cambiar_estado_pedido', id=pedido.id) }}" method="post"
+                              style="display: flex; gap: 0.5rem;">
+                            <select name="estado" class="form-control" style="width: auto; padding: 0.3rem 0.5rem; font-size: 0.8rem;">
+                                {% for est in ['pendiente', 'pagado', 'enviado', 'entregado', 'cancelado'] %}
+                                <option value="{{ est }}" {{ 'selected' if est == pedido.estado }}>{{ est|capitalize }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit" class="btn btn-primary btn-sm">Actualizar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+    {{ empty_state('No hay pedidos') }}
+{% endif %}
+{% endblock %}

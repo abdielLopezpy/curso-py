@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% from "macros.html" import badge_estado %}
+{% block title %}Cita #{{ cita.id }}{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('mis_citas') }}" class="btn btn-secondary btn-sm mb-2">&#8592; Mis Citas</a>
+
+<div class="card" style="max-width: 600px;">
+    <div class="card-header">
+        <div class="flex-between">
+            <span>Cita #{{ cita.id }}</span>
+            {{ badge_estado(cita.estado) }}
+        </div>
+    </div>
+    <div class="card-body">
+        <div style="display: flex; gap: 2rem; margin-bottom: 1.5rem;">
+            <div class="appointment-date" style="min-width: 80px; padding: 1rem;">
+                <div class="day" style="font-size: 2rem;">{{ cita.fecha.strftime('%d') }}</div>
+                <div class="month">{{ cita.fecha.strftime('%B %Y') }}</div>
+            </div>
+            <div>
+                <div class="appointment-time" style="font-size: 1.5rem; display: inline-block; margin-bottom: 0.5rem;">{{ cita.hora }}</div>
+            </div>
+        </div>
+
+        <div style="display: grid; gap: 1rem;">
+            <div>
+                <div style="font-size: 0.8rem; color: var(--gray-500); text-transform: uppercase;">Servicio</div>
+                <div style="font-weight: 600;">{{ cita.servicio.nombre if cita.servicio else '-' }}</div>
+                {% if cita.servicio %}
+                <div style="font-size: 0.85rem; color: var(--gray-500);">{{ cita.servicio.duracion_formateada }} - {{ cita.servicio.precio_formateado }}</div>
+                {% endif %}
+            </div>
+            <div>
+                <div style="font-size: 0.8rem; color: var(--gray-500); text-transform: uppercase;">Profesional</div>
+                <div style="font-weight: 600;">{{ cita.profesional.nombre if cita.profesional else '-' }}</div>
+                {% if cita.profesional and cita.profesional.especialidad %}
+                <div style="font-size: 0.85rem; color: var(--gray-500);">{{ cita.profesional.especialidad }}</div>
+                {% endif %}
+            </div>
+            {% if cita.notas %}
+            <div>
+                <div style="font-size: 0.8rem; color: var(--gray-500); text-transform: uppercase;">Notas</div>
+                <div>{{ cita.notas }}</div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% if cita.estado in ['pendiente', 'confirmada'] %}
+    <div class="card-footer">
+        <form action="{{ url_for('cancelar_cita', id=cita.id) }}" method="post"
+              onsubmit="return confirm('Seguro que quieres cancelar esta cita?')">
+            <button type="submit" class="btn btn-danger">Cancelar Cita</button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

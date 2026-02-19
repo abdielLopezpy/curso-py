@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% from "macros.html" import empty_state %}
+{% block title %}Aeropuertos{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#9992; Directorio de Aeropuertos</h1>
+</div>
+
+{% if aeropuertos %}
+<div class="airport-grid">
+    {% for a in aeropuertos %}
+    <a href="{{ url_for('ver_aeropuerto', id=a.id) }}" class="airport-card">
+        <div class="iata-code">{{ a.codigo_iata }}</div>
+        <div class="airport-name">{{ a.nombre }}</div>
+        <div class="airport-location">{{ a.ciudad }}, {{ a.pais }}</div>
+        <div class="airport-traffic">
+            <strong>{{ a.pasajeros_formateado }}</strong> pasajeros/ano
+            &middot; {{ a.espacios_disponibles }} espacios disponibles
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% else %}
+    {{ empty_state('No hay aeropuertos disponibles') }}
+{% endif %}
+{% endblock %}

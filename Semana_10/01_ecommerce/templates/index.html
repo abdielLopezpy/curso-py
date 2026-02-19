@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% from "macros.html" import product_card %}
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<!-- ================================================================== -->
+<!-- BANNER DE BIENVENIDA                                               -->
+<!-- ================================================================== -->
+<div class="welcome-banner">
+    <h1>&#128722; Bienvenido a ShopPy</h1>
+    <p>Encuentra los mejores productos al mejor precio. Compra facil, rapido y seguro.</p>
+    <a href="{{ url_for('catalogo') }}" class="btn btn-warning" style="margin-top: 1rem;">Ver Catalogo Completo</a>
+</div>
+
+<!-- ================================================================== -->
+<!-- CATEGORIAS                                                         -->
+<!-- ================================================================== -->
+{% if categorias %}
+<div class="section-header">
+    <h2>Categorias</h2>
+    <a href="{{ url_for('catalogo') }}">Ver todas</a>
+</div>
+<div class="category-grid mb-3">
+    {% for cat in categorias %}
+    <a href="{{ url_for('catalogo', categoria=cat.id) }}" class="category-card">
+        <div class="category-icon">&#128193;</div>
+        <div class="category-name">{{ cat.nombre }}</div>
+        <div class="category-count">{{ cat.cantidad_productos }} productos</div>
+    </a>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- ================================================================== -->
+<!-- PRODUCTOS DESTACADOS                                               -->
+<!-- ================================================================== -->
+{% if destacados %}
+<div class="section-header">
+    <h2>&#11088; Productos Destacados</h2>
+    <a href="{{ url_for('catalogo') }}">Ver todos</a>
+</div>
+<div class="product-grid">
+    {% for producto in destacados %}
+        {{ product_card(producto) }}
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

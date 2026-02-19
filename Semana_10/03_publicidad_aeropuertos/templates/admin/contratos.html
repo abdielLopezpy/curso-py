@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% from "macros.html" import badge_estado, empty_state %}
+{% block title %}Admin - Contratos{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128196; Gestionar Contratos</h1>
+</div>
+
+{% if contratos %}
+<div class="card">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Espacio</th>
+                    <th>Aeropuerto</th>
+                    <th>Campana</th>
+                    <th>Cliente</th>
+                    <th>Periodo</th>
+                    <th>Precio</th>
+                    <th>Estado</th>
+                    <th>Cambiar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in contratos %}
+                <tr>
+                    <td>{{ c.id }}</td>
+                    <td><strong>{{ c.espacio.nombre if c.espacio else 'N/A' }}</strong></td>
+                    <td>
+                        {% if c.espacio and c.espacio.aeropuerto %}
+                        <span class="iata-code" style="font-size: 0.65rem; padding: 0.1rem 0.3rem;">{{ c.espacio.aeropuerto.codigo_iata }}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ c.campana.nombre if c.campana else 'N/A' }}</td>
+                    <td>{{ c.campana.cliente.empresa if c.campana and c.campana.cliente else '' }}</td>
+                    <td style="font-size: 0.85rem;">{{ c.fecha_inicio.strftime('%d/%m/%Y') }} - {{ c.fecha_fin.strftime('%d/%m/%Y') }}</td>
+                    <td style="font-weight: 700;">{{ c.precio_formateado }}</td>
+                    <td>{{ badge_estado(c.estado) }}</td>
+                    <td>
+                        <form action="{{ url_for('admin_cambiar_estado_contrato', id=c.id) }}" method="post"
+                              style="display: flex; gap: 0.5rem;">
+                            <select name="estado" class="form-control" style="width: auto; padding: 0.3rem; font-size: 0.8rem;">
+                                {% for est in ['pendiente', 'activo', 'vencido', 'cancelado'] %}
+                                <option value="{{ est }}" {{ 'selected' if est == c.estado }}>{{ est|capitalize }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit" class="btn btn-primary btn-sm">OK</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+    {{ empty_state('No hay contratos registrados') }}
+{% endif %}
+{% endblock %}

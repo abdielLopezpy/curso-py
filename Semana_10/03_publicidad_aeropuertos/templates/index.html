@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% from "macros.html" import stat_card, badge_estado, empty_state %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="welcome-banner">
+    <h1>&#9992; Bienvenido, {{ usuario_actual.nombre }}</h1>
+    <p>{{ usuario_actual.empresa or 'Gestiona tu publicidad en los principales aeropuertos de Latinoamerica' }}</p>
+    <div style="margin-top: 1rem; display: flex; gap: 0.75rem;">
+        <a href="{{ url_for('listar_espacios') }}" class="btn btn-accent">Ver Espacios Disponibles</a>
+        <a href="{{ url_for('crear_campana') }}" class="btn btn-secondary" style="background: rgba(255,255,255,0.2); color: white;">+ Nueva Campana</a>
+    </div>
+</div>
+
+<div class="stats-grid">
+    {{ stat_card(mis_campanas, 'Mis Campanas') }}
+    {{ stat_card(campanas_activas, 'Activas') }}
+    {{ stat_card(mis_contratos, 'Contratos') }}
+    {{ stat_card(total_aeropuertos, 'Aeropuertos') }}
+</div>
+
+<div class="page-header">
+    <h2>&#128200; Mis Campanas Recientes</h2>
+    <a href="{{ url_for('listar_campanas') }}">Ver todas</a>
+</div>
+
+{% if campanas_recientes %}
+<div class="card">
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Campana</th>
+                    <th>Presupuesto</th>
+                    <th>Contratos</th>
+                    <th>Estado</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in campanas_recientes %}
+                <tr>
+                    <td><strong>{{ c.nombre }}</strong></td>
+                    <td>{{ c.presupuesto_formateado }}</td>
+                    <td>{{ c.contratos|length }}</td>
+                    <td>{{ badge_estado(c.estado) }}</td>
+                    <td><a href="{{ url_for('ver_campana', id=c.id) }}" class="btn btn-secondary btn-sm">Ver</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+    {{ empty_state('No tienes campanas aun', url_for('crear_campana'), 'Crear Primera Campana') }}
+{% endif %}
+{% endblock %}
