@@ -372,7 +372,9 @@ def inject_user():
         'carrito_count': 0
     }
     if 'usuario_id' in session:
-        db = Session()
+        # Usar una sesion NO-scoped aqui evita cerrar accidentalmente
+        # la sesion de la vista actual durante render_template().
+        db = session_factory()
         try:
             usuario = db.query(Usuario).get(session['usuario_id'])
             if usuario:
