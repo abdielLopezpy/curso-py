@@ -20,7 +20,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from sqlalchemy import create_engine, Column, Integer, String, Float, Boolean, DateTime, ForeignKey, Text, Date
-from sqlalchemy.orm import declarative_base, sessionmaker, relationship, scoped_session
+from sqlalchemy.orm import declarative_base, sessionmaker, relationship, scoped_session, joinedload
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from datetime import datetime, date, timedelta
@@ -478,6 +478,12 @@ def agendar_cita():
         servicios = db.query(Servicio).filter(Servicio.activo == True).all()
         profesionales = db.query(Profesional).filter(Profesional.activo == True).all()
 
+        # Generar horarios disponibles (cada 30 min de 9 a 17)
+        horas_disponibles = []
+        for h in range(9, 17):
+            horas_disponibles.append(f"{h:02d}:00")
+            horas_disponibles.append(f"{h:02d}:30")
+
         if request.method == 'POST':
             servicio_id = request.form.get('servicio_id', type=int)
             profesional_id = request.form.get('profesional_id', type=int)
@@ -494,19 +500,22 @@ def agendar_cita():
             if errores:
                 for e in errores: flash(e, 'danger')
                 return render_template('citas/agendar.html',
-                                       servicios=servicios, profesionales=profesionales)
+                                       servicios=servicios, profesionales=profesionales,
+                                       horas_disponibles=horas_disponibles)
 
             try:
                 fecha = datetime.strptime(fecha_str, '%Y-%m-%d').date()
             except ValueError:
                 flash('Formato de fecha invalido', 'danger')
                 return render_template('citas/agendar.html',
-                                       servicios=servicios, profesionales=profesionales)
+                                       servicios=servicios, profesionales=profesionales,
+                                       horas_disponibles=horas_disponibles)
 
             if fecha < date.today():
                 flash('No puedes agendar en una fecha pasada', 'danger')
                 return render_template('citas/agendar.html',
-                                       servicios=servicios, profesionales=profesionales)
+                                       servicios=servicios, profesionales=profesionales,
+                                       horas_disponibles=horas_disponibles)
 
             # Verificar que no haya conflicto de horario
             conflicto = db.query(Cita).filter(
@@ -519,7 +528,8 @@ def agendar_cita():
             if conflicto:
                 flash('Ese horario ya esta ocupado. Elige otra hora.', 'warning')
                 return render_template('citas/agendar.html',
-                                       servicios=servicios, profesionales=profesionales)
+                                       servicios=servicios, profesionales=profesionales,
+                                       horas_disponibles=horas_disponibles)
 
             cita = Cita(
                 cliente_id=session['usuario_id'],
@@ -533,12 +543,6 @@ def agendar_cita():
             db.commit()
             flash('Cita agendada exitosamente!', 'success')
             return redirect(url_for('mis_citas'))
-
-        # Generar horarios disponibles (cada 30 min de 9 a 17)
-        horas_disponibles = []
-        for h in range(9, 17):
-            horas_disponibles.append(f"{h:02d}:00")
-            horas_disponibles.append(f"{h:02d}:30")
 
         return render_template('citas/agendar.html',
                                servicios=servicios,
@@ -558,7 +562,10 @@ def mis_citas():
     db = Session()
     try:
         filtro = request.args.get('filtro', 'todas')
-        query = db.query(Cita).filter(Cita.cliente_id == session['usuario_id'])
+        query = db.query(Cita).options(
+            joinedload(Cita.servicio),
+            joinedload(Cita.profesional)
+        ).filter(Cita.cliente_id == session['usuario_id'])
 
         if filtro == 'proximas':
             query = query.filter(Cita.fecha >= date.today(), Cita.estado.in_(['pendiente', 'confirmada']))
@@ -578,7 +585,11 @@ def mis_citas():
 def ver_cita(id):
     db = Session()
     try:
-        cita = db.query(Cita).get(id)
+        cita = db.query(Cita).options(
+            joinedload(Cita.servicio),
+            joinedload(Cita.profesional),
+            joinedload(Cita.cliente)
+        ).get(id)
         if not cita or cita.cliente_id != session['usuario_id']:
             flash('Cita no encontrada', 'danger')
             return redirect(url_for('mis_citas'))
