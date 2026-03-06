@@ -43,9 +43,13 @@
             {{ campo_textarea('notas', 'Notas adicionales (opcional)', rows=2) }}
 
             <div class="form-actions">
-                {{ boton('Confirmar Cita', 'primary', submit=true, size='lg') }}
+                {{ boton('Pagar y Confirmar Cita', 'primary', submit=true, size='lg') }}
                 {{ boton('Cancelar', 'secondary', url=url_for('index')) }}
             </div>
+            <p style="text-align: center; font-size: 0.8rem; color: var(--gray-500); margin-top: 0.5rem;">
+                Seras redirigido a Stripe para completar el pago de forma segura.
+                <br>Tarjeta de prueba: 4242 4242 4242 4242
+            </p>
         </form>
     </div>
 </div>

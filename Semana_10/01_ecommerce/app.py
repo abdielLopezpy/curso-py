@@ -11,34 +11,64 @@
 # - Panel de administracion
 #
 # COMO EJECUTAR:
-# 1. pip install flask sqlalchemy psycopg2-binary werkzeug
-# 2. python app.py
-# 3. Abre: http://localhost:5010
+# 1. pip install flask sqlalchemy psycopg2-binary werkzeug python-dotenv stripe
+# 2. Copia .env.example a .env y configura tus claves
+# 3. python app.py
+# 4. Abre: http://localhost:5010
 #
 # CREDENCIALES:
 # - Admin: admin@ejemplo.com / admin123
 # ============================================================================
 
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 from sqlalchemy import create_engine, Column, Integer, String, Float, Boolean, DateTime, ForeignKey, Text
 from sqlalchemy.orm import declarative_base, sessionmaker, relationship, scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from datetime import datetime
+from dotenv import load_dotenv
+import stripe
 import os
+
+# ============================================================================
+# CARGAR VARIABLES DE ENTORNO
+# ============================================================================
+# load_dotenv() busca un archivo .env en el directorio actual y carga
+# las variables definidas ahi como variables de entorno.
+# Esto permite mantener credenciales fuera del codigo fuente.
+# ============================================================================
+
+load_dotenv()
 
 # ============================================================================
 # CONFIGURACION DE LA APLICACION
 # ============================================================================
 
 app = Flask(__name__)
-app.secret_key = 'ecommerce-secreto-cambiar-en-produccion'
+app.secret_key = os.environ.get('SECRET_KEY', 'ecommerce-secreto-cambiar-en-produccion')
+
+# ============================================================================
+# STRIPE - PASARELA DE PAGOS
+# ============================================================================
+# Stripe permite procesar pagos con tarjeta de credito/debito.
+# Necesitas DOS claves (obtenlas en https://dashboard.stripe.com/apikeys):
+#
+#   STRIPE_SECRET_KEY        → Clave secreta (sk_test_...) - SOLO en el servidor
+#   STRIPE_PUBLISHABLE_KEY   → Clave publica (pk_test_...) - Se envia al navegador
+#
+# En desarrollo usamos claves de prueba (test). En produccion se usan
+# las claves live. Las claves de prueba permiten usar tarjetas ficticias
+# como 4242 4242 4242 4242 para simular pagos.
+# ============================================================================
+
+stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', "")
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
 
 # ============================================================================
 # BASE DE DATOS
 # ============================================================================
 # Usamos la misma cadena de conexion de Neon (PostgreSQL en la nube).
-# Si no esta configurada, usa la URL por defecto.
+# La URL se lee de la variable de entorno DATABASE_URL.
 # ============================================================================
 
 DATABASE_URL = os.environ.get(
@@ -700,7 +730,7 @@ def checkout():
     """
     Proceso de checkout.
     GET: muestra resumen del pedido y pide direccion
-    POST: crea el pedido
+    POST: guarda la direccion en sesion y redirige a Stripe para pagar
     """
     db = Session()
     try:
@@ -714,49 +744,140 @@ def checkout():
             direccion = request.form.get('direccion', '').strip()
             if not direccion:
                 flash('La direccion de envio es obligatoria', 'danger')
-                return render_template('pedidos/checkout.html', carrito=carrito)
+                return render_template('pedidos/checkout.html', carrito=carrito,
+                                       stripe_key=STRIPE_PUBLISHABLE_KEY)
 
-            # Verificar stock antes de crear el pedido
+            # Verificar stock antes de proceder al pago
             for item in carrito.items:
                 if item.cantidad > item.producto.stock:
                     flash(f'"{item.producto.nombre}" no tiene suficiente stock', 'danger')
-                    return render_template('pedidos/checkout.html', carrito=carrito)
+                    return render_template('pedidos/checkout.html', carrito=carrito,
+                                           stripe_key=STRIPE_PUBLISHABLE_KEY)
 
-            # Crear el pedido
-            pedido = Pedido(
-                usuario_id=session['usuario_id'],
-                total=carrito.total,
-                direccion_envio=direccion
-            )
-            db.add(pedido)
-            db.flush()  # Para obtener el ID del pedido
+            # Guardar direccion en sesion para usarla despues del pago
+            session['direccion_envio'] = direccion
 
-            # Copiar items del carrito al pedido y reducir stock
-            for item in carrito.items:
-                item_pedido = ItemPedido(
-                    pedido_id=pedido.id,
-                    producto_id=item.producto_id,
-                    cantidad=item.cantidad,
-                    precio_unitario=item.producto.precio
+            # ---------------------------------------------------------------
+            # STRIPE CHECKOUT SESSION
+            # ---------------------------------------------------------------
+            # Creamos una "sesion de pago" en Stripe. Esto genera una pagina
+            # de pago segura hospedada por Stripe donde el cliente ingresa
+            # los datos de su tarjeta.
+            #
+            # line_items: lista de productos con nombre, precio y cantidad
+            # success_url: a donde redirigir si el pago es exitoso
+            # cancel_url: a donde redirigir si el cliente cancela
+            #
+            # Stripe maneja toda la seguridad del pago (PCI compliance).
+            # Nosotros NUNCA tocamos los datos de la tarjeta.
+            # ---------------------------------------------------------------
+            try:
+                line_items = []
+                for item in carrito.items:
+                    line_items.append({
+                        'price_data': {
+                            'currency': 'usd',
+                            'product_data': {
+                                'name': item.producto.nombre,
+                            },
+                            # Stripe usa centavos: $45.99 → 4599
+                            'unit_amount': int(item.producto.precio * 100),
+                        },
+                        'quantity': item.cantidad,
+                    })
+
+                checkout_session = stripe.checkout.Session.create(
+                    payment_method_types=['card'],
+                    line_items=line_items,
+                    mode='payment',
+                    success_url=url_for('pago_exitoso', _external=True) + '?session_id={CHECKOUT_SESSION_ID}',
+                    cancel_url=url_for('pago_cancelado', _external=True),
                 )
-                db.add(item_pedido)
-                item.producto.stock -= item.cantidad
 
-            # Vaciar el carrito
-            for item in carrito.items:
-                db.delete(item)
+                return redirect(checkout_session.url)
 
-            db.commit()
-            flash('Pedido creado exitosamente!', 'success')
-            return redirect(url_for('confirmacion_pedido', id=pedido.id))
+            except stripe.error.StripeError as e:
+                flash(f'Error con el servicio de pago: {e}', 'danger')
+                return render_template('pedidos/checkout.html', carrito=carrito,
+                                       stripe_key=STRIPE_PUBLISHABLE_KEY)
 
-        return render_template('pedidos/checkout.html', carrito=carrito)
+        return render_template('pedidos/checkout.html', carrito=carrito,
+                               stripe_key=STRIPE_PUBLISHABLE_KEY)
     except Exception as e:
         db.rollback()
         flash(f'Error al crear pedido: {e}', 'danger')
         return redirect(url_for('ver_carrito'))
     finally:
         db.close()
+
+
+# ============================================================================
+# RUTAS DE STRIPE: RESULTADO DEL PAGO
+# ============================================================================
+# Despues de que el cliente paga (o cancela) en Stripe, es redirigido
+# de vuelta a nuestra aplicacion a estas rutas.
+# ============================================================================
+
+@app.route('/pago/exitoso')
+@login_required
+def pago_exitoso():
+    """
+    Stripe redirige aqui cuando el pago es exitoso.
+    Ahora SI creamos el pedido en nuestra base de datos.
+    """
+    db = Session()
+    try:
+        carrito = obtener_o_crear_carrito(db, session['usuario_id'])
+
+        if not carrito.items:
+            flash('Tu carrito esta vacio', 'warning')
+            return redirect(url_for('catalogo'))
+
+        direccion = session.pop('direccion_envio', 'No especificada')
+
+        # Crear el pedido con estado 'pagado' (ya se pago en Stripe)
+        pedido = Pedido(
+            usuario_id=session['usuario_id'],
+            total=carrito.total,
+            estado='pagado',
+            direccion_envio=direccion
+        )
+        db.add(pedido)
+        db.flush()
+
+        # Copiar items del carrito al pedido y reducir stock
+        for item in carrito.items:
+            item_pedido = ItemPedido(
+                pedido_id=pedido.id,
+                producto_id=item.producto_id,
+                cantidad=item.cantidad,
+                precio_unitario=item.producto.precio
+            )
+            db.add(item_pedido)
+            item.producto.stock -= item.cantidad
+
+        # Vaciar el carrito
+        for item in carrito.items:
+            db.delete(item)
+
+        db.commit()
+        flash('Pago procesado exitosamente!', 'success')
+        return redirect(url_for('confirmacion_pedido', id=pedido.id))
+    except Exception as e:
+        db.rollback()
+        flash(f'Error al crear pedido: {e}', 'danger')
+        return redirect(url_for('ver_carrito'))
+    finally:
+        db.close()
+
+
+@app.route('/pago/cancelado')
+@login_required
+def pago_cancelado():
+    """Stripe redirige aqui si el cliente cancela el pago."""
+    session.pop('direccion_envio', None)
+    flash('Pago cancelado. Tu carrito sigue intacto.', 'info')
+    return redirect(url_for('ver_carrito'))
 
 
 @app.route('/pedido/<int:id>/confirmacion')
@@ -1087,7 +1208,9 @@ if __name__ == '__main__':
 ║                                                                     ║
 ║  RUTAS PROTEGIDAS (login):                                          ║
 ║  /carrito           → Ver carrito                                   ║
-║  /checkout          → Procesar compra                               ║
+║  /checkout          → Procesar compra (Stripe)                      ║
+║  /pago/exitoso      → Pago exitoso (redireccion Stripe)             ║
+║  /pago/cancelado    → Pago cancelado                                ║
 ║  /pedidos           → Mis pedidos                                   ║
 ║                                                                     ║
 ║  ADMIN:                                                             ║

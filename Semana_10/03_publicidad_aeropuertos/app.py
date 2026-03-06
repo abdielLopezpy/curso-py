@@ -16,29 +16,59 @@
 # - Contrato: acuerdo para usar un espacio en una campana
 #
 # COMO EJECUTAR:
-# 1. pip install flask sqlalchemy psycopg2-binary werkzeug
-# 2. python app.py
-# 3. Abre: http://localhost:5012
+# 1. pip install flask sqlalchemy psycopg2-binary werkzeug python-dotenv stripe
+# 2. Copia .env.example a .env y configura tus claves
+# 3. python app.py
+# 4. Abre: http://localhost:5012
 #
 # CREDENCIALES:
 # - Admin: admin@ejemplo.com / admin123
 # - Cliente: cliente@ejemplo.com / cliente123
 # ============================================================================
 
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 from sqlalchemy import create_engine, Column, Integer, String, Float, Boolean, DateTime, ForeignKey, Text, Date
 from sqlalchemy.orm import declarative_base, sessionmaker, relationship, scoped_session
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from datetime import datetime, date
+from dotenv import load_dotenv
+import stripe
 import os
+
+# ============================================================================
+# CARGAR VARIABLES DE ENTORNO
+# ============================================================================
+# load_dotenv() busca un archivo .env en el directorio actual y carga
+# las variables definidas ahi como variables de entorno.
+# Esto permite mantener credenciales fuera del codigo fuente.
+# ============================================================================
+
+load_dotenv()
 
 # ============================================================================
 # CONFIGURACION
 # ============================================================================
 
 app = Flask(__name__)
-app.secret_key = 'publicidad-aeropuertos-secreto'
+app.secret_key = os.environ.get('SECRET_KEY', 'publicidad-aeropuertos-secreto')
+
+# ============================================================================
+# STRIPE - PASARELA DE PAGOS
+# ============================================================================
+# Stripe permite procesar pagos con tarjeta de credito/debito.
+# Necesitas DOS claves (obtenlas en https://dashboard.stripe.com/apikeys):
+#
+#   STRIPE_SECRET_KEY        → Clave secreta (sk_test_...) - SOLO en el servidor
+#   STRIPE_PUBLISHABLE_KEY   → Clave publica (pk_test_...) - Se envia al navegador
+#
+# En desarrollo usamos claves de prueba (test). En produccion se usan
+# las claves live. Las claves de prueba permiten usar tarjetas ficticias
+# como 4242 4242 4242 4242 para simular pagos.
+# ============================================================================
+
+stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
 
 DATABASE_URL = os.environ.get(
     'DATABASE_URL',
@@ -717,19 +747,47 @@ def contratar_espacio(espacio_id):
             # Calcular precio: meses (minimo 1) x precio mensual
             dias = (fecha_fin - fecha_inicio).days
             meses = max(1, dias / 30)
-            precio_total = meses * espacio.precio_mensual
+            precio_total = round(meses * espacio.precio_mensual, 2)
 
-            contrato = Contrato(
-                campana_id=campana_id,
-                espacio_id=espacio_id,
-                fecha_inicio=fecha_inicio,
-                fecha_fin=fecha_fin,
-                precio_total=round(precio_total, 2)
-            )
-            db.add(contrato)
-            db.commit()
-            flash(f'Contrato creado! Total: ${precio_total:,.2f}', 'success')
-            return redirect(url_for('ver_campana', id=campana_id))
+            # Guardar datos del contrato en sesion para usarlos despues del pago
+            session['contrato_pendiente'] = {
+                'campana_id': campana_id,
+                'espacio_id': espacio_id,
+                'fecha_inicio': fecha_inicio_str,
+                'fecha_fin': fecha_fin_str,
+                'precio_total': precio_total
+            }
+
+            # ---------------------------------------------------------------
+            # STRIPE CHECKOUT SESSION
+            # ---------------------------------------------------------------
+            # Creamos una sesion de pago en Stripe para cobrar el contrato.
+            # El precio total se calcula segun los meses de contratacion.
+            # ---------------------------------------------------------------
+            try:
+                checkout_session = stripe.checkout.Session.create(
+                    payment_method_types=['card'],
+                    line_items=[{
+                        'price_data': {
+                            'currency': 'usd',
+                            'product_data': {
+                                'name': f'Contrato: {espacio.nombre}',
+                                'description': f'{espacio.aeropuerto.nombre} ({espacio.aeropuerto.codigo_iata}) - {fecha_inicio_str} a {fecha_fin_str}',
+                            },
+                            'unit_amount': int(precio_total * 100),
+                        },
+                        'quantity': 1,
+                    }],
+                    mode='payment',
+                    success_url=url_for('pago_contrato_exitoso', _external=True) + '?session_id={CHECKOUT_SESSION_ID}',
+                    cancel_url=url_for('pago_contrato_cancelado', _external=True),
+                )
+
+                return redirect(checkout_session.url)
+
+            except stripe.error.StripeError as e:
+                flash(f'Error con el servicio de pago: {e}', 'danger')
+                session.pop('contrato_pendiente', None)
 
         return render_template('campanas/contratar.html', espacio=espacio, campanas=campanas)
     except Exception as e:
@@ -738,6 +796,59 @@ def contratar_espacio(espacio_id):
         return redirect(url_for('listar_espacios'))
     finally:
         db.close()
+
+
+# ============================================================================
+# RUTAS DE STRIPE: RESULTADO DEL PAGO
+# ============================================================================
+# Despues de que el cliente paga (o cancela) en Stripe, es redirigido
+# de vuelta a nuestra aplicacion a estas rutas.
+# ============================================================================
+
+@app.route('/pago/contrato/exitoso')
+@login_required
+def pago_contrato_exitoso():
+    """
+    Stripe redirige aqui cuando el pago del contrato es exitoso.
+    Ahora SI creamos el contrato en la base de datos.
+    """
+    datos = session.pop('contrato_pendiente', None)
+    if not datos:
+        flash('No hay contrato pendiente de pago', 'warning')
+        return redirect(url_for('index'))
+
+    db = Session()
+    try:
+        fecha_inicio = datetime.strptime(datos['fecha_inicio'], '%Y-%m-%d').date()
+        fecha_fin = datetime.strptime(datos['fecha_fin'], '%Y-%m-%d').date()
+
+        contrato = Contrato(
+            campana_id=datos['campana_id'],
+            espacio_id=datos['espacio_id'],
+            fecha_inicio=fecha_inicio,
+            fecha_fin=fecha_fin,
+            precio_total=datos['precio_total'],
+            estado='activo'  # Pago ya fue procesado por Stripe
+        )
+        db.add(contrato)
+        db.commit()
+        flash(f'Pago procesado! Contrato creado por ${datos["precio_total"]:,.2f}', 'success')
+        return redirect(url_for('ver_campana', id=datos['campana_id']))
+    except Exception as e:
+        db.rollback()
+        flash(f'Error al crear contrato: {e}', 'danger')
+        return redirect(url_for('listar_campanas'))
+    finally:
+        db.close()
+
+
+@app.route('/pago/contrato/cancelado')
+@login_required
+def pago_contrato_cancelado():
+    """Stripe redirige aqui si el cliente cancela el pago."""
+    session.pop('contrato_pendiente', None)
+    flash('Pago cancelado. El contrato no fue creado.', 'info')
+    return redirect(url_for('listar_espacios'))
 
 
 # ============================================================================
@@ -1025,7 +1136,9 @@ if __name__ == '__main__':
 ║  /aeropuertos       → Directorio de aeropuertos                     ║
 ║  /espacios          → Espacios publicitarios disponibles            ║
 ║  /campanas          → Mis campanas                                  ║
-║  /contratar/<id>    → Contratar un espacio                          ║
+║  /contratar/<id>    → Contratar un espacio (Stripe)                 ║
+║  /pago/contrato/exitoso → Pago exitoso (redireccion Stripe)        ║
+║  /pago/contrato/cancelado → Pago cancelado                         ║
 ║                                                                     ║
 ║  ADMIN:                                                             ║
 ║  /admin             → Dashboard admin                               ║

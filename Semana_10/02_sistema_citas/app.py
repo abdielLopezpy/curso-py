@@ -10,28 +10,58 @@
 # - Agendamiento y seguimiento de citas
 #
 # COMO EJECUTAR:
-# 1. pip install flask sqlalchemy psycopg2-binary werkzeug
-# 2. python app.py
-# 3. Abre: http://localhost:5011
+# 1. pip install flask sqlalchemy psycopg2-binary werkzeug python-dotenv stripe
+# 2. Copia .env.example a .env y configura tus claves
+# 3. python app.py
+# 4. Abre: http://localhost:5011
 #
 # CREDENCIALES:
 # - Admin: admin@ejemplo.com / admin123
 # ============================================================================
 
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 from sqlalchemy import create_engine, Column, Integer, String, Float, Boolean, DateTime, ForeignKey, Text, Date
 from sqlalchemy.orm import declarative_base, sessionmaker, relationship, scoped_session, joinedload
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 from datetime import datetime, date, timedelta
+from dotenv import load_dotenv
+import stripe
 import os
+
+# ============================================================================
+# CARGAR VARIABLES DE ENTORNO
+# ============================================================================
+# load_dotenv() busca un archivo .env en el directorio actual y carga
+# las variables definidas ahi como variables de entorno.
+# Esto permite mantener credenciales fuera del codigo fuente.
+# ============================================================================
+
+load_dotenv()
 
 # ============================================================================
 # CONFIGURACION
 # ============================================================================
 
 app = Flask(__name__)
-app.secret_key = 'citas-secreto-cambiar-en-produccion'
+app.secret_key = os.environ.get('SECRET_KEY', 'citas-secreto-cambiar-en-produccion')
+
+# ============================================================================
+# STRIPE - PASARELA DE PAGOS
+# ============================================================================
+# Stripe permite procesar pagos con tarjeta de credito/debito.
+# Necesitas DOS claves (obtenlas en https://dashboard.stripe.com/apikeys):
+#
+#   STRIPE_SECRET_KEY        → Clave secreta (sk_test_...) - SOLO en el servidor
+#   STRIPE_PUBLISHABLE_KEY   → Clave publica (pk_test_...) - Se envia al navegador
+#
+# En desarrollo usamos claves de prueba (test). En produccion se usan
+# las claves live. Las claves de prueba permiten usar tarjetas ficticias
+# como 4242 4242 4242 4242 para simular pagos.
+# ============================================================================
+
+stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
 
 DATABASE_URL = os.environ.get(
     'DATABASE_URL',
@@ -531,18 +561,54 @@ def agendar_cita():
                                        servicios=servicios, profesionales=profesionales,
                                        horas_disponibles=horas_disponibles)
 
-            cita = Cita(
-                cliente_id=session['usuario_id'],
-                servicio_id=servicio_id,
-                profesional_id=profesional_id,
-                fecha=fecha,
-                hora=hora,
-                notas=notas
-            )
-            db.add(cita)
-            db.commit()
-            flash('Cita agendada exitosamente!', 'success')
-            return redirect(url_for('mis_citas'))
+            # Obtener servicio para crear la sesion de pago
+            servicio = db.query(Servicio).get(servicio_id)
+            if not servicio:
+                flash('Servicio no encontrado', 'danger')
+                return render_template('citas/agendar.html',
+                                       servicios=servicios, profesionales=profesionales,
+                                       horas_disponibles=horas_disponibles)
+
+            # Guardar datos de la cita en sesion para usarlos despues del pago
+            session['cita_pendiente'] = {
+                'servicio_id': servicio_id,
+                'profesional_id': profesional_id,
+                'fecha': fecha_str,
+                'hora': hora,
+                'notas': notas
+            }
+
+            # ---------------------------------------------------------------
+            # STRIPE CHECKOUT SESSION
+            # ---------------------------------------------------------------
+            # Creamos una sesion de pago en Stripe para cobrar el servicio.
+            # El cliente sera redirigido a la pagina segura de Stripe
+            # donde ingresara los datos de su tarjeta.
+            # ---------------------------------------------------------------
+            try:
+                checkout_session = stripe.checkout.Session.create(
+                    payment_method_types=['card'],
+                    line_items=[{
+                        'price_data': {
+                            'currency': 'usd',
+                            'product_data': {
+                                'name': f'Cita: {servicio.nombre}',
+                                'description': f'Fecha: {fecha_str} - Hora: {hora}',
+                            },
+                            'unit_amount': int(servicio.precio * 100),
+                        },
+                        'quantity': 1,
+                    }],
+                    mode='payment',
+                    success_url=url_for('pago_cita_exitoso', _external=True) + '?session_id={CHECKOUT_SESSION_ID}',
+                    cancel_url=url_for('pago_cita_cancelado', _external=True),
+                )
+
+                return redirect(checkout_session.url)
+
+            except stripe.error.StripeError as e:
+                flash(f'Error con el servicio de pago: {e}', 'danger')
+                session.pop('cita_pendiente', None)
 
         return render_template('citas/agendar.html',
                                servicios=servicios,
@@ -550,6 +616,59 @@ def agendar_cita():
                                horas_disponibles=horas_disponibles)
     finally:
         db.close()
+
+
+# ============================================================================
+# RUTAS DE STRIPE: RESULTADO DEL PAGO
+# ============================================================================
+# Despues de que el cliente paga (o cancela) en Stripe, es redirigido
+# de vuelta a nuestra aplicacion a estas rutas.
+# ============================================================================
+
+@app.route('/pago/cita/exitoso')
+@login_required
+def pago_cita_exitoso():
+    """
+    Stripe redirige aqui cuando el pago de la cita es exitoso.
+    Ahora SI creamos la cita en la base de datos.
+    """
+    datos_cita = session.pop('cita_pendiente', None)
+    if not datos_cita:
+        flash('No hay cita pendiente de pago', 'warning')
+        return redirect(url_for('index'))
+
+    db = Session()
+    try:
+        fecha = datetime.strptime(datos_cita['fecha'], '%Y-%m-%d').date()
+
+        cita = Cita(
+            cliente_id=session['usuario_id'],
+            servicio_id=datos_cita['servicio_id'],
+            profesional_id=datos_cita['profesional_id'],
+            fecha=fecha,
+            hora=datos_cita['hora'],
+            notas=datos_cita['notas'],
+            estado='confirmada'  # Pago ya fue procesado por Stripe
+        )
+        db.add(cita)
+        db.commit()
+        flash('Pago procesado y cita confirmada exitosamente!', 'success')
+        return redirect(url_for('ver_cita', id=cita.id))
+    except Exception as e:
+        db.rollback()
+        flash(f'Error al crear la cita: {e}', 'danger')
+        return redirect(url_for('index'))
+    finally:
+        db.close()
+
+
+@app.route('/pago/cita/cancelado')
+@login_required
+def pago_cita_cancelado():
+    """Stripe redirige aqui si el cliente cancela el pago."""
+    session.pop('cita_pendiente', None)
+    flash('Pago cancelado. Tu cita no fue agendada.', 'info')
+    return redirect(url_for('agendar_cita'))
 
 
 # ============================================================================
@@ -896,7 +1015,9 @@ if __name__ == '__main__':
 ║  RUTAS CLIENTE:                                                     ║
 ║  /                  → Dashboard (proximas citas)                    ║
 ║  /servicios         → Ver servicios disponibles                     ║
-║  /agendar           → Agendar una nueva cita                        ║
+║  /agendar           → Agendar una nueva cita (Stripe)               ║
+║  /pago/cita/exitoso → Pago exitoso (redireccion Stripe)             ║
+║  /pago/cita/cancelado → Pago cancelado                              ║
 ║  /mis-citas         → Ver mis citas                                 ║
 ║                                                                     ║
 ║  ADMIN:                                                             ║

@@ -3,9 +3,9 @@
 
 {% block content %}
 <!-- ================================================================== -->
-<!-- CHECKOUT                                                           -->
+<!-- CHECKOUT CON STRIPE                                                -->
 <!-- Resumen del pedido + formulario de direccion de envio              -->
-<!-- Al enviar, se crea el pedido y se vacia el carrito                 -->
+<!-- Al enviar, se redirige a Stripe para procesar el pago              -->
 <!-- ================================================================== -->
 
 <div class="page-header">
@@ -47,8 +47,12 @@
                         <span style="font-weight: 800; font-size: 1.3rem; color: var(--primary-dark);">{{ carrito.total_formateado }}</span>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block btn-lg mt-2">
-                        &#10003; Confirmar Pedido
+                        &#128179; Pagar con Stripe
                     </button>
+                    <p style="text-align: center; font-size: 0.8rem; color: var(--gray-500); margin-top: 0.5rem;">
+                        Seras redirigido a Stripe para completar el pago de forma segura.
+                        <br>Tarjeta de prueba: 4242 4242 4242 4242
+                    </p>
                     <a href="{{ url_for('ver_carrito') }}" class="btn btn-secondary btn-block btn-sm mt-1">
                         &#8592; Volver al Carrito
                     </a>
