@@ -28,6 +28,7 @@ from functools import wraps
 from datetime import datetime
 from dotenv import load_dotenv
 import stripe
+import requests as http_requests
 import os
 
 # ============================================================================
@@ -62,7 +63,35 @@ app.secret_key = os.environ.get('SECRET_KEY', 'ecommerce-secreto-cambiar-en-prod
 # ============================================================================
 
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY', "")
-STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY', "")
+
+# ============================================================================
+# PAYPAL - PASARELA DE PAGOS ALTERNATIVA
+# ============================================================================
+# PayPal permite procesar pagos con cuenta PayPal o tarjeta.
+# Necesitas DOS claves (obtenlas en https://developer.paypal.com):
+#
+#   PAYPAL_CLIENT_ID      → ID del cliente (para JS SDK y API)
+#   PAYPAL_CLIENT_SECRET  → Secreto del cliente (SOLO en el servidor)
+#
+# En desarrollo usamos el sandbox. En produccion se usa api-m.paypal.com
+# ============================================================================
+
+PAYPAL_CLIENT_ID = os.environ.get('PAYPAL_CLIENT_ID', '')
+PAYPAL_CLIENT_SECRET = os.environ.get('PAYPAL_CLIENT_SECRET', '')
+PAYPAL_BASE_URL = os.environ.get('PAYPAL_BASE_URL', 'https://api-m.sandbox.paypal.com')
+
+
+def paypal_get_access_token():
+    """Obtener access token de PayPal usando OAuth 2.0."""
+    response = http_requests.post(
+        f'{PAYPAL_BASE_URL}/v1/oauth2/token',
+        auth=(PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET),
+        headers={'Content-Type': 'application/x-www-form-urlencoded'},
+        data='grant_type=client_credentials'
+    )
+    response.raise_for_status()
+    return response.json()['access_token']
 
 # ============================================================================
 # BASE DE DATOS
@@ -745,14 +774,16 @@ def checkout():
             if not direccion:
                 flash('La direccion de envio es obligatoria', 'danger')
                 return render_template('pedidos/checkout.html', carrito=carrito,
-                                       stripe_key=STRIPE_PUBLISHABLE_KEY)
+                                       stripe_key=STRIPE_PUBLISHABLE_KEY,
+                                       paypal_client_id=PAYPAL_CLIENT_ID)
 
             # Verificar stock antes de proceder al pago
             for item in carrito.items:
                 if item.cantidad > item.producto.stock:
                     flash(f'"{item.producto.nombre}" no tiene suficiente stock', 'danger')
                     return render_template('pedidos/checkout.html', carrito=carrito,
-                                           stripe_key=STRIPE_PUBLISHABLE_KEY)
+                                           stripe_key=STRIPE_PUBLISHABLE_KEY,
+                                       paypal_client_id=PAYPAL_CLIENT_ID)
 
             # Guardar direccion en sesion para usarla despues del pago
             session['direccion_envio'] = direccion
@@ -799,10 +830,12 @@ def checkout():
             except stripe.error.StripeError as e:
                 flash(f'Error con el servicio de pago: {e}', 'danger')
                 return render_template('pedidos/checkout.html', carrito=carrito,
-                                       stripe_key=STRIPE_PUBLISHABLE_KEY)
+                                       stripe_key=STRIPE_PUBLISHABLE_KEY,
+                                       paypal_client_id=PAYPAL_CLIENT_ID)
 
         return render_template('pedidos/checkout.html', carrito=carrito,
-                               stripe_key=STRIPE_PUBLISHABLE_KEY)
+                               stripe_key=STRIPE_PUBLISHABLE_KEY,
+                                       paypal_client_id=PAYPAL_CLIENT_ID)
     except Exception as e:
         db.rollback()
         flash(f'Error al crear pedido: {e}', 'danger')
@@ -878,6 +911,150 @@ def pago_cancelado():
     session.pop('direccion_envio', None)
     flash('Pago cancelado. Tu carrito sigue intacto.', 'info')
     return redirect(url_for('ver_carrito'))
+
+
+# ============================================================================
+# RUTAS DE PAYPAL: CREAR Y CAPTURAR ORDENES
+# ============================================================================
+# PayPal usa un flujo diferente a Stripe:
+# 1. El JS SDK en el navegador llama a /paypal/crear-orden (POST)
+# 2. Nosotros creamos la orden en PayPal y devolvemos el order_id
+# 3. El usuario aprueba el pago en el popup de PayPal
+# 4. El JS SDK llama a /paypal/capturar-orden (POST) con el order_id
+# 5. Nosotros capturamos el pago y creamos el pedido en la BD
+# ============================================================================
+
+@app.route('/paypal/crear-orden', methods=['POST'])
+@login_required
+def paypal_crear_orden():
+    """Crea una orden de PayPal con los items del carrito."""
+    db = Session()
+    try:
+        carrito = obtener_o_crear_carrito(db, session['usuario_id'])
+        if not carrito.items:
+            return jsonify({'error': 'Carrito vacio'}), 400
+
+        # Guardar direccion si viene en el request
+        data = request.get_json() or {}
+        if data.get('direccion'):
+            session['direccion_envio'] = data['direccion']
+
+        access_token = paypal_get_access_token()
+
+        items_paypal = []
+        total = 0
+        for item in carrito.items:
+            subtotal = round(item.cantidad * item.producto.precio, 2)
+            total += subtotal
+            items_paypal.append({
+                'name': item.producto.nombre,
+                'quantity': str(item.cantidad),
+                'unit_amount': {
+                    'currency_code': 'USD',
+                    'value': f'{item.producto.precio:.2f}'
+                }
+            })
+
+        order_data = {
+            'intent': 'CAPTURE',
+            'purchase_units': [{
+                'items': items_paypal,
+                'amount': {
+                    'currency_code': 'USD',
+                    'value': f'{total:.2f}',
+                    'breakdown': {
+                        'item_total': {
+                            'currency_code': 'USD',
+                            'value': f'{total:.2f}'
+                        }
+                    }
+                }
+            }]
+        }
+
+        response = http_requests.post(
+            f'{PAYPAL_BASE_URL}/v2/checkout/orders',
+            headers={
+                'Content-Type': 'application/json',
+                'Authorization': f'Bearer {access_token}'
+            },
+            json=order_data
+        )
+        response.raise_for_status()
+        return jsonify(response.json())
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    finally:
+        db.close()
+
+
+@app.route('/paypal/capturar-orden', methods=['POST'])
+@login_required
+def paypal_capturar_orden():
+    """Captura el pago de PayPal y crea el pedido en la BD."""
+    data = request.get_json()
+    order_id = data.get('order_id')
+    if not order_id:
+        return jsonify({'error': 'order_id requerido'}), 400
+
+    db = Session()
+    try:
+        access_token = paypal_get_access_token()
+
+        response = http_requests.post(
+            f'{PAYPAL_BASE_URL}/v2/checkout/orders/{order_id}/capture',
+            headers={
+                'Content-Type': 'application/json',
+                'Authorization': f'Bearer {access_token}'
+            }
+        )
+        response.raise_for_status()
+        capture_data = response.json()
+
+        if capture_data.get('status') != 'COMPLETED':
+            return jsonify({'error': 'Pago no completado'}), 400
+
+        # Crear el pedido (mismo flujo que pago_exitoso de Stripe)
+        carrito = obtener_o_crear_carrito(db, session['usuario_id'])
+        if not carrito.items:
+            return jsonify({'error': 'Carrito vacio'}), 400
+
+        direccion = session.pop('direccion_envio', 'No especificada')
+
+        pedido = Pedido(
+            usuario_id=session['usuario_id'],
+            total=carrito.total,
+            estado='pagado',
+            direccion_envio=direccion
+        )
+        db.add(pedido)
+        db.flush()
+
+        for item in carrito.items:
+            item_pedido = ItemPedido(
+                pedido_id=pedido.id,
+                producto_id=item.producto_id,
+                cantidad=item.cantidad,
+                precio_unitario=item.producto.precio
+            )
+            db.add(item_pedido)
+            item.producto.stock -= item.cantidad
+
+        for item in carrito.items:
+            db.delete(item)
+
+        db.commit()
+        return jsonify({
+            'status': 'success',
+            'redirect': url_for('confirmacion_pedido', id=pedido.id)
+        })
+
+    except Exception as e:
+        db.rollback()
+        return jsonify({'error': str(e)}), 500
+    finally:
+        db.close()
 
 
 @app.route('/pedido/<int:id>/confirmacion')

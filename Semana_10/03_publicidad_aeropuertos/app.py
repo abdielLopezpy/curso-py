@@ -34,6 +34,7 @@ from functools import wraps
 from datetime import datetime, date
 from dotenv import load_dotenv
 import stripe
+import requests as http_requests
 import os
 
 # ============================================================================
@@ -69,6 +70,25 @@ app.secret_key = os.environ.get('SECRET_KEY', 'publicidad-aeropuertos-secreto')
 
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
 STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
+
+# ============================================================================
+# PAYPAL - PASARELA DE PAGOS ALTERNATIVA
+# ============================================================================
+PAYPAL_CLIENT_ID = os.environ.get('PAYPAL_CLIENT_ID', '')
+PAYPAL_CLIENT_SECRET = os.environ.get('PAYPAL_CLIENT_SECRET', '')
+PAYPAL_BASE_URL = os.environ.get('PAYPAL_BASE_URL', 'https://api-m.sandbox.paypal.com')
+
+
+def paypal_get_access_token():
+    """Obtener access token de PayPal usando OAuth 2.0."""
+    response = http_requests.post(
+        f'{PAYPAL_BASE_URL}/v1/oauth2/token',
+        auth=(PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET),
+        headers={'Content-Type': 'application/x-www-form-urlencoded'},
+        data='grant_type=client_credentials'
+    )
+    response.raise_for_status()
+    return response.json()['access_token']
 
 DATABASE_URL = os.environ.get(
     'DATABASE_URL',
@@ -758,6 +778,14 @@ def contratar_espacio(espacio_id):
                 'precio_total': precio_total
             }
 
+            # Si el usuario eligio PayPal, mostrar pagina de pago PayPal
+            metodo_pago = request.form.get('metodo_pago', 'stripe')
+            if metodo_pago == 'paypal':
+                return render_template('campanas/pagar_paypal.html',
+                                       espacio=espacio,
+                                       datos_contrato=session['contrato_pendiente'],
+                                       paypal_client_id=PAYPAL_CLIENT_ID)
+
             # ---------------------------------------------------------------
             # STRIPE CHECKOUT SESSION
             # ---------------------------------------------------------------
@@ -849,6 +877,125 @@ def pago_contrato_cancelado():
     session.pop('contrato_pendiente', None)
     flash('Pago cancelado. El contrato no fue creado.', 'info')
     return redirect(url_for('listar_espacios'))
+
+
+# ============================================================================
+# RUTAS DE PAYPAL: CREAR Y CAPTURAR ORDENES PARA CONTRATOS
+# ============================================================================
+
+@app.route('/paypal/crear-orden-contrato', methods=['POST'])
+@login_required
+def paypal_crear_orden_contrato():
+    """Crea una orden de PayPal para pagar un contrato."""
+    datos = session.get('contrato_pendiente')
+    if not datos:
+        return jsonify({'error': 'No hay contrato pendiente'}), 400
+
+    db = Session()
+    try:
+        espacio = db.query(EspacioPublicitario).get(datos['espacio_id'])
+        if not espacio:
+            return jsonify({'error': 'Espacio no encontrado'}), 400
+
+        access_token = paypal_get_access_token()
+
+        order_data = {
+            'intent': 'CAPTURE',
+            'purchase_units': [{
+                'items': [{
+                    'name': f'Contrato: {espacio.nombre}',
+                    'description': f'{espacio.aeropuerto.nombre} - {datos["fecha_inicio"]} a {datos["fecha_fin"]}',
+                    'quantity': '1',
+                    'unit_amount': {
+                        'currency_code': 'USD',
+                        'value': f'{datos["precio_total"]:.2f}'
+                    }
+                }],
+                'amount': {
+                    'currency_code': 'USD',
+                    'value': f'{datos["precio_total"]:.2f}',
+                    'breakdown': {
+                        'item_total': {
+                            'currency_code': 'USD',
+                            'value': f'{datos["precio_total"]:.2f}'
+                        }
+                    }
+                }
+            }]
+        }
+
+        response = http_requests.post(
+            f'{PAYPAL_BASE_URL}/v2/checkout/orders',
+            headers={
+                'Content-Type': 'application/json',
+                'Authorization': f'Bearer {access_token}'
+            },
+            json=order_data
+        )
+        response.raise_for_status()
+        return jsonify(response.json())
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    finally:
+        db.close()
+
+
+@app.route('/paypal/capturar-orden-contrato', methods=['POST'])
+@login_required
+def paypal_capturar_orden_contrato():
+    """Captura el pago de PayPal y crea el contrato en la BD."""
+    data = request.get_json()
+    order_id = data.get('order_id')
+    if not order_id:
+        return jsonify({'error': 'order_id requerido'}), 400
+
+    datos = session.pop('contrato_pendiente', None)
+    if not datos:
+        return jsonify({'error': 'No hay contrato pendiente'}), 400
+
+    try:
+        access_token = paypal_get_access_token()
+        response = http_requests.post(
+            f'{PAYPAL_BASE_URL}/v2/checkout/orders/{order_id}/capture',
+            headers={
+                'Content-Type': 'application/json',
+                'Authorization': f'Bearer {access_token}'
+            }
+        )
+        response.raise_for_status()
+        capture_data = response.json()
+
+        if capture_data.get('status') != 'COMPLETED':
+            return jsonify({'error': 'Pago no completado'}), 400
+
+        db = Session()
+        try:
+            fecha_inicio = datetime.strptime(datos['fecha_inicio'], '%Y-%m-%d').date()
+            fecha_fin = datetime.strptime(datos['fecha_fin'], '%Y-%m-%d').date()
+
+            contrato = Contrato(
+                campana_id=datos['campana_id'],
+                espacio_id=datos['espacio_id'],
+                fecha_inicio=fecha_inicio,
+                fecha_fin=fecha_fin,
+                precio_total=datos['precio_total'],
+                estado='activo'
+            )
+            db.add(contrato)
+            db.commit()
+            return jsonify({
+                'status': 'success',
+                'redirect': url_for('ver_campana', id=datos['campana_id'])
+            })
+        except Exception as e:
+            db.rollback()
+            return jsonify({'error': str(e)}), 500
+        finally:
+            db.close()
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 # ============================================================================

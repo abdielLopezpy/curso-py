@@ -27,6 +27,7 @@ from functools import wraps
 from datetime import datetime, date, timedelta
 from dotenv import load_dotenv
 import stripe
+import requests as http_requests
 import os
 
 # ============================================================================
@@ -62,6 +63,25 @@ app.secret_key = os.environ.get('SECRET_KEY', 'citas-secreto-cambiar-en-producci
 
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
 STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
+
+# ============================================================================
+# PAYPAL - PASARELA DE PAGOS ALTERNATIVA
+# ============================================================================
+PAYPAL_CLIENT_ID = os.environ.get('PAYPAL_CLIENT_ID', '')
+PAYPAL_CLIENT_SECRET = os.environ.get('PAYPAL_CLIENT_SECRET', '')
+PAYPAL_BASE_URL = os.environ.get('PAYPAL_BASE_URL', 'https://api-m.sandbox.paypal.com')
+
+
+def paypal_get_access_token():
+    """Obtener access token de PayPal usando OAuth 2.0."""
+    response = http_requests.post(
+        f'{PAYPAL_BASE_URL}/v1/oauth2/token',
+        auth=(PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET),
+        headers={'Content-Type': 'application/x-www-form-urlencoded'},
+        data='grant_type=client_credentials'
+    )
+    response.raise_for_status()
+    return response.json()['access_token']
 
 DATABASE_URL = os.environ.get(
     'DATABASE_URL',
@@ -578,6 +598,14 @@ def agendar_cita():
                 'notas': notas
             }
 
+            # Si el usuario eligio PayPal, mostrar pagina de pago PayPal
+            metodo_pago = request.form.get('metodo_pago', 'stripe')
+            if metodo_pago == 'paypal':
+                return render_template('citas/pagar_paypal.html',
+                                       servicio=servicio,
+                                       datos_cita=session['cita_pendiente'],
+                                       paypal_client_id=PAYPAL_CLIENT_ID)
+
             # ---------------------------------------------------------------
             # STRIPE CHECKOUT SESSION
             # ---------------------------------------------------------------
@@ -669,6 +697,124 @@ def pago_cita_cancelado():
     session.pop('cita_pendiente', None)
     flash('Pago cancelado. Tu cita no fue agendada.', 'info')
     return redirect(url_for('agendar_cita'))
+
+
+# ============================================================================
+# RUTAS DE PAYPAL: CREAR Y CAPTURAR ORDENES PARA CITAS
+# ============================================================================
+
+@app.route('/paypal/crear-orden-cita', methods=['POST'])
+@login_required
+def paypal_crear_orden_cita():
+    """Crea una orden de PayPal para pagar una cita."""
+    datos_cita = session.get('cita_pendiente')
+    if not datos_cita:
+        return jsonify({'error': 'No hay cita pendiente'}), 400
+
+    db = Session()
+    try:
+        servicio = db.query(Servicio).get(datos_cita['servicio_id'])
+        if not servicio:
+            return jsonify({'error': 'Servicio no encontrado'}), 400
+
+        access_token = paypal_get_access_token()
+
+        order_data = {
+            'intent': 'CAPTURE',
+            'purchase_units': [{
+                'items': [{
+                    'name': f'Cita: {servicio.nombre}',
+                    'description': f'Fecha: {datos_cita["fecha"]} - Hora: {datos_cita["hora"]}',
+                    'quantity': '1',
+                    'unit_amount': {
+                        'currency_code': 'USD',
+                        'value': f'{servicio.precio:.2f}'
+                    }
+                }],
+                'amount': {
+                    'currency_code': 'USD',
+                    'value': f'{servicio.precio:.2f}',
+                    'breakdown': {
+                        'item_total': {
+                            'currency_code': 'USD',
+                            'value': f'{servicio.precio:.2f}'
+                        }
+                    }
+                }
+            }]
+        }
+
+        response = http_requests.post(
+            f'{PAYPAL_BASE_URL}/v2/checkout/orders',
+            headers={
+                'Content-Type': 'application/json',
+                'Authorization': f'Bearer {access_token}'
+            },
+            json=order_data
+        )
+        response.raise_for_status()
+        return jsonify(response.json())
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    finally:
+        db.close()
+
+
+@app.route('/paypal/capturar-orden-cita', methods=['POST'])
+@login_required
+def paypal_capturar_orden_cita():
+    """Captura el pago de PayPal y crea la cita en la BD."""
+    data = request.get_json()
+    order_id = data.get('order_id')
+    if not order_id:
+        return jsonify({'error': 'order_id requerido'}), 400
+
+    datos_cita = session.pop('cita_pendiente', None)
+    if not datos_cita:
+        return jsonify({'error': 'No hay cita pendiente'}), 400
+
+    try:
+        access_token = paypal_get_access_token()
+        response = http_requests.post(
+            f'{PAYPAL_BASE_URL}/v2/checkout/orders/{order_id}/capture',
+            headers={
+                'Content-Type': 'application/json',
+                'Authorization': f'Bearer {access_token}'
+            }
+        )
+        response.raise_for_status()
+        capture_data = response.json()
+
+        if capture_data.get('status') != 'COMPLETED':
+            return jsonify({'error': 'Pago no completado'}), 400
+
+        db = Session()
+        try:
+            fecha = datetime.strptime(datos_cita['fecha'], '%Y-%m-%d').date()
+            cita = Cita(
+                cliente_id=session['usuario_id'],
+                servicio_id=datos_cita['servicio_id'],
+                profesional_id=datos_cita['profesional_id'],
+                fecha=fecha,
+                hora=datos_cita['hora'],
+                notas=datos_cita['notas'],
+                estado='confirmada'
+            )
+            db.add(cita)
+            db.commit()
+            return jsonify({
+                'status': 'success',
+                'redirect': url_for('ver_cita', id=cita.id)
+            })
+        except Exception as e:
+            db.rollback()
+            return jsonify({'error': str(e)}), 500
+        finally:
+            db.close()
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 # ============================================================================

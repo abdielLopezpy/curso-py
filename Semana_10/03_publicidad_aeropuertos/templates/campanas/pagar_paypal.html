@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Pagar con PayPal{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#127760; Pagar con PayPal</h1>
+</div>
+
+<div class="grid-2">
+    <div class="card">
+        <div class="card-header">Resumen del Contrato</div>
+        <div class="card-body">
+            <p><strong>Espacio:</strong> {{ espacio.nombre }}</p>
+            <p><strong>Aeropuerto:</strong> {{ espacio.aeropuerto.nombre }} ({{ espacio.aeropuerto.codigo_iata }})</p>
+            <p><strong>Periodo:</strong> {{ datos_contrato.fecha_inicio }} a {{ datos_contrato.fecha_fin }}</p>
+            <p style="font-size: 1.5rem; font-weight: 700; margin-top: 1rem;">
+                Total: ${{ "%.2f"|format(datos_contrato.precio_total) }}
+            </p>
+
+            <div id="paypal-button-container" style="margin-top: 1.5rem;"></div>
+
+            <a href="{{ url_for('contratar_espacio', espacio_id=espacio.id) }}" class="btn btn-secondary btn-block btn-sm mt-2">
+                &#8592; Volver
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">Espacio Seleccionado</div>
+        <div class="card-body">
+            <div class="space-type">{{ espacio.tipo_display }}</div>
+            <h3 style="margin: 0.5rem 0;">{{ espacio.nombre }}</h3>
+            <p style="color: var(--gray-500);">{{ espacio.ubicacion_display }} &middot; {{ espacio.dimensiones }}</p>
+            <div style="margin-top: 1rem; text-align: center;">
+                <div class="space-price" style="font-size: 2rem;">{{ espacio.precio_formateado }}</div>
+                <div style="color: var(--gray-500);">por mes</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.paypal.com/sdk/js?client-id={{ paypal_client_id }}&currency=USD"></script>
+<script>
+    paypal.Buttons({
+        createOrder: function() {
+            return fetch('/paypal/crear-orden-contrato', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({})
+            }).then(function(res) { return res.json(); })
+              .then(function(data) {
+                  if (data.error) throw new Error(data.error);
+                  return data.id;
+              });
+        },
+        onApprove: function(data) {
+            return fetch('/paypal/capturar-orden-contrato', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({order_id: data.orderID})
+            }).then(function(res) { return res.json(); })
+              .then(function(result) {
+                  if (result.error) {
+                      alert('Error: ' + result.error);
+                  } else {
+                      window.location.href = result.redirect;
+                  }
+              });
+        },
+        onError: function(err) {
+            alert('Error con PayPal: ' + err);
+        }
+    }).render('#paypal-button-container');
+</script>
+{% endblock %}

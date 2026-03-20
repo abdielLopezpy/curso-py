@@ -42,13 +42,28 @@
             <!-- Notas opcionales -->
             {{ campo_textarea('notas', 'Notas adicionales (opcional)', rows=2) }}
 
+            <!-- Seleccionar metodo de pago -->
+            <div class="form-group">
+                <label class="form-label">Metodo de Pago</label>
+                <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="radio" name="metodo_pago" value="stripe" checked>
+                        &#128179; Stripe (Tarjeta)
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="radio" name="metodo_pago" value="paypal">
+                        &#127760; PayPal
+                    </label>
+                </div>
+            </div>
+
             <div class="form-actions">
                 {{ boton('Pagar y Confirmar Cita', 'primary', submit=true, size='lg') }}
                 {{ boton('Cancelar', 'secondary', url=url_for('index')) }}
             </div>
             <p style="text-align: center; font-size: 0.8rem; color: var(--gray-500); margin-top: 0.5rem;">
-                Seras redirigido a Stripe para completar el pago de forma segura.
-                <br>Tarjeta de prueba: 4242 4242 4242 4242
+                Seras redirigido al metodo de pago seleccionado.
+                <br>Tarjeta de prueba Stripe: 4242 4242 4242 4242
             </p>
         </form>
     </div>

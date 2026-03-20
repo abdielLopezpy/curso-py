@@ -53,6 +53,19 @@
                         Seras redirigido a Stripe para completar el pago de forma segura.
                         <br>Tarjeta de prueba: 4242 4242 4242 4242
                     </p>
+
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin: 1rem 0;">
+                        <hr style="flex: 1; border: none; border-top: 1px solid var(--gray-200);">
+                        <span style="color: var(--gray-500); font-size: 0.85rem;">o pagar con</span>
+                        <hr style="flex: 1; border: none; border-top: 1px solid var(--gray-200);">
+                    </div>
+
+                    <!-- PayPal Button -->
+                    <div id="paypal-button-container"></div>
+                    <p style="text-align: center; font-size: 0.8rem; color: var(--gray-500); margin-top: 0.5rem;">
+                        Paga con tu cuenta PayPal o tarjeta via PayPal.
+                    </p>
+
                     <a href="{{ url_for('ver_carrito') }}" class="btn btn-secondary btn-block btn-sm mt-1">
                         &#8592; Volver al Carrito
                     </a>
@@ -61,4 +74,44 @@
         </div>
     </div>
 </form>
+
+<!-- PayPal JS SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id={{ paypal_client_id }}&currency=USD"></script>
+<script>
+    paypal.Buttons({
+        createOrder: function() {
+            var direccion = document.getElementById('direccion').value;
+            if (!direccion.trim()) {
+                alert('Por favor ingresa la direccion de envio');
+                return;
+            }
+            return fetch('/paypal/crear-orden', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({direccion: direccion})
+            }).then(function(res) { return res.json(); })
+              .then(function(data) {
+                  if (data.error) throw new Error(data.error);
+                  return data.id;
+              });
+        },
+        onApprove: function(data) {
+            return fetch('/paypal/capturar-orden', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({order_id: data.orderID})
+            }).then(function(res) { return res.json(); })
+              .then(function(result) {
+                  if (result.error) {
+                      alert('Error: ' + result.error);
+                  } else {
+                      window.location.href = result.redirect;
+                  }
+              });
+        },
+        onError: function(err) {
+            alert('Error con PayPal: ' + err);
+        }
+    }).render('#paypal-button-container');
+</script>
 {% endblock %}
