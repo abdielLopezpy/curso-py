@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% from "macros.html" import kpi_card %}
+
+{% block title %}Prediccion de Ventas{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128302; Prediccion de Ventas</h1>
+    <p class="subtitle">Regresion lineal simple para pronostico de ventas futuras</p>
+</div>
+
+<!-- ================================================================== -->
+<!-- SELECTOR DE MESES A PREDECIR                                       -->
+<!-- ================================================================== -->
+<div class="card">
+    <h3>Configuracion</h3>
+    <form method="GET" action="{{ url_for('analisis_prediccion') }}" class="inline-form">
+        <div class="form-group">
+            <label class="form-label" for="meses">Meses a predecir:</label>
+            <select id="meses" name="meses" class="form-control" style="width: auto; display: inline-block;">
+                {% for m in range(1, 13) %}
+                <option value="{{ m }}" {{ 'selected' if m == meses }}>{{ m }} {{ 'mes' if m == 1 else 'meses' }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Calcular Prediccion</button>
+    </form>
+</div>
+
+<!-- ================================================================== -->
+<!-- METRICAS DEL MODELO                                                -->
+<!-- ================================================================== -->
+<div class="kpi-grid">
+    {{ kpi_card(prediccion.r_cuadrado, 'R² (Coef. Determinacion)', '&#128200;') }}
+    {{ kpi_card('$' ~ '{:,.2f}'.format(prediccion.pendiente) ~ '/mes', 'Pendiente (Slope)', '&#128201;') }}
+    {{ kpi_card(prediccion.tendencia|capitalize, 'Tendencia', '&#128202;') }}
+    {{ kpi_card('$' ~ '{:,.2f}'.format(prediccion.intercepto), 'Intercepto', '&#128203;') }}
+</div>
+
+<!-- ================================================================== -->
+<!-- EXPLICACION DEL MODELO                                             -->
+<!-- ================================================================== -->
+<div class="card info-card">
+    <h3>&#128218; Como leer estos datos</h3>
+    <ul>
+        <li><strong>R² (Coeficiente de Determinacion):</strong> Indica que porcentaje de la variacion en ventas es explicada por el modelo. Un valor cercano a 1.0 indica buen ajuste.</li>
+        <li><strong>Pendiente (Slope):</strong> Cuanto cambian las ventas por cada mes que pasa. Un valor positivo indica crecimiento.</li>
+        <li><strong>Intercepto:</strong> Valor base de ventas cuando el tiempo es 0 (inicio del periodo).</li>
+        <li><strong>Formula:</strong> Ventas = {{ prediccion.pendiente }} × Mes + {{ prediccion.intercepto }}</li>
+    </ul>
+</div>
+
+<!-- ================================================================== -->
+<!-- GRAFICO DE PREDICCION                                              -->
+<!-- ================================================================== -->
+<div class="chart-card full-width">
+    <h3>Grafico: Historico + Prediccion</h3>
+    <img src="{{ url_for('chart_prediccion', meses=meses) }}" alt="Prediccion de ventas" class="chart-img">
+</div>
+
+<!-- ================================================================== -->
+<!-- TABLA DE DATOS HISTORICOS                                          -->
+<!-- ================================================================== -->
+{% if prediccion.historico %}
+<div class="card">
+    <h3>Datos Historicos Mensuales</h3>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Mes</th>
+                    <th>Ventas Reales ($)</th>
+                    <th>Modelo ($)</th>
+                    <th>Diferencia ($)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for h in prediccion.historico %}
+                <tr>
+                    <td>{{ h.mes }}</td>
+                    <td>${{ '{:,.2f}'.format(h.real) }}</td>
+                    <td>${{ '{:,.2f}'.format(h.modelo) }}</td>
+                    <td class="{{ 'text-success' if (h.real - h.modelo) >= 0 else 'text-danger' }}">
+                        ${{ '{:,.2f}'.format(h.real - h.modelo) }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<!-- ================================================================== -->
+<!-- TABLA DE PREDICCIONES                                              -->
+<!-- ================================================================== -->
+{% if prediccion.predicciones %}
+<div class="card">
+    <h3>&#128302; Predicciones Futuras</h3>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Mes</th>
+                    <th>Ventas Predichas ($)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in prediccion.predicciones %}
+                <tr class="row-prediccion">
+                    <td><strong>{{ p.mes }}</strong></td>
+                    <td><strong>${{ '{:,.2f}'.format(p.prediccion) }}</strong></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<!-- ================================================================== -->
+<!-- GUARDAR COMO REPORTE                                               -->
+<!-- ================================================================== -->
+<div class="card">
+    <h3>&#128203; Guardar como Reporte</h3>
+    <form method="POST" action="{{ url_for('generar_reporte') }}" class="inline-form">
+        <input type="hidden" name="tipo" value="prediccion">
+        <div class="form-group">
+            <input type="text" name="titulo" class="form-control"
+                   placeholder="Nombre del reporte (opcional)">
+        </div>
+        <button type="submit" class="btn btn-secondary">Guardar Reporte</button>
+    </form>
+</div>
+{% endblock %}

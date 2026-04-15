@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% from "macros.html" import kpi_card %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128202; Dashboard de Ventas</h1>
+    <p class="subtitle">Resumen general de {{ total_registros }} transacciones registradas</p>
+</div>
+
+<!-- ================================================================== -->
+<!-- KPIs PRINCIPALES                                                   -->
+<!-- Estas tarjetas muestran los indicadores clave de rendimiento       -->
+<!-- ================================================================== -->
+<div class="kpi-grid">
+    {{ kpi_card('$' ~ '{:,.2f}'.format(kpis.total_ventas), 'Ventas Totales', '&#128176;') }}
+    {{ kpi_card(kpis.num_transacciones, 'Transacciones', '&#128179;') }}
+    {{ kpi_card('$' ~ '{:,.2f}'.format(kpis.ticket_promedio), 'Ticket Promedio', '&#128200;') }}
+    {{ kpi_card('$' ~ '{:,.2f}'.format(kpis.ticket_mediana), 'Ticket Mediana', '&#128201;') }}
+</div>
+
+<!-- ================================================================== -->
+<!-- TOP ITEMS                                                          -->
+<!-- ================================================================== -->
+<div class="top-grid">
+    <div class="top-card">
+        <div class="top-label">Producto Estrella</div>
+        <div class="top-value">{{ kpis.producto_top }}</div>
+    </div>
+    <div class="top-card">
+        <div class="top-label">Categoria Lider</div>
+        <div class="top-value">{{ kpis.categoria_top }}</div>
+    </div>
+    <div class="top-card">
+        <div class="top-label">Region Principal</div>
+        <div class="top-value">{{ kpis.region_top }}</div>
+    </div>
+    <div class="top-card">
+        <div class="top-label">Mejor Cliente</div>
+        <div class="top-value">{{ kpis.cliente_top }}</div>
+    </div>
+</div>
+
+<!-- ================================================================== -->
+<!-- GRAFICOS                                                           -->
+<!-- Los graficos se generan en el servidor con matplotlib y se sirven  -->
+<!-- como imagenes PNG a traves de las rutas /chart/...                 -->
+<!-- ================================================================== -->
+<div class="charts-grid">
+    <div class="chart-card full-width">
+        <h3>Evolucion de Ventas Mensuales</h3>
+        <img src="{{ url_for('chart_mensual') }}" alt="Ventas mensuales" class="chart-img">
+    </div>
+
+    <div class="chart-card">
+        <h3>Ventas por Categoria</h3>
+        <img src="{{ url_for('chart_categoria') }}" alt="Ventas por categoria" class="chart-img">
+    </div>
+
+    <div class="chart-card">
+        <h3>Distribucion por Region</h3>
+        <img src="{{ url_for('chart_region') }}" alt="Ventas por region" class="chart-img">
+    </div>
+
+    <div class="chart-card">
+        <h3>Top 10 Productos</h3>
+        <img src="{{ url_for('chart_top_productos') }}" alt="Top productos" class="chart-img">
+    </div>
+
+    <div class="chart-card">
+        <h3>Top 10 Clientes</h3>
+        <img src="{{ url_for('chart_top_clientes') }}" alt="Top clientes" class="chart-img">
+    </div>
+</div>
+
+<!-- ================================================================== -->
+<!-- ACCESOS RAPIDOS                                                    -->
+<!-- ================================================================== -->
+<div class="quick-actions">
+    <a href="{{ url_for('analisis_filtros') }}" class="btn btn-primary">&#128269; Filtros Avanzados</a>
+    <a href="{{ url_for('analisis_prediccion') }}" class="btn btn-secondary">&#128302; Ver Prediccion</a>
+    <a href="{{ url_for('exportar_csv') }}" class="btn btn-outline">&#128229; Exportar CSV</a>
+    <a href="{{ url_for('reportes_lista') }}" class="btn btn-outline">&#128203; Ver Reportes</a>
+</div>
+{% endblock %}

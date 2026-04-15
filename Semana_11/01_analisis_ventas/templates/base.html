@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Dashboard{% endblock %} | Analisis de Ventas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{{ url_for('index') }}" class="navbar-brand">&#128202; DataVentas</a>
+
+        <ul class="navbar-nav">
+            {% if esta_logueado %}
+            <li><a href="{{ url_for('index') }}" class="{{ 'active' if request.endpoint == 'index' }}">Dashboard</a></li>
+            <li><a href="{{ url_for('analisis_filtros') }}" class="{{ 'active' if 'filtros' in request.endpoint|default('') }}">Filtros</a></li>
+            <li><a href="{{ url_for('analisis_prediccion') }}" class="{{ 'active' if 'prediccion' in request.endpoint|default('') }}">Prediccion</a></li>
+            <li><a href="{{ url_for('reportes_lista') }}" class="{{ 'active' if 'reporte' in request.endpoint|default('') }}">Reportes</a></li>
+            {% endif %}
+        </ul>
+
+        <div class="nav-right">
+            {% if esta_logueado %}
+                <div class="user-menu">
+                    <button class="user-btn">
+                        <span class="user-avatar">{{ usuario_actual.nombre[0]|upper }}</span>
+                        {{ usuario_actual.nombre }}
+                    </button>
+                    <div class="dropdown">
+                        <a href="{{ url_for('exportar_csv') }}">&#128229; Exportar CSV</a>
+                        <a href="{{ url_for('logout') }}" class="danger">&#128682; Cerrar Sesion</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn btn-secondary btn-sm">Iniciar Sesion</a>
+                <a href="{{ url_for('registro') }}" class="btn btn-primary btn-sm">Registrarse</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

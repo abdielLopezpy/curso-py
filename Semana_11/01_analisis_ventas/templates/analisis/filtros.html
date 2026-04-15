@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% from "macros.html" import campo_texto, campo_select, kpi_card %}
+
+{% block title %}Filtros Avanzados{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128269; Filtros Avanzados</h1>
+    <p class="subtitle">Filtra los datos de ventas por fecha, categoria o region</p>
+</div>
+
+<!-- ================================================================== -->
+<!-- FORMULARIO DE FILTROS                                              -->
+<!-- ================================================================== -->
+<div class="card">
+    <h3>Parametros de Filtro</h3>
+    <form method="POST" action="{{ url_for('analisis_filtros') }}" class="filtros-form">
+        <div class="filtros-grid">
+            <div class="form-group">
+                <label class="form-label" for="fecha_inicio">Fecha Inicio</label>
+                <input type="date" id="fecha_inicio" name="fecha_inicio"
+                       class="form-control" value="{{ filtros.get('fecha_inicio', '') }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="fecha_fin">Fecha Fin</label>
+                <input type="date" id="fecha_fin" name="fecha_fin"
+                       class="form-control" value="{{ filtros.get('fecha_fin', '') }}">
+            </div>
+            {{ campo_select('categoria', 'Categoria', categorias, filtros.get('categoria', '')) }}
+            {{ campo_select('region', 'Region', regiones, filtros.get('region', '')) }}
+        </div>
+        <div class="filtros-actions">
+            <button type="submit" class="btn btn-primary">&#128269; Aplicar Filtros</button>
+            <a href="{{ url_for('analisis_filtros') }}" class="btn btn-outline">Limpiar</a>
+            {% if resultados %}
+            <a href="{{ url_for('exportar_csv') }}{% if query_params %}?{{ query_params }}{% endif %}"
+               class="btn btn-secondary">&#128229; Exportar CSV</a>
+            {% endif %}
+        </div>
+    </form>
+</div>
+
+{% if kpis %}
+<!-- ================================================================== -->
+<!-- KPIs DE RESULTADOS FILTRADOS                                       -->
+<!-- ================================================================== -->
+<div class="kpi-grid">
+    {{ kpi_card('$' ~ '{:,.2f}'.format(kpis.total_ventas), 'Ventas Totales', '&#128176;') }}
+    {{ kpi_card(kpis.num_transacciones, 'Transacciones', '&#128179;') }}
+    {{ kpi_card('$' ~ '{:,.2f}'.format(kpis.ticket_promedio), 'Ticket Promedio', '&#128200;') }}
+    {{ kpi_card('$' ~ '{:,.2f}'.format(kpis.ticket_mediana), 'Ticket Mediana', '&#128201;') }}
+</div>
+
+<!-- ================================================================== -->
+<!-- GRAFICOS FILTRADOS                                                 -->
+<!-- ================================================================== -->
+<div class="charts-grid">
+    <div class="chart-card">
+        <h3>Ventas Mensuales (Filtradas)</h3>
+        <img src="{{ url_for('chart_mensual') }}{% if query_params %}?{{ query_params }}{% endif %}"
+             alt="Ventas mensuales" class="chart-img">
+    </div>
+    <div class="chart-card">
+        <h3>Por Categoria</h3>
+        <img src="{{ url_for('chart_categoria') }}{% if query_params %}?{{ query_params }}{% endif %}"
+             alt="Por categoria" class="chart-img">
+    </div>
+</div>
+
+<!-- ================================================================== -->
+<!-- ESTADISTICAS                                                       -->
+<!-- ================================================================== -->
+{% if estadisticas %}
+<div class="card">
+    <h3>&#128200; Estadisticas Descriptivas</h3>
+    <div class="stats-grid">
+        <div class="stat-item">
+            <span class="stat-label">Correlacion Cantidad-Total</span>
+            <span class="stat-value">{{ estadisticas.correlacion_cantidad_total }}</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Desviacion Estandar</span>
+            <span class="stat-value">${{ estadisticas.desviacion_total }}</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Coef. de Variacion</span>
+            <span class="stat-value">{{ estadisticas.coeficiente_variacion }}%</span>
+        </div>
+    </div>
+
+    {% if estadisticas.por_categoria %}
+    <h4>Resumen por Categoria</h4>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Total ($)</th>
+                    <th>Promedio ($)</th>
+                    <th>Mediana ($)</th>
+                    <th>Desv. Est. ($)</th>
+                    <th>Transacciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cat, datos in estadisticas.por_categoria.items() %}
+                <tr>
+                    <td><strong>{{ cat }}</strong></td>
+                    <td>${{ '{:,.2f}'.format(datos.sum) }}</td>
+                    <td>${{ '{:,.2f}'.format(datos['mean']) }}</td>
+                    <td>${{ '{:,.2f}'.format(datos['median']) }}</td>
+                    <td>${{ '{:,.2f}'.format(datos['std']) }}</td>
+                    <td>{{ datos['count']|int }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+<!-- ================================================================== -->
+<!-- GUARDAR COMO REPORTE                                               -->
+<!-- ================================================================== -->
+<div class="card">
+    <h3>&#128203; Guardar como Reporte</h3>
+    <form method="POST" action="{{ url_for('generar_reporte') }}" class="inline-form">
+        <input type="hidden" name="fecha_inicio" value="{{ filtros.get('fecha_inicio', '') }}">
+        <input type="hidden" name="fecha_fin" value="{{ filtros.get('fecha_fin', '') }}">
+        <input type="hidden" name="categoria" value="{{ filtros.get('categoria', '') }}">
+        <input type="hidden" name="region" value="{{ filtros.get('region', '') }}">
+        <input type="hidden" name="tipo" value="filtrado">
+        <div class="form-group">
+            <input type="text" name="titulo" class="form-control"
+                   placeholder="Nombre del reporte (opcional)">
+        </div>
+        <button type="submit" class="btn btn-secondary">Guardar Reporte</button>
+    </form>
+</div>
+
+<!-- ================================================================== -->
+<!-- TABLA DE RESULTADOS                                                -->
+<!-- ================================================================== -->
+{% if resultados %}
+<div class="card">
+    <h3>Resultados (primeras 50 filas)</h3>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Producto</th>
+                    <th>Categoria</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unit.</th>
+                    <th>Total</th>
+                    <th>Region</th>
+                    <th>Cliente</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in resultados %}
+                <tr>
+                    <td>{{ r.fecha }}</td>
+                    <td>{{ r.producto }}</td>
+                    <td><span class="badge">{{ r.categoria }}</span></td>
+                    <td>{{ r.cantidad }}</td>
+                    <td>{{ r.precio_unitario }}</td>
+                    <td><strong>{{ r.total }}</strong></td>
+                    <td>{{ r.region }}</td>
+                    <td>{{ r.cliente }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+{% else %}
+<!-- Estado sin filtros aplicados -->
+<div class="empty-state">
+    <div class="empty-state-icon">&#128269;</div>
+    <div class="empty-state-text">Aplica filtros para ver los datos de ventas</div>
+</div>
+{% endif %}
+{% endblock %}

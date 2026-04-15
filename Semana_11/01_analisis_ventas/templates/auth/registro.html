@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Registro{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h2>&#128221; Crear Cuenta</h2>
+        <p class="auth-subtitle">Registrate para acceder al dashboard</p>
+
+        <form method="POST" action="{{ url_for('registro') }}">
+            <div class="form-group">
+                <label class="form-label" for="nombre">Nombre completo</label>
+                <input type="text" id="nombre" name="nombre" class="form-control"
+                       placeholder="Tu nombre" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" id="email" name="email" class="form-control"
+                       placeholder="tu@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">Contrasena</label>
+                <input type="password" id="password" name="password" class="form-control"
+                       placeholder="Minimo 6 caracteres" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="confirmar">Confirmar Contrasena</label>
+                <input type="password" id="confirmar" name="confirmar" class="form-control"
+                       placeholder="Repite tu contrasena" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Crear Cuenta</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Ya tienes cuenta? <a href="{{ url_for('login') }}">Inicia sesion</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

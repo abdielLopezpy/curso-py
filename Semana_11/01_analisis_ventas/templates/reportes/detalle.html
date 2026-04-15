@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% from "macros.html" import kpi_card %}
+
+{% block title %}Reporte: {{ reporte.titulo }}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128203; {{ reporte.titulo }}</h1>
+    <p class="subtitle">Tipo: {{ reporte.tipo|capitalize }} | Generado: {{ reporte.fecha_formato }}</p>
+</div>
+
+<!-- ================================================================== -->
+<!-- KPIs DEL REPORTE                                                   -->
+<!-- ================================================================== -->
+<div class="kpi-grid">
+    {{ kpi_card('$' ~ '{:,.2f}'.format(kpis.total_ventas), 'Ventas Totales', '&#128176;') }}
+    {{ kpi_card(kpis.num_transacciones, 'Transacciones', '&#128179;') }}
+    {{ kpi_card('$' ~ '{:,.2f}'.format(kpis.ticket_promedio), 'Ticket Promedio', '&#128200;') }}
+    {{ kpi_card('$' ~ '{:,.2f}'.format(kpis.ticket_mediana), 'Ticket Mediana', '&#128201;') }}
+</div>
+
+<!-- ================================================================== -->
+<!-- PARAMETROS USADOS                                                  -->
+<!-- ================================================================== -->
+{% set params = reporte.parametros %}
+{% if params %}
+<div class="card">
+    <h3>Parametros del Reporte</h3>
+    <div class="stats-grid">
+        {% for k, v in params.items() %}
+        <div class="stat-item">
+            <span class="stat-label">{{ k|replace('_', ' ')|capitalize }}</span>
+            <span class="stat-value">{{ v }}</span>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<!-- ================================================================== -->
+<!-- GRAFICOS DEL REPORTE                                               -->
+<!-- ================================================================== -->
+<div class="charts-grid">
+    <div class="chart-card">
+        <h3>Ventas Mensuales</h3>
+        <img src="{{ url_for('chart_mensual') }}{% if query_params %}?{{ query_params }}{% endif %}"
+             alt="Ventas mensuales" class="chart-img">
+    </div>
+    <div class="chart-card">
+        <h3>Por Categoria</h3>
+        <img src="{{ url_for('chart_categoria') }}{% if query_params %}?{{ query_params }}{% endif %}"
+             alt="Por categoria" class="chart-img">
+    </div>
+    <div class="chart-card">
+        <h3>Distribucion por Region</h3>
+        <img src="{{ url_for('chart_region') }}{% if query_params %}?{{ query_params }}{% endif %}"
+             alt="Por region" class="chart-img">
+    </div>
+    <div class="chart-card">
+        <h3>Top Productos</h3>
+        <img src="{{ url_for('chart_top_productos') }}{% if query_params %}?{{ query_params }}{% endif %}"
+             alt="Top productos" class="chart-img">
+    </div>
+</div>
+
+<!-- ================================================================== -->
+<!-- ESTADISTICAS                                                       -->
+<!-- ================================================================== -->
+{% if estadisticas %}
+<div class="card">
+    <h3>Estadisticas</h3>
+    <div class="stats-grid">
+        <div class="stat-item">
+            <span class="stat-label">Correlacion Cantidad-Total</span>
+            <span class="stat-value">{{ estadisticas.correlacion_cantidad_total }}</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Desviacion Estandar</span>
+            <span class="stat-value">${{ estadisticas.desviacion_total }}</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Coef. de Variacion</span>
+            <span class="stat-value">{{ estadisticas.coeficiente_variacion }}%</span>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="quick-actions">
+    <a href="{{ url_for('reportes_lista') }}" class="btn btn-outline">&#8592; Volver a Reportes</a>
+    <a href="{{ url_for('exportar_csv') }}{% if query_params %}?{{ query_params }}{% endif %}"
+       class="btn btn-secondary">&#128229; Exportar CSV</a>
+</div>
+{% endblock %}

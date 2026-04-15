@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Error {{ codigo }}{% endblock %}
+
+{% block content %}
+<div class="empty-state" style="margin-top: 4rem;">
+    <div class="empty-state-icon" style="font-size: 4rem;">&#9888;</div>
+    <h2>Error {{ codigo }}</h2>
+    <div class="empty-state-text">{{ mensaje }}</div>
+    <a href="{{ url_for('index') }}" class="btn btn-primary" style="margin-top: 1rem;">Volver al Dashboard</a>
+</div>
+{% endblock %}

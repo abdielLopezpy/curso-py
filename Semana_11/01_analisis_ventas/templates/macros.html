@@ -1,0 +1,64 @@
+{# ============================================================================ #}
+{# MACROS REUTILIZABLES - Semana 11                                          #}
+{# ============================================================================ #}
+
+{# --- Campo de texto --- #}
+{% macro campo_texto(name, label, value='', type='text', placeholder='', required=true) %}
+<div class="form-group">
+    <label class="form-label" for="{{ name }}">{{ label }}</label>
+    <input type="{{ type }}" id="{{ name }}" name="{{ name }}"
+           class="form-control" value="{{ value }}"
+           placeholder="{{ placeholder }}"
+           {{ 'required' if required }}>
+</div>
+{% endmacro %}
+
+{# --- Campo select --- #}
+{% macro campo_select(name, label, options, selected='', required=false) %}
+<div class="form-group">
+    <label class="form-label" for="{{ name }}">{{ label }}</label>
+    <select id="{{ name }}" name="{{ name }}" class="form-control" {{ 'required' if required }}>
+        <option value="">-- Todas --</option>
+        {% for opt in options %}
+        <option value="{{ opt }}" {{ 'selected' if opt == selected }}>{{ opt }}</option>
+        {% endfor %}
+    </select>
+</div>
+{% endmacro %}
+
+{# --- Tarjeta KPI --- #}
+{% macro kpi_card(valor, etiqueta, icono='') %}
+<div class="kpi-card">
+    {% if icono %}<div class="kpi-icon">{{ icono }}</div>{% endif %}
+    <div class="kpi-valor">{{ valor }}</div>
+    <div class="kpi-etiqueta">{{ etiqueta }}</div>
+</div>
+{% endmacro %}
+
+{# --- Stat card --- #}
+{% macro stat_card(numero, etiqueta) %}
+<div class="stat-card">
+    <div class="stat-number">{{ numero }}</div>
+    <div class="stat-label">{{ etiqueta }}</div>
+</div>
+{% endmacro %}
+
+{# --- Empty state --- #}
+{% macro empty_state(mensaje, url_accion='', texto_boton='') %}
+<div class="empty-state">
+    <div class="empty-state-icon">&#128202;</div>
+    <div class="empty-state-text">{{ mensaje }}</div>
+    {% if url_accion %}
+    <a href="{{ url_accion }}" class="btn btn-primary">{{ texto_boton }}</a>
+    {% endif %}
+</div>
+{% endmacro %}
+
+{# --- Boton --- #}
+{% macro boton(texto, tipo='primary', url='', submit=false, size='') %}
+{% if submit %}
+<button type="submit" class="btn btn-{{ tipo }} {{ 'btn-' + size if size }}">{{ texto }}</button>
+{% else %}
+<a href="{{ url }}" class="btn btn-{{ tipo }} {{ 'btn-' + size if size }}">{{ texto }}</a>
+{% endif %}
+{% endmacro %}

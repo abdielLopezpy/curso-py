@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% from "macros.html" import empty_state %}
+
+{% block title %}Reportes{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>&#128203; Reportes Guardados</h1>
+    <p class="subtitle">Historial de reportes generados</p>
+</div>
+
+{% if reportes %}
+<div class="table-container">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Titulo</th>
+                <th>Tipo</th>
+                <th>Fecha de Generacion</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in reportes %}
+            <tr>
+                <td>{{ r.id }}</td>
+                <td><strong>{{ r.titulo }}</strong></td>
+                <td><span class="badge badge-{{ 'primary' if r.tipo == 'prediccion' else 'secondary' }}">{{ r.tipo|capitalize }}</span></td>
+                <td>{{ r.fecha_formato }}</td>
+                <td>
+                    <a href="{{ url_for('reporte_detalle', id=r.id) }}" class="btn btn-primary btn-sm">Ver Detalle</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+{{ empty_state('No hay reportes guardados. Genera uno desde Filtros o Prediccion.', url_for('analisis_filtros'), 'Ir a Filtros') }}
+{% endif %}
+{% endblock %}
