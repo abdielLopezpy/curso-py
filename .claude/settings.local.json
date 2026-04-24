@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m compileall -q .)",
+      "Bash(python -c \"import fastapi, sqlmodel, uvicorn; print\\('fastapi', fastapi.__version__\\); print\\('sqlmodel', sqlmodel.__version__\\); print\\('uvicorn', uvicorn.__version__\\)\")",
+      "Bash(./venv/Scripts/python.exe -m pip install --upgrade pip)"
+    ]
+  }
+}
