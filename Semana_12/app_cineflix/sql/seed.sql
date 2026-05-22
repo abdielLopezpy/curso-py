@@ -1,5 +1,5 @@
 -- ============================================================================
--- App Pedidos - Seed de ejemplo (idempotente)
+-- Cineflix - Seed de ejemplo (idempotente)
 -- ============================================================================
 -- Carga datos minimos para probar los casos de uso en clase.
 -- Usa INSERT OR IGNORE para evitar duplicar al reiniciar la app.

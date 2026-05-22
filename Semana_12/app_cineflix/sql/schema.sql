@@ -1,5 +1,5 @@
 -- ============================================================================
--- App Pedidos - Schema (SQLite)
+-- Cineflix - Schema (SQLite)
 -- ============================================================================
 -- Version mejorada del esquema del whiteboard. Cambios respecto al original:
 --
