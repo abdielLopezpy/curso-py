@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Historial de Accesos{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Historial de Accesos</h2>
+
+<div class="card stat-card mb-3">
+    <div class="card-body">
+        <form method="get" class="row g-2">
+            <div class="col-md-3">
+                <input type="text" name="q" class="form-control" placeholder="Buscar persona..." value="{{ query }}">
+            </div>
+            <div class="col-md-2">
+                <select name="zona" class="form-select">
+                    <option value="">Todas las zonas</option>
+                    {% for z in zonas %}
+                    <option value="{{ z.id }}" {% if zona_filtro == z.id|stringformat:"d" %}selected{% endif %}>{{ z.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="autorizado" class="form-select">
+                    <option value="">Todos</option>
+                    <option value="true" {% if autorizado_filtro == 'true' %}selected{% endif %}>Permitidos</option>
+                    <option value="false" {% if autorizado_filtro == 'false' %}selected{% endif %}>Denegados</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input type="date" name="fecha_desde" class="form-control" value="{{ fecha_desde }}" placeholder="Desde">
+            </div>
+            <div class="col-md-2">
+                <input type="date" name="fecha_hasta" class="form-control" value="{{ fecha_hasta }}" placeholder="Hasta">
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-outline-dark w-100">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card stat-card">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Usuario</th>
+                    <th>Zona</th>
+                    <th>Tipo</th>
+                    <th>Estado</th>
+                    <th>Método</th>
+                    <th>Confianza</th>
+                    <th>Observación</th>
+                    <th>Fecha/Hora</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for acceso in accesos %}
+                <tr>
+                    <td>{{ acceso.usuario.nombre_completo|default:"Desconocido" }}</td>
+                    <td>{{ acceso.zona|default:"-" }}</td>
+                    <td>{{ acceso.get_tipo_display }}</td>
+                    <td>
+                        {% if acceso.autorizado %}
+                            <span class="badge badge-permitido">Permitido</span>
+                        {% else %}
+                            <span class="badge badge-denegado">Denegado</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ acceso.metodo }}</td>
+                    <td>{% if acceso.confianza %}{{ acceso.confianza|floatformat:2 }}{% else %}-{% endif %}</td>
+                    <td>{{ acceso.observacion|default:"-" }}</td>
+                    <td>{{ acceso.fecha_hora|date:"d/m/Y H:i:s" }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="8" class="text-center text-muted py-4">No hay registros.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

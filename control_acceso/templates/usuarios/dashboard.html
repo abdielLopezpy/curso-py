@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Dashboard</h2>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="card stat-card p-3">
+            <div class="d-flex align-items-center">
+                <div class="me-3"><i class="bi bi-people-fill fs-1 text-primary"></i></div>
+                <div>
+                    <h3 class="mb-0">{{ total_usuarios }}</h3>
+                    <small class="text-muted">Usuarios Activos</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card p-3">
+            <div class="d-flex align-items-center">
+                <div class="me-3"><i class="bi bi-building fs-1 text-info"></i></div>
+                <div>
+                    <h3 class="mb-0">{{ total_zonas }}</h3>
+                    <small class="text-muted">Zonas Activas</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card p-3">
+            <div class="d-flex align-items-center">
+                <div class="me-3"><i class="bi bi-check-circle-fill fs-1 text-success"></i></div>
+                <div>
+                    <h3 class="mb-0">{{ accesos_permitidos_hoy }}</h3>
+                    <small class="text-muted">Accesos Hoy</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card p-3">
+            <div class="d-flex align-items-center">
+                <div class="me-3"><i class="bi bi-x-circle-fill fs-1 text-danger"></i></div>
+                <div>
+                    <h3 class="mb-0">{{ accesos_denegados_hoy }}</h3>
+                    <small class="text-muted">Denegados Hoy</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card stat-card">
+    <div class="card-header bg-white">
+        <h5 class="mb-0">Últimos Accesos</h5>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Usuario</th>
+                    <th>Zona</th>
+                    <th>Tipo</th>
+                    <th>Estado</th>
+                    <th>Confianza</th>
+                    <th>Fecha/Hora</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for acceso in ultimos_accesos %}
+                <tr>
+                    <td>{{ acceso.usuario.nombre_completo|default:"Desconocido" }}</td>
+                    <td>{{ acceso.zona|default:"-" }}</td>
+                    <td>{{ acceso.get_tipo_display }}</td>
+                    <td>
+                        {% if acceso.autorizado %}
+                            <span class="badge badge-permitido">Permitido</span>
+                        {% else %}
+                            <span class="badge badge-denegado">Denegado</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ acceso.confianza|default:"-" }}</td>
+                    <td>{{ acceso.fecha_hora|date:"d/m/Y H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="6" class="text-center text-muted py-4">No hay registros de acceso.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

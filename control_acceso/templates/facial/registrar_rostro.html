@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Registrar Rostro - {{ usuario.nombre_completo }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card stat-card">
+            <div class="card-header bg-white">
+                <h4 class="mb-0">
+                    <i class="bi bi-camera"></i> Registrar Rostro de {{ usuario.nombre_completo }}
+                </h4>
+            </div>
+            <div class="card-body text-center">
+                <video id="video" width="480" height="360" autoplay class="rounded border mb-3"></video>
+                <canvas id="canvas" width="480" height="360" style="display:none;"></canvas>
+                <div id="preview" style="display:none;" class="mb-3">
+                    <img id="foto" class="rounded border" style="max-width:480px;">
+                </div>
+                <div class="d-flex justify-content-center gap-2 mb-3">
+                    <button id="btn-capturar" class="btn btn-success" onclick="capturar()">
+                        <i class="bi bi-camera"></i> Capturar
+                    </button>
+                    <button id="btn-reintentar" class="btn btn-warning" style="display:none;" onclick="reintentar()">
+                        <i class="bi bi-arrow-clockwise"></i> Reintentar
+                    </button>
+                </div>
+                <form id="form-rostro" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="imagen" id="imagen-data">
+                    <button type="submit" id="btn-guardar" class="btn btn-dark" style="display:none;">
+                        <i class="bi bi-save"></i> Guardar Rostro
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const foto = document.getElementById('foto');
+
+navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => { video.srcObject = stream; })
+    .catch(err => { alert('No se pudo acceder a la cámara: ' + err.message); });
+
+function capturar() {
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, 480, 360);
+    const dataUrl = canvas.toDataURL('image/jpeg');
+    foto.src = dataUrl;
+    document.getElementById('imagen-data').value = dataUrl;
+
+    video.style.display = 'none';
+    document.getElementById('preview').style.display = 'block';
+    document.getElementById('btn-capturar').style.display = 'none';
+    document.getElementById('btn-reintentar').style.display = 'inline-block';
+    document.getElementById('btn-guardar').style.display = 'inline-block';
+}
+
+function reintentar() {
+    video.style.display = 'block';
+    document.getElementById('preview').style.display = 'none';
+    document.getElementById('btn-capturar').style.display = 'inline-block';
+    document.getElementById('btn-reintentar').style.display = 'none';
+    document.getElementById('btn-guardar').style.display = 'none';
+}
+</script>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Reportes{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Reportes</h2>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-6">
+        <div class="card stat-card">
+            <div class="card-header bg-white"><h5 class="mb-0">Esta Semana</h5></div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-4">
+                        <h3>{{ accesos_semana }}</h3>
+                        <small class="text-muted">Total</small>
+                    </div>
+                    <div class="col-4">
+                        <h3 class="text-success">{{ permitidos_semana }}</h3>
+                        <small class="text-muted">Permitidos</small>
+                    </div>
+                    <div class="col-4">
+                        <h3 class="text-danger">{{ denegados_semana }}</h3>
+                        <small class="text-muted">Denegados</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card stat-card">
+            <div class="card-header bg-white"><h5 class="mb-0">Este Mes</h5></div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-4">
+                        <h3>{{ accesos_mes }}</h3>
+                        <small class="text-muted">Total</small>
+                    </div>
+                    <div class="col-4">
+                        <h3 class="text-success">{{ permitidos_mes }}</h3>
+                        <small class="text-muted">Permitidos</small>
+                    </div>
+                    <div class="col-4">
+                        <h3 class="text-danger">{{ denegados_mes }}</h3>
+                        <small class="text-muted">Denegados</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card stat-card">
+    <div class="card-header bg-white"><h5 class="mb-0">Accesos por Zona (Este Mes)</h5></div>
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Zona</th>
+                    <th>Total Accesos</th>
+                    <th>Barra</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in por_zona %}
+                <tr>
+                    <td>{{ item.zona__nombre|default:"Sin zona" }}</td>
+                    <td>{{ item.total }}</td>
+                    <td>
+                        <div class="progress" style="height:20px;">
+                            <div class="progress-bar bg-dark" style="width:{% widthratio item.total accesos_mes 100 %}%">
+                                {{ item.total }}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="3" class="text-center text-muted py-4">Sin datos.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

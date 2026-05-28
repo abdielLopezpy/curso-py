@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ usuario.nombre_completo }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card stat-card mb-3">
+            <div class="card-body text-center">
+                {% if usuario.foto %}
+                    <img src="{{ usuario.foto.url }}" class="rounded-circle mb-3" style="width:120px;height:120px;object-fit:cover;">
+                {% else %}
+                    <i class="bi bi-person-circle" style="font-size:5rem;color:#ccc;"></i>
+                {% endif %}
+                <h4>{{ usuario.nombre_completo }}</h4>
+                <span class="badge bg-secondary">{{ usuario.get_rol_display }}</span>
+                {% if usuario.activo %}
+                    <span class="badge bg-success">Activo</span>
+                {% else %}
+                    <span class="badge bg-danger">Inactivo</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card stat-card mb-3">
+            <div class="card-body">
+                <p><strong>Cédula:</strong> {{ usuario.cedula }}</p>
+                <p><strong>Email:</strong> {{ usuario.email|default:"-" }}</p>
+                <p><strong>Teléfono:</strong> {{ usuario.telefono|default:"-" }}</p>
+                <p><strong>Registro facial:</strong>
+                    {% if usuario.tiene_encoding_facial %}
+                        <i class="bi bi-check-circle-fill text-success"></i> Registrado
+                    {% else %}
+                        <i class="bi bi-x-circle text-danger"></i> Sin registro
+                    {% endif %}
+                </p>
+                <p><strong>Zonas permitidas:</strong></p>
+                <ul>
+                    {% for zona in usuario.zonas_permitidas.all %}
+                    <li>{{ zona.nombre }}</li>
+                    {% empty %}
+                    <li class="text-muted">Ninguna</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% if user.rol == 'admin' or user.is_superuser %}
+        <div class="d-flex gap-2">
+            <a href="{% url 'editar_usuario' usuario.pk %}" class="btn btn-warning">
+                <i class="bi bi-pencil"></i> Editar
+            </a>
+            <a href="{% url 'registrar_rostro' usuario.pk %}" class="btn btn-success">
+                <i class="bi bi-camera"></i> Registrar Rostro
+            </a>
+        </div>
+        {% endif %}
+    </div>
+    <div class="col-md-8">
+        <div class="card stat-card">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">Últimos Accesos</h5>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Zona</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                            <th>Confianza</th>
+                            <th>Fecha/Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for acceso in accesos %}
+                        <tr>
+                            <td>{{ acceso.zona|default:"-" }}</td>
+                            <td>{{ acceso.get_tipo_display }}</td>
+                            <td>
+                                {% if acceso.autorizado %}
+                                    <span class="badge badge-permitido">Permitido</span>
+                                {% else %}
+                                    <span class="badge badge-denegado">Denegado</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ acceso.confianza|default:"-" }}</td>
+                            <td>{{ acceso.fecha_hora|date:"d/m/Y H:i" }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="5" class="text-center text-muted py-4">Sin registros de acceso.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Zonas{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Zonas</h2>
+    {% if user.rol == 'admin' or user.is_superuser %}
+    <a href="{% url 'crear_zona' %}" class="btn btn-dark">
+        <i class="bi bi-plus-circle"></i> Nueva Zona
+    </a>
+    {% endif %}
+</div>
+
+<div class="row g-3">
+    {% for zona in zonas %}
+    <div class="col-md-4">
+        <div class="card stat-card h-100">
+            <div class="card-body">
+                <h5>{{ zona.nombre }}</h5>
+                <p class="text-muted">{{ zona.descripcion|default:"Sin descripción" }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span>
+                        <i class="bi bi-people"></i> {{ zona.num_usuarios }} usuarios
+                    </span>
+                    {% if zona.activa %}
+                        <span class="badge bg-success">Activa</span>
+                    {% else %}
+                        <span class="badge bg-danger">Inactiva</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% if user.rol == 'admin' or user.is_superuser %}
+            <div class="card-footer bg-white">
+                <a href="{% url 'editar_zona' zona.pk %}" class="btn btn-sm btn-outline-warning">
+                    <i class="bi bi-pencil"></i> Editar
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">No hay zonas registradas.</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

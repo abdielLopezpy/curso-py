@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block title %}Punto de Acceso{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-7">
+        <div class="card stat-card">
+            <div class="card-header bg-white">
+                <h4 class="mb-0"><i class="bi bi-camera-video"></i> Punto de Acceso</h4>
+            </div>
+            <div class="card-body text-center">
+                <video id="video" width="560" height="420" autoplay class="rounded border mb-3"></video>
+                <canvas id="canvas" width="560" height="420" style="display:none;"></canvas>
+
+                <div class="row g-2 mb-3">
+                    <div class="col-md-5">
+                        <select id="zona" class="form-select">
+                            {% for zona in zonas %}
+                            <option value="{{ zona.id }}">{{ zona.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select id="tipo" class="form-select">
+                            <option value="entrada">Entrada</option>
+                            <option value="salida">Salida</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button id="btn-verificar" class="btn btn-dark w-100" onclick="verificar()">
+                            <i class="bi bi-shield-check"></i> Verificar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="card stat-card" id="resultado-card" style="display:none;">
+            <div class="card-body text-center p-4" id="resultado">
+            </div>
+        </div>
+        <div class="card stat-card mt-3">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">Verificaciones Recientes</h5>
+            </div>
+            <div class="card-body p-0">
+                <div id="historial-local" class="list-group list-group-flush">
+                    <div class="list-group-item text-center text-muted">Sin verificaciones aún</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+let historial = [];
+
+navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => { video.srcObject = stream; })
+    .catch(err => { alert('No se pudo acceder a la cámara: ' + err.message); });
+
+function verificar() {
+    const btn = document.getElementById('btn-verificar');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Verificando...';
+
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, 560, 420);
+    const dataUrl = canvas.toDataURL('image/jpeg');
+
+    const formData = new FormData();
+    formData.append('imagen', dataUrl);
+    formData.append('zona_id', document.getElementById('zona').value);
+    formData.append('tipo', document.getElementById('tipo').value);
+
+    fetch('{% url "verificar_rostro" %}', {
+        method: 'POST',
+        body: formData,
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' }
+    })
+    .then(resp => resp.json())
+    .then(data => {
+        const card = document.getElementById('resultado-card');
+        const resultado = document.getElementById('resultado');
+        card.style.display = 'block';
+
+        if (data.autorizado) {
+            card.className = 'card stat-card border-success';
+            resultado.innerHTML = `
+                <i class="bi bi-check-circle-fill text-success" style="font-size:4rem;"></i>
+                <h3 class="text-success mt-2">ACCESO PERMITIDO</h3>
+                <h4>${data.usuario}</h4>
+                <p class="text-muted">Cédula: ${data.cedula}</p>
+                <p>Confianza: <strong>${data.confianza}%</strong></p>
+            `;
+        } else {
+            card.className = 'card stat-card border-danger';
+            resultado.innerHTML = `
+                <i class="bi bi-x-circle-fill text-danger" style="font-size:4rem;"></i>
+                <h3 class="text-danger mt-2">ACCESO DENEGADO</h3>
+                <p>${data.mensaje}</p>
+                ${data.usuario ? `<p>Usuario: ${data.usuario}</p>` : ''}
+            `;
+        }
+
+        const hora = new Date().toLocaleTimeString();
+        const zona = document.getElementById('zona').selectedOptions[0].text;
+        historial.unshift({
+            hora, zona,
+            nombre: data.usuario || 'Desconocido',
+            autorizado: data.autorizado
+        });
+
+        const list = document.getElementById('historial-local');
+        list.innerHTML = historial.slice(0, 10).map(h => `
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>${h.nombre}</strong><br>
+                    <small class="text-muted">${h.zona} - ${h.hora}</small>
+                </div>
+                ${h.autorizado
+                    ? '<span class="badge bg-success">OK</span>'
+                    : '<span class="badge bg-danger">Denegado</span>'}
+            </div>
+        `).join('');
+    })
+    .catch(err => {
+        alert('Error: ' + err.message);
+    })
+    .finally(() => {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-shield-check"></i> Verificar';
+    });
+}
+</script>
+{% endblock %}
