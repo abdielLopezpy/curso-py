@@ -1,0 +1,2 @@
+# App Pedidos - dependencias minimas (solo libreria estandar + tipos opcionales)
+# La base de datos usa sqlite3 que ya viene con Python.
